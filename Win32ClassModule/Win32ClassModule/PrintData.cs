@@ -24,37 +24,37 @@ namespace Win32ClassModule
 
         public static void PrintBios(Win32_Bios bios)
         {
-            Console.WriteLine(bios.GetBiosCharacteristics);
-            Console.WriteLine(bios.GetBIOSVersion);
-            Console.WriteLine(bios.GetBuildNumber);
-            Console.WriteLine(bios.GetCaption);
-            Console.WriteLine(bios.GetCodeSet);
-            Console.WriteLine(bios.GetCurrentLanguage);
-            Console.WriteLine(bios.GetDescription);
-            Console.WriteLine(bios.GetEmbeddedControllerMajorVersion);
-            Console.WriteLine(bios.GetEmbeddedControllerMinorVersion);
-            Console.WriteLine(bios.GetIdentificationCode);
-            Console.WriteLine(bios.GetInstallableLanguages);
-            Console.WriteLine(bios.GetInstallDate);
-            Console.WriteLine(bios.GetLanguageEdition);
-            Console.WriteLine(bios.GetListOfLanguages);
-            Console.WriteLine(bios.GetManufacturer);
-            Console.WriteLine(bios.GetName);
-            Console.WriteLine(bios.GetOtherTargetOS);
-            Console.WriteLine(bios.GetPrimaryBIOS);
-            Console.WriteLine(bios.GetReleaseDate);
-            Console.WriteLine(bios.GetSerialNumber);
-            Console.WriteLine(bios.GetSMBIOSBIOSVersion);
-            Console.WriteLine(bios.GetSMBIOSMajorVersion);
-            Console.WriteLine(bios.GetSMBIOSMinorVersion);
-            Console.WriteLine(bios.GetSMBIOSPresent);
-            Console.WriteLine(bios.GetSoftwareElementID);
-            Console.WriteLine(bios.GetSoftwareElementState);
-            Console.WriteLine(bios.GetStatus);
-            Console.WriteLine(bios.GetSystemBiosMajorVersion);
-            Console.WriteLine(bios.GetSystemBiosMinorVersion);
-            Console.WriteLine(bios.GetTargetOperatingSystem);
-            Console.WriteLine(bios.GetVersion);
+            foreach(var elt in bios.GetBiosCharacteristics) Console.WriteLine("Bios characteristics " + elt);
+            foreach (var elt in bios.GetBIOSVersion) Console.WriteLine("Bios versions : " + elt);
+            Console.WriteLine("Build number : " + bios.GetBuildNumber);
+            Console.WriteLine("Caption : " + bios.GetCaption);
+            Console.WriteLine("Code set : " + bios.GetCodeSet);
+            Console.WriteLine("Current language : " + bios.GetCurrentLanguage);
+            Console.WriteLine("Descriptions : " + bios.GetDescription);
+            Console.WriteLine("Embedded controller major version : " + bios.GetEmbeddedControllerMajorVersion);
+            Console.WriteLine("Embedded controller minor version : " + bios.GetEmbeddedControllerMinorVersion);
+            Console.WriteLine("Identification code : " + bios.GetIdentificationCode);
+            Console.WriteLine("Installable language : " + bios.GetInstallableLanguages);
+            Console.WriteLine("Installation date : " + bios.GetInstallDate);
+            Console.WriteLine("Language edition : " + bios.GetLanguageEdition);
+            foreach(var elt in bios.GetListOfLanguages) Console.WriteLine("Installed languages : " + elt);
+            Console.WriteLine("Manifacturer : " + bios.GetManufacturer);
+            Console.WriteLine("Name : " + bios.GetName);
+            Console.WriteLine("Others target os : " + bios.GetOtherTargetOS);
+            Console.WriteLine("Primary bios : " + bios.GetPrimaryBIOS);
+            Console.WriteLine("Release date : " + bios.GetReleaseDate);
+            Console.WriteLine("Serial number : " + bios.GetSerialNumber);
+            Console.WriteLine("Bios version : " + bios.GetSMBIOSBIOSVersion);
+            Console.WriteLine("Bios major version : " + bios.GetSMBIOSMajorVersion);
+            Console.WriteLine("Bios minor version : " + bios.GetSMBIOSMinorVersion);
+            Console.WriteLine("Bios is present : " + bios.GetSMBIOSPresent);
+            Console.WriteLine("Software element ID " + bios.GetSoftwareElementID);
+            Console.WriteLine("Software element state : " + bios.GetSoftwareElementState);
+            Console.WriteLine("Bios status : " + bios.GetStatus);
+            Console.WriteLine("Bios system major version : " + bios.GetSystemBiosMajorVersion);
+            Console.WriteLine("Bios system minor version : " + bios.GetSystemBiosMinorVersion);
+            Console.WriteLine("Target operating system : " + bios.GetTargetOperatingSystem);
+            Console.WriteLine("Version : " + bios.GetVersion);
 
         }
     }
