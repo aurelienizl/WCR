@@ -1,9 +1,6 @@
-﻿
-using System.Management;
-
+﻿using System.Management;
 
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
-
 
 namespace Win32ClassModule
 {
@@ -125,7 +122,7 @@ namespace Win32ClassModule
 
             foreach (ManagementObject mo in moc.Cast<ManagementObject>())
             {                              
-               Win32_Bios Win32_Bios = new Win32_Bios(
+               return new Win32_Bios(
 
                  (UInt16[])mo["BiosCharacteristics"],
                  (string[])mo["BIOSVersion"],
@@ -160,7 +157,7 @@ namespace Win32ClassModule
                  !(String.IsNullOrEmpty((string)mo["Version"])) ? (string)mo["Version"] : "N/A"          
                );
 
-                return Win32_Bios;
+               
                 
             }
 
