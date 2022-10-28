@@ -1,30 +1,29 @@
 ﻿using Iedom_Client;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Win32ClassModule
+namespace Win32ClassModule;
+
+internal class PrintData
 {
-    internal class PrintData
+    public static void PrintTpm(List<Win32_Tpm> win32_tpmList)
     {
-        public static void PrintTpm(Win32_Tpm tpm)
+        foreach (var win32_tpm in win32_tpmList)
         {
-            Console.WriteLine("Tpm is activated : " + tpm.GetIsActivated_InitialValue);
-            Console.WriteLine("Tpm is enabled : " + tpm.GetIsEnabled_InitialValue);
-            Console.WriteLine("Tpm is owned : " + tpm.GetIsOwned_InitialValue);
-            Console.WriteLine("Tpm spec version : " + tpm.GetSpecVersion);
-            Console.WriteLine("Tpm Manufacturer version : " + tpm.GetManufacturerVersion);
-            Console.WriteLine("Tpm Manufacturer version info : " + tpm.GetManufacturerVersionInfo);
-            Console.WriteLine("Tpm Manufacturer id : " + tpm.GetManufacturerId);
-            Console.WriteLine("Tpm physical presence version : " + tpm.GetPhysicalPresenceVersionInfo);
+            Console.WriteLine("Tpm is activated : " + win32_tpm.GetIsActivated_InitialValue);
+            Console.WriteLine("Tpm is enabled : " + win32_tpm.GetIsEnabled_InitialValue);
+            Console.WriteLine("Tpm is owned : " + win32_tpm.GetIsOwned_InitialValue);
+            Console.WriteLine("Tpm spec version : " + win32_tpm.GetSpecVersion);
+            Console.WriteLine("Tpm Manufacturer version : " + win32_tpm.GetManufacturerVersion);
+            Console.WriteLine("Tpm Manufacturer version info : " + win32_tpm.GetManufacturerVersionInfo);
+            Console.WriteLine("Tpm Manufacturer id : " + win32_tpm.GetManufacturerId);
+            Console.WriteLine("Tpm physical presence version : " + win32_tpm.GetPhysicalPresenceVersionInfo);
         }
+    }
 
-        public static void PrintBios(Win32_Bios bios)
+    public static void PrintBios(List<Win32_Bios> win32_Bios)
+    {
+        foreach (var bios in win32_Bios)
         {
-            foreach(var elt in bios.GetBiosCharacteristics) Console.WriteLine("Bios characteristics " + elt);
+            foreach (var elt in bios.GetBiosCharacteristics) Console.WriteLine("Bios characteristics " + elt);
             foreach (var elt in bios.GetBIOSVersion) Console.WriteLine("Bios versions : " + elt);
             Console.WriteLine("Build number : " + bios.GetBuildNumber);
             Console.WriteLine("Caption : " + bios.GetCaption);
@@ -37,7 +36,7 @@ namespace Win32ClassModule
             Console.WriteLine("Installable language : " + bios.GetInstallableLanguages);
             Console.WriteLine("Installation date : " + bios.GetInstallDate);
             Console.WriteLine("Language edition : " + bios.GetLanguageEdition);
-            foreach(var elt in bios.GetListOfLanguages) Console.WriteLine("Installed languages : " + elt);
+            foreach (var elt in bios.GetListOfLanguages) Console.WriteLine("Installed languages : " + elt);
             Console.WriteLine("Manifacturer : " + bios.GetManufacturer);
             Console.WriteLine("Name : " + bios.GetName);
             Console.WriteLine("Others target os : " + bios.GetOtherTargetOS);
@@ -55,7 +54,17 @@ namespace Win32ClassModule
             Console.WriteLine("Bios system minor version : " + bios.GetSystemBiosMinorVersion);
             Console.WriteLine("Target operating system : " + bios.GetTargetOperatingSystem);
             Console.WriteLine("Version : " + bios.GetVersion);
+        }
+    }
 
+    public static void PrintEncryptableVolume(List<Win32_EncryptableVolume> win32_EncryptableVolumeList)
+    {
+        foreach (var win32_EncryptableVolume in win32_EncryptableVolumeList)
+        {
+            Console.WriteLine("Device : " + win32_EncryptableVolume.GetDeviceID);
+            Console.WriteLine("Volume : " + win32_EncryptableVolume.GetPersistentVolumeID);
+            Console.WriteLine("Letter : " + win32_EncryptableVolume.GetDriveLetter);
+            Console.WriteLine("Status : " + win32_EncryptableVolume.GetProtectionStatus);
         }
     }
 }

@@ -2,171 +2,166 @@
 
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
 
-namespace Win32ClassModule
+namespace Win32ClassModule;
+
+internal class Win32_Bios
 {
-    internal class Win32_Bios
+    public Win32_Bios(ushort[] biosCharacteristics, string[] bIOSVersion, string buildNumber, string caption,
+        string codeSet,
+        string currentLanguage, string description, byte embeddedControllerMajorVersion,
+        byte embeddedControllerMinorVersion,
+        string identificationCode, ushort installableLanguages, string installDate, string languageEdition,
+        string[] listOfLanguages,
+        string manufacturer, string name, string otherTargetOS, bool primaryBIOS, string releaseDate,
+        string serialNumber,
+        string sMBIOSBIOSVersion, ushort sMBIOSMajorVersion, ushort sMBIOSMinorVersion, bool sMBIOSPresent,
+        string softwareElementID,
+        ushort softwareElementState, string status, byte systemBiosMajorVersion, byte systemBiosMinorVersion,
+        ushort targetOperatingSystem, string version)
     {
+        GetBiosCharacteristics = biosCharacteristics;
+        GetBIOSVersion = bIOSVersion;
+        GetBuildNumber = buildNumber;
+        GetCaption = caption;
+        GetCodeSet = codeSet;
+        GetCurrentLanguage = currentLanguage;
+        GetDescription = description;
+        GetEmbeddedControllerMajorVersion = embeddedControllerMajorVersion;
+        GetEmbeddedControllerMinorVersion = embeddedControllerMinorVersion;
+        GetIdentificationCode = identificationCode;
+        GetInstallableLanguages = installableLanguages;
+        GetInstallDate = installDate;
+        GetLanguageEdition = languageEdition;
+        GetListOfLanguages = listOfLanguages;
+        GetManufacturer = manufacturer;
+        GetName = name;
+        GetOtherTargetOS = otherTargetOS;
+        GetPrimaryBIOS = primaryBIOS;
+        GetReleaseDate = releaseDate;
+        GetSerialNumber = serialNumber;
+        GetSMBIOSBIOSVersion = sMBIOSBIOSVersion;
+        GetSMBIOSMajorVersion = sMBIOSMajorVersion;
+        GetSMBIOSMinorVersion = sMBIOSMinorVersion;
+        GetSMBIOSPresent = sMBIOSPresent;
+        GetSoftwareElementID = softwareElementID;
+        GetSoftwareElementState = softwareElementState;
+        GetStatus = status;
+        GetSystemBiosMajorVersion = systemBiosMajorVersion;
+        GetSystemBiosMinorVersion = systemBiosMinorVersion;
+        GetTargetOperatingSystem = targetOperatingSystem;
+        GetVersion = version;
+    }
 
-        private UInt16[] BiosCharacteristics;
-        private string[] BIOSVersion;
-        private string BuildNumber;
-        private string Caption;
-        private string CodeSet;
-        private string CurrentLanguage;
-        private string Description;
-        private byte EmbeddedControllerMajorVersion;
-        private byte EmbeddedControllerMinorVersion;
-        private string IdentificationCode;
-        private UInt16 InstallableLanguages;
-        private string InstallDate;
-        private string LanguageEdition;
-        private string[] ListOfLanguages;
-        private string Manufacturer;
-        private string Name;
-        private string OtherTargetOS;
-        private bool PrimaryBIOS;
-        private string ReleaseDate;
-        private string SerialNumber;
-        private string SMBIOSBIOSVersion;
-        private UInt16 SMBIOSMajorVersion;
-        private UInt16 SMBIOSMinorVersion;
-        private bool SMBIOSPresent;
-        private string SoftwareElementID;
-        private UInt16 SoftwareElementState;
-        private string Status;
-        private byte SystemBiosMajorVersion;
-        private byte SystemBiosMinorVersion;
-        private UInt16 TargetOperatingSystem;
-        private string Version;
+    public ushort[] GetBiosCharacteristics { get; }
 
-        public UInt16[] GetBiosCharacteristics => BiosCharacteristics;
-        public string[] GetBIOSVersion => BIOSVersion;
-        public string GetBuildNumber => BuildNumber;
-        public string GetCaption => Caption;
-        public string GetCodeSet => CodeSet;
-        public string GetCurrentLanguage => CurrentLanguage;
-        public string GetDescription => Description;
-        public byte GetEmbeddedControllerMajorVersion => EmbeddedControllerMajorVersion;
-        public byte GetEmbeddedControllerMinorVersion => EmbeddedControllerMinorVersion;
-        public string GetIdentificationCode => IdentificationCode;
-        public UInt16 GetInstallableLanguages => InstallableLanguages;
-        public string GetInstallDate => InstallDate;
-        public string GetLanguageEdition => LanguageEdition;
-        public string[] GetListOfLanguages => ListOfLanguages;
-        public string GetManufacturer => Manufacturer;
-        public string GetName => Name;
-        public string GetOtherTargetOS => OtherTargetOS;
-        public bool GetPrimaryBIOS => PrimaryBIOS;
-        public string GetReleaseDate => ReleaseDate;
-        public string GetSerialNumber => SerialNumber;
-        public string GetSMBIOSBIOSVersion => SMBIOSBIOSVersion;
-        public UInt16 GetSMBIOSMajorVersion => SMBIOSMajorVersion;
-        public UInt16 GetSMBIOSMinorVersion => SMBIOSMinorVersion;
-        public bool GetSMBIOSPresent => SMBIOSPresent;
-        public string GetSoftwareElementID => SoftwareElementID;
-        public UInt16 GetSoftwareElementState => SoftwareElementState;
-        public string GetStatus => Status;
-        public byte GetSystemBiosMajorVersion => SystemBiosMajorVersion;
-        public byte GetSystemBiosMinorVersion => SystemBiosMinorVersion;
-        public UInt16 GetTargetOperatingSystem => TargetOperatingSystem;
-        public string GetVersion => Version;
+    public string[] GetBIOSVersion { get; }
 
-        public Win32_Bios(ushort[] biosCharacteristics, string[] bIOSVersion, string buildNumber, string caption, string codeSet, 
-            string currentLanguage, string description, byte embeddedControllerMajorVersion, byte embeddedControllerMinorVersion, 
-            string identificationCode, ushort installableLanguages, string installDate, string languageEdition, string[] listOfLanguages, 
-            string manufacturer, string name, string otherTargetOS, bool primaryBIOS, string releaseDate, string serialNumber, 
-            string sMBIOSBIOSVersion, ushort sMBIOSMajorVersion, ushort sMBIOSMinorVersion, bool sMBIOSPresent, string softwareElementID, 
-            ushort softwareElementState, string status, byte systemBiosMajorVersion, byte systemBiosMinorVersion, 
-            ushort targetOperatingSystem, string version)
+    public string GetBuildNumber { get; }
+
+    public string GetCaption { get; }
+
+    public string GetCodeSet { get; }
+
+    public string GetCurrentLanguage { get; }
+
+    public string GetDescription { get; }
+
+    public byte GetEmbeddedControllerMajorVersion { get; }
+
+    public byte GetEmbeddedControllerMinorVersion { get; }
+
+    public string GetIdentificationCode { get; }
+
+    public ushort GetInstallableLanguages { get; }
+
+    public string GetInstallDate { get; }
+
+    public string GetLanguageEdition { get; }
+
+    public string[] GetListOfLanguages { get; }
+
+    public string GetManufacturer { get; }
+
+    public string GetName { get; }
+
+    public string GetOtherTargetOS { get; }
+
+    public bool GetPrimaryBIOS { get; }
+
+    public string GetReleaseDate { get; }
+
+    public string GetSerialNumber { get; }
+
+    public string GetSMBIOSBIOSVersion { get; }
+
+    public ushort GetSMBIOSMajorVersion { get; }
+
+    public ushort GetSMBIOSMinorVersion { get; }
+
+    public bool GetSMBIOSPresent { get; }
+
+    public string GetSoftwareElementID { get; }
+
+    public ushort GetSoftwareElementState { get; }
+
+    public string GetStatus { get; }
+
+    public byte GetSystemBiosMajorVersion { get; }
+
+    public byte GetSystemBiosMinorVersion { get; }
+
+    public ushort GetTargetOperatingSystem { get; }
+
+    public string GetVersion { get; }
+
+    public static List<Win32_Bios> GetBios()
+    {
+        var query = new ObjectQuery("SELECT * FROM Win32_BIOS");
+        var search = new ManagementObjectSearcher(query);
+
+        var moc = search.Get();
+
+        var list = new List<Win32_Bios>();
+
+        foreach (var mo in moc.Cast<ManagementObject>())
         {
-            BiosCharacteristics = biosCharacteristics;
-            BIOSVersion = bIOSVersion;
-            BuildNumber = buildNumber;
-            Caption = caption;
-            CodeSet = codeSet;
-            CurrentLanguage = currentLanguage;
-            Description = description;
-            EmbeddedControllerMajorVersion = embeddedControllerMajorVersion;
-            EmbeddedControllerMinorVersion = embeddedControllerMinorVersion;
-            IdentificationCode = identificationCode;
-            InstallableLanguages = installableLanguages;
-            InstallDate = installDate;
-            LanguageEdition = languageEdition;
-            ListOfLanguages = listOfLanguages;
-            Manufacturer = manufacturer;
-            Name = name;
-            OtherTargetOS = otherTargetOS;
-            PrimaryBIOS = primaryBIOS;
-            ReleaseDate = releaseDate;
-            SerialNumber = serialNumber;
-            SMBIOSBIOSVersion = sMBIOSBIOSVersion;
-            SMBIOSMajorVersion = sMBIOSMajorVersion;
-            SMBIOSMinorVersion = sMBIOSMinorVersion;
-            SMBIOSPresent = sMBIOSPresent;
-            SoftwareElementID = softwareElementID;
-            SoftwareElementState = softwareElementState;
-            Status = status;
-            SystemBiosMajorVersion = systemBiosMajorVersion;
-            SystemBiosMinorVersion = systemBiosMinorVersion;
-            TargetOperatingSystem = targetOperatingSystem;
-            Version = version;
+            var bios = new Win32_Bios(
+                (ushort[])mo["BiosCharacteristics"],
+                (string[])mo["BIOSVersion"],
+                !string.IsNullOrEmpty((string)mo["BuildNumber"]) ? (string)mo["BuildNumber"] : "N/A",
+                !string.IsNullOrEmpty((string)mo["Caption"]) ? (string)mo["Caption"] : "N/A",
+                !string.IsNullOrEmpty((string)mo["CodeSet"]) ? (string)mo["CodeSet"] : "N/A",
+                !string.IsNullOrEmpty((string)mo["CurrentLanguage"]) ? (string)mo["CurrentLanguage"] : "N/A",
+                !string.IsNullOrEmpty((string)mo["Description"]) ? (string)mo["Description"] : "N/A",
+                (byte)mo["EmbeddedControllerMajorVersion"],
+                (byte)mo["EmbeddedControllerMinorVersion"],
+                !string.IsNullOrEmpty((string)mo["IdentificationCode"]) ? (string)mo["IdentificationCode"] : "N/A",
+                (ushort)mo["InstallableLanguages"],
+                !string.IsNullOrEmpty((string)mo["InstallDate"]) ? (string)mo["InstallDate"] : "N/A",
+                !string.IsNullOrEmpty((string)mo["LanguageEdition"]) ? (string)mo["LanguageEdition"] : "N/A",
+                (string[])mo["ListOfLanguages"],
+                !string.IsNullOrEmpty((string)mo["Manufacturer"]) ? (string)mo["Manufacturer"] : "N/A",
+                !string.IsNullOrEmpty((string)mo["Name"]) ? (string)mo["Name"] : "N/A",
+                !string.IsNullOrEmpty((string)mo["OtherTargetOS"]) ? (string)mo["OtherTargetOS"] : "N/A",
+                (bool)mo["PrimaryBIOS"],
+                !string.IsNullOrEmpty((string)mo["ReleaseDate"]) ? (string)mo["ReleaseDate"] : "N/A",
+                !string.IsNullOrEmpty((string)mo["SerialNumber"]) ? (string)mo["SerialNumber"] : "N/A",
+                !string.IsNullOrEmpty((string)mo["SMBIOSBIOSVersion"]) ? (string)mo["SMBIOSBIOSVersion"] : "N/A",
+                (ushort)mo["SMBIOSMajorVersion"],
+                (ushort)mo["SMBIOSMinorVersion"],
+                (bool)mo["SMBIOSPresent"],
+                !string.IsNullOrEmpty((string)mo["SoftwareElementID"]) ? (string)mo["SoftwareElementID"] : "N/A",
+                (ushort)mo["SoftwareElementState"],
+                !string.IsNullOrEmpty((string)mo["Status"]) ? (string)mo["Status"] : "N/A",
+                (byte)mo["SystemBiosMajorVersion"],
+                (byte)mo["SystemBiosMinorVersion"],
+                (ushort)mo["TargetOperatingSystem"],
+                !string.IsNullOrEmpty((string)mo["Version"]) ? (string)mo["Version"] : "N/A"
+            );
+
+            list.Add(bios);
         }
 
-        public static Win32_Bios? GetBios()
-        {
-            ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_BIOS");
-            ManagementObjectSearcher search = new ManagementObjectSearcher(query);
-
-            ManagementObjectCollection moc = search.Get();
-            
-
-            foreach (ManagementObject mo in moc.Cast<ManagementObject>())
-            {                              
-               return new Win32_Bios(
-
-                 (UInt16[])mo["BiosCharacteristics"],
-                 (string[])mo["BIOSVersion"],
-                 !(String.IsNullOrEmpty((string)mo["BuildNumber"])) ? (string)mo["BuildNumber"] : "N/A",
-                 !(String.IsNullOrEmpty((string)mo["Caption"])) ? (string)mo["Caption"] : "N/A",
-                 !(String.IsNullOrEmpty((string)mo["CodeSet"])) ? (string)mo["CodeSet"] : "N/A",
-                 !(String.IsNullOrEmpty((string)mo["CurrentLanguage"])) ? (string)mo["CurrentLanguage"] : "N/A",
-                 !(String.IsNullOrEmpty((string)mo["Description"])) ? (string)mo["Description"] : "N/A",               
-                 (byte)mo["EmbeddedControllerMajorVersion"],
-                 (byte)mo["EmbeddedControllerMinorVersion"],
-                 !(String.IsNullOrEmpty((string)mo["IdentificationCode"])) ? (string)mo["IdentificationCode"] : "N/A",                
-                 (UInt16)mo["InstallableLanguages"],
-                 !(String.IsNullOrEmpty((string)mo["InstallDate"])) ? (string)mo["InstallDate"] : "N/A",
-                 !(String.IsNullOrEmpty((string)mo["LanguageEdition"])) ? (string)mo["LanguageEdition"] : "N/A",
-                 (string[])mo["ListOfLanguages"],
-                 !(String.IsNullOrEmpty((string)mo["Manufacturer"])) ? (string)mo["Manufacturer"] : "N/A",
-                 !(String.IsNullOrEmpty((string)mo["Name"])) ? (string)mo["Name"] : "N/A",
-                 !(String.IsNullOrEmpty((string)mo["OtherTargetOS"])) ? (string)mo["OtherTargetOS"] : "N/A",
-                 (bool)mo["PrimaryBIOS"],
-                 !(String.IsNullOrEmpty((string)mo["ReleaseDate"])) ? (string)mo["ReleaseDate"] : "N/A",
-                 !(String.IsNullOrEmpty((string)mo["SerialNumber"])) ? (string)mo["SerialNumber"] : "N/A",
-                 !(String.IsNullOrEmpty((string)mo["SMBIOSBIOSVersion"])) ? (string)mo["SMBIOSBIOSVersion"] : "N/A",
-                 (UInt16)mo["SMBIOSMajorVersion"],
-                 (UInt16)mo["SMBIOSMinorVersion"],
-                 (bool)mo["SMBIOSPresent"],
-                 !(String.IsNullOrEmpty((string)mo["SoftwareElementID"])) ? (string)mo["SoftwareElementID"] : "N/A",
-                 (UInt16)mo["SoftwareElementState"],
-                 !(String.IsNullOrEmpty((string)mo["Status"])) ? (string)mo["Status"] : "N/A",
-                 (byte)mo["SystemBiosMajorVersion"],
-                 (byte)mo["SystemBiosMinorVersion"],
-                 (UInt16)mo["TargetOperatingSystem"],
-                 !(String.IsNullOrEmpty((string)mo["Version"])) ? (string)mo["Version"] : "N/A"          
-               );
-
-               
-                
-            }
-
-
-            return null;
-
-
-        }
-        
-
+        return list;
     }
 }

@@ -2,73 +2,68 @@
 
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
 
-namespace Iedom_Client
+namespace Iedom_Client;
+
+internal class Win32_Tpm
 {
-    internal class Win32_Tpm
+    public Win32_Tpm(bool isActivated_InitialValue, bool isEnabled_InitialValue,
+        bool isOwned_InitialValue, string specVersion, string manufacturerVersion,
+        string manufacturerVersionInfo, uint manufacturerId, string physicalPresenceVersionInfo)
     {
-        private  bool IsActivated_InitialValue;
-        private  bool IsEnabled_InitialValue;
-        private  bool IsOwned_InitialValue;
-        private  string? SpecVersion;
-        private  string? ManufacturerVersion;
-        private  string? ManufacturerVersionInfo;
-        private  UInt32 ManufacturerId;
-        private  string? PhysicalPresenceVersionInfo;
+        GetIsActivated_InitialValue = isActivated_InitialValue;
+        GetIsEnabled_InitialValue = isEnabled_InitialValue;
+        GetIsOwned_InitialValue = isOwned_InitialValue;
+        GetSpecVersion = specVersion;
+        GetManufacturerVersion = manufacturerVersion;
+        GetManufacturerVersionInfo = manufacturerVersionInfo;
+        GetManufacturerId = manufacturerId;
+        GetPhysicalPresenceVersionInfo = physicalPresenceVersionInfo;
+    }
 
-        public bool GetIsActivated_InitialValue => IsActivated_InitialValue;
-        public bool GetIsEnabled_InitialValue => IsEnabled_InitialValue;
-        public bool GetIsOwned_InitialValue => IsOwned_InitialValue;
-        public string? GetSpecVersion => SpecVersion;
-        public string? GetManufacturerVersion => ManufacturerVersion;
-        public string? GetManufacturerVersionInfo => ManufacturerVersionInfo;
-        public UInt32 GetManufacturerId => ManufacturerId;
-        public string? GetPhysicalPresenceVersionInfo => PhysicalPresenceVersionInfo;
+    public bool GetIsActivated_InitialValue { get; }
 
-        public Win32_Tpm(bool isActivated_InitialValue, bool isEnabled_InitialValue, 
-            bool isOwned_InitialValue, string? specVersion, string? manufacturerVersion, 
-            string? manufacturerVersionInfo, uint manufacturerId, string? physicalPresenceVersionInfo)
-        {
-            IsActivated_InitialValue = isActivated_InitialValue;
-            IsEnabled_InitialValue = isEnabled_InitialValue;
-            IsOwned_InitialValue = isOwned_InitialValue;
-            SpecVersion = specVersion;
-            ManufacturerVersion = manufacturerVersion;
-            ManufacturerVersionInfo = manufacturerVersionInfo;
-            ManufacturerId = manufacturerId;
-            PhysicalPresenceVersionInfo = physicalPresenceVersionInfo;
-        }
+    public bool GetIsEnabled_InitialValue { get; }
 
-        public static Win32_Tpm GetTpm()
-        {
-            ManagementObject managementObject = new ManagementObject(@"ROOT\CIMV2\Security\MicrosoftTpm", "Win32_Tpm=@", null);
+    public bool GetIsOwned_InitialValue { get; }
 
-            Win32_Tpm tpm = new Win32_Tpm(
+    public string? GetSpecVersion { get; }
 
-                (bool)managementObject.GetPropertyValue("IsActivated_InitialValue"),
-                (bool)managementObject.GetPropertyValue("IsEnabled_InitialValue"),
-                (bool)managementObject.GetPropertyValue("IsOwned_InitialValue"),
+    public string? GetManufacturerVersion { get; }
 
-                (!string.IsNullOrEmpty((string)managementObject.GetPropertyValue("SpecVersion"))) ?
-                (string)managementObject.GetPropertyValue("SpecVersion") : "N/A",
+    public string? GetManufacturerVersionInfo { get; }
 
-                (!string.IsNullOrEmpty((string)managementObject.GetPropertyValue("ManufacturerVersion"))) ?
-                (string)managementObject.GetPropertyValue("ManufacturerVersion") : "N/A",
+    public uint GetManufacturerId { get; }
 
-                (!string.IsNullOrEmpty((string)managementObject.GetPropertyValue("ManufacturerVersionInfo"))) ?
-                (string)managementObject.GetPropertyValue("ManufacturerVersionInfo") : "N/A",
+    public string? GetPhysicalPresenceVersionInfo { get; }
 
-                (UInt32)managementObject.GetPropertyValue("manufacturerId"),
+    public static List<Win32_Tpm> GetTpm()
+    {
+        var list = new List<Win32_Tpm>();
 
-                (!string.IsNullOrEmpty((string)managementObject.GetPropertyValue("PhysicalPresenceVersionInfo"))) ?
-                (string)managementObject.GetPropertyValue("PhysicalPresenceVersionInfo") : "N/A"
-                
-                );
+        var searcher =
+            new ManagementObjectSearcher("root\\CIMV2\\Security\\MicrosoftTpm",
+                "SELECT * FROM Win32_Tpm");
 
-            return tpm;
-      
-        }
-
-       
+        foreach (ManagementObject queryObj in searcher.Get())
+            list.Add(new Win32_Tpm(
+                (bool)queryObj["IsActivated_InitialValue"],
+                (bool)queryObj["IsEnabled_InitialValue"],
+                (bool)queryObj["IsOwned_InitialValue"],
+                !string.IsNullOrEmpty((string)queryObj["SpecVersion"])
+                    ? (string)queryObj["SpecVersion"]
+                    : "N/A",
+                !string.IsNullOrEmpty((string)queryObj["ManufacturerVersion"])
+                    ? (string)queryObj["ManufacturerVersion"]
+                    : "N/A",
+                !string.IsNullOrEmpty((string)queryObj["ManufacturerVersionInfo"])
+                    ? (string)queryObj["ManufacturerVersionInfo"]
+                    : "N/A",
+                (uint)queryObj["ManufacturerId"],
+                !string.IsNullOrEmpty((string)queryObj["PhysicalPresenceVersionInfo"])
+                    ? (string)queryObj["PhysicalPresenceVersionInfo"]
+                    : "N/A"
+            ));
+        return list;
     }
 }
 
