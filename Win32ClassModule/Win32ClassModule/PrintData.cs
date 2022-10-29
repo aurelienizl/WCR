@@ -19,6 +19,41 @@ internal class PrintData
         }
     }
 
+    public static void PrintProducts(List<Win32_Product> win32_Products)
+    {
+        foreach (var elt in win32_Products)
+        {
+            Console.WriteLine("Assignment type : " + elt.GetAssignmentType);
+            Console.WriteLine("Caption : " + elt.GetCaption);
+            Console.WriteLine("Description : " + elt.GetDescription);
+            Console.WriteLine("Identifying Number : " + elt.GetIdentifyingNumber);
+            Console.WriteLine("Install date : " + elt.GetInstallDate);
+            Console.WriteLine("Install date v2 : " +elt.GetInstallDate2);
+            Console.WriteLine("Installation location : " + elt.GetInstallLocation);
+            Console.WriteLine("Installation state : " + elt.GetInstallState);
+            Console.WriteLine("Help link : " + elt.GetHelpLink);
+            Console.WriteLine("Help phone number : " + elt.GetHelpTelephone);
+            Console.WriteLine("Installation source : " + elt.GetInstallSource);
+            Console.WriteLine("Language : " + elt.GetLanguage);
+            Console.WriteLine("Local package : " + elt.GetLocalPackage);
+            Console.WriteLine("Name : " + elt.GetName);
+            Console.WriteLine("Package cache : " + elt.GetPackageCache);
+            Console.WriteLine("Package code : " + elt.GetPackageCode);
+            Console.WriteLine("Package name : " + elt.GetPackageName);
+            Console.WriteLine("Product id : " + elt.GetProductID);
+            Console.WriteLine("Reg Owner : " + elt.GetRegOwner);
+            Console.WriteLine("Reg compagny : " + elt.GetRegCompany);
+            Console.WriteLine("SKU Number : " + elt.GetSKUNumber);
+            Console.WriteLine("Transforms : " + elt.GetTransforms);
+            Console.WriteLine("Url info abour : " + elt.GetURLInfoAbout);
+            Console.WriteLine("Url update info : " + elt.GetURLUpdateInfo);
+            Console.WriteLine("Vendor : " + elt.GetVendor);
+            Console.WriteLine("Word count : " + elt.GetWordCount);
+            Console.WriteLine("Version : " + elt.GetVersion);
+            Console.WriteLine("**************************************");
+        }
+    }
+
     public static void PrintBios(List<Win32_Bios> win32_Bios)
     {
         foreach (var bios in win32_Bios)
