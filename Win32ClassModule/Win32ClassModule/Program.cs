@@ -15,5 +15,9 @@ public static class Program
 
         var win32_Tpm = Win32_Tpm.GetTpm();
         PrintData.PrintTpm(win32_Tpm);
+
+        var win32_Products = Win32_Product.GetProducts();
+        PrintData.PrintProducts(win32_Products);
+
     }
 }
