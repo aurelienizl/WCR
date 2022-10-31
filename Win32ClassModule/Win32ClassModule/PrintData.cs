@@ -106,11 +106,34 @@ internal class PrintData
 
     public static void PrintCerts(List<X509Cert> certList)
     {
-        foreach(var cert in certList)
+        if (certList is null) return;
+        foreach (var cert in certList)
         {
             Console.WriteLine(cert.GetIssuer);
             Console.WriteLine(cert.GetSubject);
             Console.WriteLine(cert.GetExpirationDate);
         }
     }
+
+    public static void printQFE(List<Win32_QuickFixEngineering> win32_QuickFixEngineerings)
+    {
+        foreach(var fix in win32_QuickFixEngineerings)
+        {
+            
+            Console.WriteLine("Caption : " + fix.GetCaption);
+            Console.WriteLine("Description : " + fix.GetDescription);
+            Console.WriteLine("Install date : " + fix.GetInstallDate);
+            Console.WriteLine("Name : " + fix.GetName);
+            Console.WriteLine("Status : " + fix.GetStatus);
+            Console.WriteLine("Cs name : " + fix.GetCSName);
+            Console.WriteLine("Fix comments : + " + fix.GetFixComments);
+            Console.WriteLine("Hotfix id : " + fix.GetHotFixID);
+            Console.WriteLine("Installed by : " + fix.GetInstalledBy);
+            Console.WriteLine("Installed on : " + fix.GetInstalledOn);
+            Console.WriteLine("Service pack in effect : " + fix.GetServicePackInEffect);
+            Console.WriteLine("**********************************************************");
+
+        }
+    }
 }
+

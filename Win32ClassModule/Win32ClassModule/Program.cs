@@ -7,6 +7,7 @@ public static class Program
 {
     public static void Main()
     {
+        
         var bios = Win32_Bios.GetBios();
         PrintData.PrintBios(bios);
 
@@ -22,7 +23,9 @@ public static class Program
 
         var X509CertList = X509Cert.GetX509Cert();
         PrintData.PrintCerts(X509CertList);
-
         
+
+        var win32_QFE = Win32_QuickFixEngineering.GetQuickFixEngineering();
+        PrintData.printQFE(win32_QFE);
     }
 }
