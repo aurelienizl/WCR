@@ -49,7 +49,6 @@ internal class PrintData
             Console.WriteLine("Url info abour : " + elt.GetURLInfoAbout);
             Console.WriteLine("Url update info : " + elt.GetURLUpdateInfo);
             Console.WriteLine("Vendor : " + elt.GetVendor);
-            Console.WriteLine("Word count : " + elt.GetWordCount);
             Console.WriteLine("Version : " + elt.GetVersion);
             Console.WriteLine("**************************************");
         }

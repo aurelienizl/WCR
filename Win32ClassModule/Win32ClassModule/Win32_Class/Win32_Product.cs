@@ -15,7 +15,7 @@ internal class Win32_Product
         string packageCode, string packageName, string productID,
         string regOwner, string regCompany, string sKUNumber,
         string transforms, string uRLInfoAbout, string uRLUpdateInfo,
-        string vendor, uint wordCount, string version)
+        string vendor,string version)
     {
         GetAssignmentType = assignmentType;
         GetCaption = caption;
@@ -42,7 +42,7 @@ internal class Win32_Product
         GetURLInfoAbout = uRLInfoAbout;
         GetURLUpdateInfo = uRLUpdateInfo;
         GetVendor = vendor;
-        GetWordCount = wordCount;
+        
         GetVersion = version;
     }
 
@@ -95,8 +95,6 @@ internal class Win32_Product
     public string GetURLUpdateInfo { get; }
 
     public string GetVendor { get; }
-
-    public uint GetWordCount { get; }
 
     public string GetVersion { get; }
 
@@ -183,7 +181,6 @@ internal class Win32_Product
                     !string.IsNullOrEmpty((string)queryObj["Vendor"])
                         ? (string)queryObj["Vendor"]
                         : "N/A",
-                    (uint)queryObj["WordCount"],
                     !string.IsNullOrEmpty((string)queryObj["Version"])
                         ? (string)queryObj["Version"]
                         : "N/A"
