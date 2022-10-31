@@ -17,6 +17,9 @@ internal class PrintData
             Console.WriteLine("Tpm Manufacturer version info : " + win32_tpm.GetManufacturerVersionInfo);
             Console.WriteLine("Tpm Manufacturer id : " + win32_tpm.GetManufacturerId);
             Console.WriteLine("Tpm physical presence version : " + win32_tpm.GetPhysicalPresenceVersionInfo);
+            Console.WriteLine("**********************************************************");
+
+
         }
     }
 
@@ -89,6 +92,8 @@ internal class PrintData
             Console.WriteLine("Bios system minor version : " + bios.GetSystemBiosMinorVersion);
             Console.WriteLine("Target operating system : " + bios.GetTargetOperatingSystem);
             Console.WriteLine("Version : " + bios.GetVersion);
+            Console.WriteLine("**********************************************************");
+
         }
     }
 
@@ -100,6 +105,8 @@ internal class PrintData
             Console.WriteLine("Volume : " + win32_EncryptableVolume.GetPersistentVolumeID);
             Console.WriteLine("Letter : " + win32_EncryptableVolume.GetDriveLetter);
             Console.WriteLine("Status : " + win32_EncryptableVolume.GetProtectionStatus);
+            Console.WriteLine("**********************************************************");
+
         }
     }
 
@@ -111,6 +118,8 @@ internal class PrintData
             Console.WriteLine(cert.GetIssuer);
             Console.WriteLine(cert.GetSubject);
             Console.WriteLine(cert.GetExpirationDate);
+            Console.WriteLine("**********************************************************");
+
         }
     }
 
@@ -125,11 +134,23 @@ internal class PrintData
             Console.WriteLine("Name : " + fix.GetName);
             Console.WriteLine("Status : " + fix.GetStatus);
             Console.WriteLine("Cs name : " + fix.GetCSName);
-            Console.WriteLine("Fix comments : + " + fix.GetFixComments);
+            Console.WriteLine("Fix comments : " + fix.GetFixComments);
             Console.WriteLine("Hotfix id : " + fix.GetHotFixID);
             Console.WriteLine("Installed by : " + fix.GetInstalledBy);
             Console.WriteLine("Installed on : " + fix.GetInstalledOn);
             Console.WriteLine("Service pack in effect : " + fix.GetServicePackInEffect);
+            Console.WriteLine("**********************************************************");
+
+        }
+    }
+
+    public static void PrintAccounts(List<Account> accounts)
+    {
+        foreach(var account in accounts)
+        {
+            Console.WriteLine("Name : " + account.GetName);
+            Console.WriteLine("Auth : " + account.GetAuthenticationType);
+            Console.WriteLine("GUID : " + account.GetGuid);
             Console.WriteLine("**********************************************************");
 
         }
