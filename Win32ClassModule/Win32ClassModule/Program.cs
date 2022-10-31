@@ -1,4 +1,5 @@
-﻿using Iedom_Client;
+﻿using Win32ClassModule.System;
+using Win32ClassModule.Win32_Class;
 
 namespace Win32ClassModule;
 
@@ -19,5 +20,9 @@ public static class Program
         var win32_Products = Win32_Product.GetProducts();
         PrintData.PrintProducts(win32_Products);
 
+        var X509CertList = X509Cert.GetX509Cert();
+        PrintData.PrintCerts(X509CertList);
+
+        
     }
 }

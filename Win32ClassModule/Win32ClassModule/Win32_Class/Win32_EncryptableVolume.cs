@@ -2,7 +2,7 @@
 
 using System.Management;
 
-namespace Win32ClassModule;
+namespace Win32ClassModule.Win32_Class;
 
 internal class Win32_EncryptableVolume
 {

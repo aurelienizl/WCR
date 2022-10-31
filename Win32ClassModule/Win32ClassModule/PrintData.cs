@@ -1,4 +1,5 @@
-﻿using Iedom_Client;
+﻿using Win32ClassModule.System;
+using Win32ClassModule.Win32_Class;
 
 namespace Win32ClassModule;
 
@@ -28,7 +29,7 @@ internal class PrintData
             Console.WriteLine("Description : " + elt.GetDescription);
             Console.WriteLine("Identifying Number : " + elt.GetIdentifyingNumber);
             Console.WriteLine("Install date : " + elt.GetInstallDate);
-            Console.WriteLine("Install date v2 : " +elt.GetInstallDate2);
+            Console.WriteLine("Install date v2 : " + elt.GetInstallDate2);
             Console.WriteLine("Installation location : " + elt.GetInstallLocation);
             Console.WriteLine("Installation state : " + elt.GetInstallState);
             Console.WriteLine("Help link : " + elt.GetHelpLink);
@@ -100,6 +101,16 @@ internal class PrintData
             Console.WriteLine("Volume : " + win32_EncryptableVolume.GetPersistentVolumeID);
             Console.WriteLine("Letter : " + win32_EncryptableVolume.GetDriveLetter);
             Console.WriteLine("Status : " + win32_EncryptableVolume.GetProtectionStatus);
+        }
+    }
+
+    public static void PrintCerts(List<X509Cert> certList)
+    {
+        foreach(var cert in certList)
+        {
+            Console.WriteLine(cert.GetIssuer);
+            Console.WriteLine(cert.GetSubject);
+            Console.WriteLine(cert.GetExpirationDate);
         }
     }
 }
