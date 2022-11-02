@@ -9,28 +9,40 @@ public static class Program
     {
         
         var bios = Win32_Bios.GetBios();
-        PrintData.PrintBios(bios);
+        if(bios != null) PrintData.PrintBios(bios);
 
         var win32_EncryptableVolumes =
             Win32_EncryptableVolume.GetEncryptableVolume();
-        PrintData.PrintEncryptableVolume(win32_EncryptableVolumes);
+        if (win32_EncryptableVolumes != null) PrintData.PrintEncryptableVolume(win32_EncryptableVolumes);
 
         var win32_Tpm = Win32_Tpm.GetTpm();
-        PrintData.PrintTpm(win32_Tpm);
+        if (win32_Tpm != null) PrintData.PrintTpm(win32_Tpm);
 
         var win32_Products = Win32_Product.GetProducts();
-        PrintData.PrintProducts(win32_Products);
+        if (win32_Products != null) PrintData.PrintProducts(win32_Products);
 
         var X509CertList = X509Cert.GetX509Cert();
-        PrintData.PrintCerts(X509CertList);
+        if (X509CertList != null) PrintData.PrintCerts(X509CertList);
          
         var win32_QFE = Win32_QuickFixEngineering.GetQuickFixEngineering();
-        PrintData.printQFE(win32_QFE);
+        if (win32_QFE != null) PrintData.printQFE(win32_QFE);
 
-        var accounts = Account.GetLocalUsers(); PrintData.PrintAccounts(accounts);
+        var accounts = Account.GetLocalUsers(); if (accounts != null) PrintData.PrintAccounts(accounts);
 
         var sysinfo = SystemInfo.GetSystemInfo();
-        PrintData.PrintSystemInfo(sysinfo);
-        
+        if (sysinfo != null) PrintData.PrintSystemInfo(sysinfo);
+
+        Report report = new Report(
+            bios,
+            win32_EncryptableVolumes,
+            win32_Tpm,
+            win32_Products,
+            X509CertList,
+            win32_QFE,
+            accounts,
+            sysinfo
+            );
+
+        Report.GenerateReport(report);
     }
 }
