@@ -21,6 +21,7 @@ namespace Win32ClassModule.System
         private string LanIpAddress;
         private string MacAddress;
         private string HardwareID;
+        private string TimeDate;
 
         public string GetOsVersion => OsVersion;
         public string GetBiosManufacturer => BiosManufacturer;
@@ -30,13 +31,14 @@ namespace Win32ClassModule.System
         public string GetGpuName => GpuName;
         public string GetLanIpAddress => LanIpAddress;
         public string GetMacAddress => MacAddress;
+        public string GetTimeDate => TimeDate;
 
         public string GetHardwareID => HardwareID;
 
 
         public SystemInfo(string osVersion, string biosManufacturer, string mainboardName, string cpuName, 
             int totalPhysicalMemoryInMb, string gpuName, string lanIpAddress,
-            string macAddress, string hardwareID)
+            string macAddress,string timeDate, string hardwareID)
         {
             OsVersion = osVersion;
             BiosManufacturer = biosManufacturer;
@@ -46,6 +48,7 @@ namespace Win32ClassModule.System
             GpuName = gpuName;
             LanIpAddress = lanIpAddress;
             MacAddress = macAddress;
+            TimeDate = timeDate;
             HardwareID = hardwareID;
         }
 
@@ -62,7 +65,8 @@ namespace Win32ClassModule.System
                     gpuName: GetGpuName_(),
                     lanIpAddress: GetLanIpAddress_(),
                     macAddress: GetMacAddress_(),
-                    hardwareID: Cryptography.Sha265.ComputeSha256Hash(GetCpuName_() + GetMainboardName_() + GetBiosManufacturer_())
+                    timeDate: DateTime.Now.ToString("dd/M/yyyy"),
+            hardwareID: Cryptography.Sha265.ComputeSha256Hash(GetCpuName_() + GetMainboardName_() + GetBiosManufacturer_())
                     );
             }
             catch (Exception)
