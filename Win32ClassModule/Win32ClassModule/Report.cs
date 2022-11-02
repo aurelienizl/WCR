@@ -26,7 +26,7 @@ namespace Win32ClassModule
             List<Win32_Product>? win32_Products, List<X509Cert>? x509Certs, List<Win32_QuickFixEngineering>? win32_QuickFixEngineerings,
             List<Account>? accounts, SystemInfo? systemInfo)
         {
-            Win32_Bios = null;
+            Win32_Bios = win32_Bios;
             Win32_EncryptableVolumes = win32_EncryptableVolumes;
             Win32_Tpms = win32_Tpms;
             Win32_Products = win32_Products;
