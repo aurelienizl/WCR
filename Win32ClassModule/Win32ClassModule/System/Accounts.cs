@@ -55,12 +55,12 @@ namespace Win32ClassModule.System
                 }
                 return accounts;
             }
-            
+
             catch (Exception e)
             {
                 return null;
             }
 
-
+        }
     }
 }
