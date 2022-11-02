@@ -31,13 +31,13 @@ internal class X509Cert
             foreach (var certificate in store.Certificates)
                 list.Add(
                     new X509Cert(
-                        String.IsNullOrEmpty(certificate.Issuer)
+                        !String.IsNullOrEmpty(certificate.Issuer)
                         ? certificate.Issuer
                         : "N/A",
-                        String.IsNullOrEmpty(certificate.Subject)
+                        !String.IsNullOrEmpty(certificate.Subject)
                         ? certificate.Subject
                         : "N/A",
-                        String.IsNullOrEmpty(certificate.GetExpirationDateString())
+                        !String.IsNullOrEmpty(certificate.GetExpirationDateString())
                         ? certificate.GetExpirationDateString()
                         : "N/A"
                     )
@@ -46,8 +46,7 @@ internal class X509Cert
             return list;
         }
         catch (Exception e)
-        {
-            Console.WriteLine(e.ToString());
+        {           
             return null;
         }
     }

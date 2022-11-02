@@ -28,9 +28,6 @@ public static class Program
         PrintData.printQFE(win32_QFE);
 
         var accounts = Account.GetLocalUsers(); PrintData.PrintAccounts(accounts);    
-       
-
-
         
     }
 }
