@@ -23,11 +23,14 @@ public static class Program
 
         var X509CertList = X509Cert.GetX509Cert();
         PrintData.PrintCerts(X509CertList);
-        
+         
         var win32_QFE = Win32_QuickFixEngineering.GetQuickFixEngineering();
         PrintData.printQFE(win32_QFE);
+
+        var accounts = Account.GetLocalUsers(); PrintData.PrintAccounts(accounts);    
+       
+
+
         
-        var accounts = Account.GetLocalUsers();
-        PrintData.PrintAccounts(accounts);
     }
 }

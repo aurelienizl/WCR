@@ -36,34 +36,44 @@ internal class Win32_Tpm
 
     public string? GetPhysicalPresenceVersionInfo { get; }
 
-    public static List<Win32_Tpm> GetTpm()
+    public static List<Win32_Tpm>? GetTpm()
     {
-        var list = new List<Win32_Tpm>();
+        try
+        {
+            var list = new List<Win32_Tpm>();
 
-        var searcher =
-            new ManagementObjectSearcher("root\\CIMV2\\Security\\MicrosoftTpm",
-                "SELECT * FROM Win32_Tpm");
+            var searcher =
+                new ManagementObjectSearcher("root\\CIMV2\\Security\\MicrosoftTpm",
+                    "SELECT * FROM Win32_Tpm");
 
-        foreach (ManagementObject queryObj in searcher.Get())
-            list.Add(new Win32_Tpm(
-                (bool)queryObj["IsActivated_InitialValue"],
-                (bool)queryObj["IsEnabled_InitialValue"],
-                (bool)queryObj["IsOwned_InitialValue"],
-                !string.IsNullOrEmpty((string)queryObj["SpecVersion"])
-                    ? (string)queryObj["SpecVersion"]
-                    : "N/A",
-                !string.IsNullOrEmpty((string)queryObj["ManufacturerVersion"])
-                    ? (string)queryObj["ManufacturerVersion"]
-                    : "N/A",
-                !string.IsNullOrEmpty((string)queryObj["ManufacturerVersionInfo"])
-                    ? (string)queryObj["ManufacturerVersionInfo"]
-                    : "N/A",
-                (uint)queryObj["ManufacturerId"],
-                !string.IsNullOrEmpty((string)queryObj["PhysicalPresenceVersionInfo"])
-                    ? (string)queryObj["PhysicalPresenceVersionInfo"]
-                    : "N/A"
-            ));
-        return list;
+            foreach (ManagementObject queryObj in searcher.Get())
+                list.Add(new Win32_Tpm(
+                    (bool)queryObj["IsActivated_InitialValue"],
+                    (bool)queryObj["IsEnabled_InitialValue"],
+                    (bool)queryObj["IsOwned_InitialValue"],
+                    !string.IsNullOrEmpty((string)queryObj["SpecVersion"])
+                        ? (string)queryObj["SpecVersion"]
+                        : "N/A",
+                    !string.IsNullOrEmpty((string)queryObj["ManufacturerVersion"])
+                        ? (string)queryObj["ManufacturerVersion"]
+                        : "N/A",
+                    !string.IsNullOrEmpty((string)queryObj["ManufacturerVersionInfo"])
+                        ? (string)queryObj["ManufacturerVersionInfo"]
+                        : "N/A",
+                    (uint)queryObj["ManufacturerId"],
+                    !string.IsNullOrEmpty((string)queryObj["PhysicalPresenceVersionInfo"])
+                        ? (string)queryObj["PhysicalPresenceVersionInfo"]
+                        : "N/A"
+                ));
+            return list;
+        }
+        catch (Exception)
+        {
+
+            return null;
+        }
+
+        
     }
 }
 

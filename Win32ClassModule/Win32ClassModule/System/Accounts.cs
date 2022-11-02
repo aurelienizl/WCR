@@ -26,32 +26,41 @@ namespace Win32ClassModule.System
             Guid = guid;
         }
 
-        public static List<Account> GetLocalUsers()
+        public static List<Account>? GetLocalUsers()
         {
-            List<Account> accounts = new List<Account>();
-            var localMachine = new DirectoryEntry("WinNT://" + Environment.MachineName + ",Computer");
-            var admGroup = localMachine.Children.Find("administrateurs", "group");
-            var members = admGroup.Invoke("members", null);
-            //Change "administrateurs" if you are using others windows languages versions (administrateurs = FR)
-
-            foreach(object groupMember in (IEnumerable)members!)
+            try
             {
-                var s = new DirectoryEntry(groupMember);
-                Account account = new Account(
-                    !String.IsNullOrEmpty(s.Name) 
-                    ? s.Name
-                    : "N/A",
-                    !String.IsNullOrEmpty(s.AuthenticationType.ToString())
-                    ? s.AuthenticationType.ToString()
-                    : "N/A",
-                    !String.IsNullOrEmpty(s.NativeGuid)
-                    ? s.NativeGuid
-                    :"N/A"
-                    );
-                accounts.Add(account);
-            }     
-            return accounts;
-        }
+
+                List<Account> accounts = new List<Account>();
+                var localMachine = new DirectoryEntry("WinNT://" + Environment.MachineName + ",Computer");
+                var admGroup = localMachine.Children.Find("administrateurs", "group");
+                var members = admGroup.Invoke("members", null);
+                //Change "administrateurs" if you are using others windows languages versions (administrateurs = FR)
+
+                foreach (object groupMember in (IEnumerable)members!)
+                {
+                    var s = new DirectoryEntry(groupMember);
+                    Account account = new Account(
+                        !String.IsNullOrEmpty(s.Name)
+                        ? s.Name
+                        : "N/A",
+                        !String.IsNullOrEmpty(s.AuthenticationType.ToString())
+                        ? s.AuthenticationType.ToString()
+                        : "N/A",
+                        !String.IsNullOrEmpty(s.NativeGuid)
+                        ? s.NativeGuid
+                        : "N/A"
+                        );
+                    accounts.Add(account);
+                }
+                return accounts;
+            }
+            
+            catch (Exception e)
+            {
+                return null;
+            }
+
 
     }
 }

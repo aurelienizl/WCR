@@ -50,55 +50,65 @@ namespace Win32ClassModule.Win32_Class
             ServicePackInEffect = servicePackInEffect;
         }
 
-        public static List<Win32_QuickFixEngineering> GetQuickFixEngineering()
+        public static List<Win32_QuickFixEngineering>? GetQuickFixEngineering()
         {
-            List<Win32_QuickFixEngineering> list = new List<Win32_QuickFixEngineering>();
-
-            ManagementObjectSearcher searcher =
-                    new ManagementObjectSearcher("root\\CIMV2",
-                    "SELECT * FROM Win32_QuickFixEngineering");
-
-            foreach (ManagementObject queryObj in searcher.Get())
+            try
             {
-                list.Add(
-                    new Win32_QuickFixEngineering(
-                        !String.IsNullOrEmpty((string)queryObj["Caption"])
-                        ? (string)queryObj["Caption"]
-                        : "N/A",
-                        !String.IsNullOrEmpty((string)queryObj["Description"])
-                        ? (string)queryObj["Description"]
-                        : "N/A",
-                        !String.IsNullOrEmpty((string)queryObj["InstallDate"])
-                        ? (string)queryObj["InstallDate"]
-                        : "N/A",
-                        !String.IsNullOrEmpty((string)queryObj["Name"])
-                        ? (string)queryObj["Name"]
-                        : "N/A",
-                        !String.IsNullOrEmpty((string)queryObj["Status"])
-                        ? (string)queryObj["Status"]
-                        : "N/A",
-                        !String.IsNullOrEmpty((string)queryObj["CSName"])
-                        ? (string)queryObj["CSName"]
-                        : "N/A",
-                        !String.IsNullOrEmpty((string)queryObj["FixComments"])
-                        ? (string)queryObj["FixComments"]
-                        : "N/A",
-                        !String.IsNullOrEmpty((string)queryObj["HotFixID"])
-                        ? (string)queryObj["HotFixID"]
-                        : "N/A",
-                        !String.IsNullOrEmpty((string)queryObj["InstalledBy"])
-                        ? (string)queryObj["InstalledBy"]
-                        : "N/A",
-                        !String.IsNullOrEmpty((string)queryObj["InstalledOn"])
-                        ? (string)queryObj["InstalledOn"]
-                        : "N/A",
-                        !String.IsNullOrEmpty((string)queryObj["ServicePackInEffect"])
-                        ? (string)queryObj["ServicePackInEffect"]
-                        : "N/A"
-                        )
-                    );
+                List<Win32_QuickFixEngineering> list = new List<Win32_QuickFixEngineering>();
+
+                ManagementObjectSearcher searcher =
+                        new ManagementObjectSearcher("root\\CIMV2",
+                        "SELECT * FROM Win32_QuickFixEngineering");
+
+                foreach (ManagementObject queryObj in searcher.Get())
+                {
+                    list.Add(
+                        new Win32_QuickFixEngineering(
+                            !String.IsNullOrEmpty((string)queryObj["Caption"])
+                            ? (string)queryObj["Caption"]
+                            : "N/A",
+                            !String.IsNullOrEmpty((string)queryObj["Description"])
+                            ? (string)queryObj["Description"]
+                            : "N/A",
+                            !String.IsNullOrEmpty((string)queryObj["InstallDate"])
+                            ? (string)queryObj["InstallDate"]
+                            : "N/A",
+                            !String.IsNullOrEmpty((string)queryObj["Name"])
+                            ? (string)queryObj["Name"]
+                            : "N/A",
+                            !String.IsNullOrEmpty((string)queryObj["Status"])
+                            ? (string)queryObj["Status"]
+                            : "N/A",
+                            !String.IsNullOrEmpty((string)queryObj["CSName"])
+                            ? (string)queryObj["CSName"]
+                            : "N/A",
+                            !String.IsNullOrEmpty((string)queryObj["FixComments"])
+                            ? (string)queryObj["FixComments"]
+                            : "N/A",
+                            !String.IsNullOrEmpty((string)queryObj["HotFixID"])
+                            ? (string)queryObj["HotFixID"]
+                            : "N/A",
+                            !String.IsNullOrEmpty((string)queryObj["InstalledBy"])
+                            ? (string)queryObj["InstalledBy"]
+                            : "N/A",
+                            !String.IsNullOrEmpty((string)queryObj["InstalledOn"])
+                            ? (string)queryObj["InstalledOn"]
+                            : "N/A",
+                            !String.IsNullOrEmpty((string)queryObj["ServicePackInEffect"])
+                            ? (string)queryObj["ServicePackInEffect"]
+                            : "N/A"
+                            )
+                        );
+                }
+                return list;
             }
-            return list;
+            catch (Exception e)
+            {
+
+                return null;
+            }
+
+            
         }
     }
 }
