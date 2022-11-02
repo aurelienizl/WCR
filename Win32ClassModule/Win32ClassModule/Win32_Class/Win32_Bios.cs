@@ -168,9 +168,7 @@ internal class Win32_Bios
         }
         catch (Exception e)
         {
-
             return null;
         }
-        
     }
 }

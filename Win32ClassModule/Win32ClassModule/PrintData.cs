@@ -18,8 +18,6 @@ internal class PrintData
             Console.WriteLine("Tpm Manufacturer id : " + win32_tpm.GetManufacturerId);
             Console.WriteLine("Tpm physical presence version : " + win32_tpm.GetPhysicalPresenceVersionInfo);
             Console.WriteLine("**********************************************************");
-
-
         }
     }
 
@@ -93,7 +91,6 @@ internal class PrintData
             Console.WriteLine("Target operating system : " + bios.GetTargetOperatingSystem);
             Console.WriteLine("Version : " + bios.GetVersion);
             Console.WriteLine("**********************************************************");
-
         }
     }
 
@@ -106,7 +103,6 @@ internal class PrintData
             Console.WriteLine("Letter : " + win32_EncryptableVolume.GetDriveLetter);
             Console.WriteLine("Status : " + win32_EncryptableVolume.GetProtectionStatus);
             Console.WriteLine("**********************************************************");
-
         }
     }
 
@@ -119,15 +115,13 @@ internal class PrintData
             Console.WriteLine(cert.GetSubject);
             Console.WriteLine(cert.GetExpirationDate);
             Console.WriteLine("**********************************************************");
-
         }
     }
 
     public static void printQFE(List<Win32_QuickFixEngineering> win32_QuickFixEngineerings)
     {
-        foreach(var fix in win32_QuickFixEngineerings)
+        foreach (var fix in win32_QuickFixEngineerings)
         {
-            
             Console.WriteLine("Caption : " + fix.GetCaption);
             Console.WriteLine("Description : " + fix.GetDescription);
             Console.WriteLine("Install date : " + fix.GetInstallDate);
@@ -140,19 +134,17 @@ internal class PrintData
             Console.WriteLine("Installed on : " + fix.GetInstalledOn);
             Console.WriteLine("Service pack in effect : " + fix.GetServicePackInEffect);
             Console.WriteLine("**********************************************************");
-
         }
     }
 
     public static void PrintAccounts(List<Account> accounts)
     {
-        foreach(var account in accounts)
+        foreach (var account in accounts)
         {
             Console.WriteLine("Name : " + account.GetName);
             Console.WriteLine("Auth : " + account.GetAuthenticationType);
             Console.WriteLine("GUID : " + account.GetGuid);
             Console.WriteLine("**********************************************************");
-
         }
     }
 
@@ -170,4 +162,3 @@ internal class PrintData
         Console.WriteLine("Hardware id : " + systemInfo.GetHardwareID);
     }
 }
-

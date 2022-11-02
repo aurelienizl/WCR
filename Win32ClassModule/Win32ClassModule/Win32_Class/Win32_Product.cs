@@ -15,7 +15,7 @@ internal class Win32_Product
         string packageCode, string packageName, string productID,
         string regOwner, string regCompany, string sKUNumber,
         string transforms, string uRLInfoAbout, string uRLUpdateInfo,
-        string vendor,string version)
+        string vendor, string version)
     {
         GetAssignmentType = assignmentType;
         GetCaption = caption;
@@ -42,7 +42,7 @@ internal class Win32_Product
         GetURLInfoAbout = uRLInfoAbout;
         GetURLUpdateInfo = uRLUpdateInfo;
         GetVendor = vendor;
-        
+
         GetVersion = version;
     }
 
@@ -195,9 +195,7 @@ internal class Win32_Product
         }
         catch (Exception e)
         {
-
             return null;
         }
-        
     }
 }

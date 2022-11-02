@@ -4,20 +4,18 @@ namespace Win32ClassModule.System;
 
 internal class X509Cert
 {
-    private string Issuer;
-    private string Subject;
-    private string ExpirationDate;
-
-    public string GetIssuer => Issuer;
-    public string GetSubject => Subject;
-    public string GetExpirationDate => ExpirationDate;
-
     public X509Cert(string issuer, string subject, string expirationDate)
     {
-        Issuer = issuer;
-        Subject = subject;
-        ExpirationDate = expirationDate;
+        GetIssuer = issuer;
+        GetSubject = subject;
+        GetExpirationDate = expirationDate;
     }
+
+    public string GetIssuer { get; }
+
+    public string GetSubject { get; }
+
+    public string GetExpirationDate { get; }
 
     public static List<X509Cert>? GetX509Cert()
     {
@@ -31,22 +29,22 @@ internal class X509Cert
             foreach (var certificate in store.Certificates)
                 list.Add(
                     new X509Cert(
-                        !String.IsNullOrEmpty(certificate.Issuer)
-                        ? certificate.Issuer
-                        : "N/A",
-                        !String.IsNullOrEmpty(certificate.Subject)
-                        ? certificate.Subject
-                        : "N/A",
-                        !String.IsNullOrEmpty(certificate.GetExpirationDateString())
-                        ? certificate.GetExpirationDateString()
-                        : "N/A"
+                        !string.IsNullOrEmpty(certificate.Issuer)
+                            ? certificate.Issuer
+                            : "N/A",
+                        !string.IsNullOrEmpty(certificate.Subject)
+                            ? certificate.Subject
+                            : "N/A",
+                        !string.IsNullOrEmpty(certificate.GetExpirationDateString())
+                            ? certificate.GetExpirationDateString()
+                            : "N/A"
                     )
-                ) ;
+                );
 
             return list;
         }
         catch (Exception e)
-        {           
+        {
             return null;
         }
     }

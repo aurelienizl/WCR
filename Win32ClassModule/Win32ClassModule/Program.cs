@@ -7,9 +7,8 @@ public static class Program
 {
     public static void Main()
     {
-        
         var bios = Win32_Bios.GetBios();
-        if(bios != null) PrintData.PrintBios(bios);
+        if (bios != null) PrintData.PrintBios(bios);
 
         var win32_EncryptableVolumes =
             Win32_EncryptableVolume.GetEncryptableVolume();
@@ -23,16 +22,17 @@ public static class Program
 
         var X509CertList = X509Cert.GetX509Cert();
         if (X509CertList != null) PrintData.PrintCerts(X509CertList);
-         
+
         var win32_QFE = Win32_QuickFixEngineering.GetQuickFixEngineering();
         if (win32_QFE != null) PrintData.printQFE(win32_QFE);
 
-        var accounts = Account.GetLocalUsers(); if (accounts != null) PrintData.PrintAccounts(accounts);
+        var accounts = Account.GetLocalUsers();
+        if (accounts != null) PrintData.PrintAccounts(accounts);
 
         var sysinfo = SystemInfo.GetSystemInfo();
         if (sysinfo != null) PrintData.PrintSystemInfo(sysinfo);
 
-        Report report = new Report(
+        var report = new Report(
             bios,
             win32_EncryptableVolumes,
             win32_Tpm,
@@ -41,7 +41,7 @@ public static class Program
             win32_QFE,
             accounts,
             sysinfo
-            );
+        );
 
         Report.GenerateReport(report);
     }

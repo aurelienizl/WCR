@@ -38,9 +38,11 @@ internal class Win32_EncryptableVolume
                     new Win32_EncryptableVolume(
                         !string.IsNullOrEmpty((string)queryObj["DeviceID"]) ? (string)queryObj["DeviceID"] : "N/A",
                         !string.IsNullOrEmpty((string)queryObj["PersistentVolumeID"])
-                        ? (string)queryObj["PersistentVolumeID"]
-                        : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["DriveLetter"]) ? (string)queryObj["DriveLetter"] : "N/A",
+                            ? (string)queryObj["PersistentVolumeID"]
+                            : "N/A",
+                        !string.IsNullOrEmpty((string)queryObj["DriveLetter"])
+                            ? (string)queryObj["DriveLetter"]
+                            : "N/A",
                         (uint)queryObj["ProtectionStatus"]
                     ));
 
@@ -48,9 +50,7 @@ internal class Win32_EncryptableVolume
         }
         catch (Exception e)
         {
-
             return null;
         }
-        
     }
 }

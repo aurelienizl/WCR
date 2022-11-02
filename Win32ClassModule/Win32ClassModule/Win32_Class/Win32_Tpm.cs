@@ -69,11 +69,8 @@ internal class Win32_Tpm
         }
         catch (Exception)
         {
-
             return null;
         }
-
-        
     }
 }
 
