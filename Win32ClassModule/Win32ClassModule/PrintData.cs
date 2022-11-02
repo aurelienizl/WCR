@@ -155,5 +155,19 @@ internal class PrintData
 
         }
     }
+
+    public static void PrintSystemInfo(SystemInfo? systemInfo)
+    {
+        if (systemInfo == null) return;
+        Console.WriteLine("System version : " + systemInfo.GetOsVersion);
+        Console.WriteLine("Bios manufacturer : " + systemInfo.GetBiosManufacturer);
+        Console.WriteLine("Mainboard name : " + systemInfo.GetMainboardName);
+        Console.WriteLine("Cpu name " + systemInfo.GetCpuName);
+        Console.WriteLine("Gpu name " + systemInfo.GetGpuName);
+        Console.WriteLine("RAM : " + systemInfo.GetTotalPhysicalMemoryInMb);
+        Console.WriteLine("Lan ip " + systemInfo.GetLanIpAddress);
+        Console.WriteLine("Mac address : " + systemInfo.GetMacAddress);
+        Console.WriteLine("Hardware id " + systemInfo.GetHardwareID);
+    }
 }
 
