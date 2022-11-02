@@ -27,8 +27,7 @@ public static class Program
         var win32_QFE = Win32_QuickFixEngineering.GetQuickFixEngineering();
         PrintData.printQFE(win32_QFE);
         
-
-        var x = Account.GetLocalUsers();
-        PrintData.PrintAccounts(x);
+        var accounts = Account.GetLocalUsers();
+        PrintData.PrintAccounts(accounts);
     }
 }
