@@ -1,11 +1,18 @@
 ﻿using Win32ClassModule.System;
 using Win32ClassModule.Win32_Class;
+using Win32ClassModule.Win32_Modules;
 
 namespace Win32ClassModule;
 
 public static class Program
 {
     public static void Main()
+    {
+        //InitReportingTool();
+        Network.Client.StartClient();
+    }
+
+    public static void InitReportingTool()
     {
         var bios = Win32_Bios.GetBios();
         if (bios != null) PrintData.PrintBios(bios);

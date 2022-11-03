@@ -1,7 +1,7 @@
 ﻿using Win32ClassModule.System;
 using Win32ClassModule.Win32_Class;
 
-namespace Win32ClassModule;
+namespace Win32ClassModule.Win32_Modules;
 
 internal class PrintData
 {
