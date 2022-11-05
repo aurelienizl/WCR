@@ -1,4 +1,5 @@
-﻿using Win32ClassModule.System;
+﻿using System.Runtime.CompilerServices;
+using Win32ClassModule.System;
 using Win32ClassModule.Win32_Class;
 using Win32ClassModule.Win32_Modules;
 
@@ -8,8 +9,7 @@ public static class Program
 {
     public static void Main()
     {
-        //InitReportingTool();
-        Network.Client.StartClient();
+        InitReportingTool();
     }
 
     public static void InitReportingTool()
