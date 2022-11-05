@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Win32ClassModule.System;
+namespace WindowsReportingClient.System;
 
 internal class Cryptography
 {

@@ -4,7 +4,7 @@ using System.DirectoryServices;
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
 
 
-namespace Win32ClassModule.System;
+namespace WindowsReportingClient.System;
 
 internal class Account
 {

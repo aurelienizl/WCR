@@ -2,7 +2,7 @@
 
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
 
-namespace Win32ClassModule.Win32_Class;
+namespace WindowsReportingClient.Win32_Class;
 
 internal class Win32_Bios
 {

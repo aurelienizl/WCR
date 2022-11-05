@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 // see https://github.com/quasar
 
 
-namespace Win32ClassModule.System;
+namespace WindowsReportingClient.System;
 
 internal class SystemInfo
 {

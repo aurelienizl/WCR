@@ -1,15 +1,15 @@
-﻿using System.Runtime.CompilerServices;
-using Win32ClassModule.System;
-using Win32ClassModule.Win32_Class;
-using Win32ClassModule.Win32_Modules;
+﻿using WindowsReportingClient.System;
+using WindowsReportingClient.Win32_Class;
+using WindowsReportingClient.Win32_Modules;
 
-namespace Win32ClassModule;
+namespace WindowsReportingClient;
 
 public static class Program
 {
     public static void Main()
     {
         InitReportingTool();
+        Networking.UploadReport();
     }
 
     public static void InitReportingTool()

@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
-using Win32ClassModule.System;
-using Win32ClassModule.Win32_Class;
+using System.Net;
+using WindowsReportingClient.System;
+using WindowsReportingClient.Win32_Class;
 
-namespace Win32ClassModule.Win32_Modules;
+namespace WindowsReportingClient.Win32_Modules;
 
 internal class Report
 {
@@ -33,7 +34,10 @@ internal class Report
 
     public static void GenerateReport(Report report)
     {
-        WriteToJsonFile("report.json", report);
+        if (Dns.GetHostName() != null)
+        {
+            WriteToJsonFile(Dns.GetHostName() + ".json", report);
+        }
     }
 
     public static void WriteToJsonFile<T>(string filePath, T objectToWrite, bool append = false)
@@ -44,9 +48,12 @@ internal class Report
             var contentsToWriteToFile = JsonConvert.SerializeObject(objectToWrite);
             writer = new StreamWriter(filePath, append);
             writer.Write(contentsToWriteToFile);
+            writer.Flush();
+            writer.Close();
         }
         catch (Exception e)
         {
+            Console.WriteLine(e);
         }
         finally
         {
