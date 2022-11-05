@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TcpClientApp
+namespace WindowsReportingClient
 {
     public interface IStopable
     {

@@ -1,4 +1,4 @@
-﻿namespace TcpClientApp
+﻿namespace WindowsReportingClient
 {
     public interface IFileService
     {

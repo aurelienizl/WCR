@@ -2,9 +2,9 @@
 using System.Net.Sockets;
 using System.Text;
 
-namespace TcpClientApp
+namespace WindowsReportingClient
 {
-    public class FileSender : IStartable, IStopable
+    public class FileSender : IStartable
     {
         private readonly string _host;
         private readonly int _port;
@@ -51,9 +51,6 @@ namespace TcpClientApp
             fs.Close();
         }
 
-        public void Stop()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

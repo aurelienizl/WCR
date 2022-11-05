@@ -1,5 +1,5 @@
 ﻿
-namespace TcpClientApp
+namespace WindowsReportingClient
 {
     public class FileService : IFileService
     {
@@ -26,7 +26,7 @@ namespace TcpClientApp
 
         public string GetResoucePath()
         {
-            string path =  "d://share-bridge";
+            string path =  @"D:\";
             if(Directory.Exists(path) is false)
             {
                 Directory.CreateDirectory(path);

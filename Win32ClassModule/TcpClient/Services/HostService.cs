@@ -2,7 +2,7 @@
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
-namespace TcpClientApp
+namespace WindowsReportingClient
 {
     public class HostService : IHostService
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace TcpClientApp
+namespace WindowsReportingClient
 {
     public class FileService : IFileService
     {

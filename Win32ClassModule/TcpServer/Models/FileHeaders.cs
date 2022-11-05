@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace TcpClientApp
+namespace WindowsReportingClient
 {
     public class FileHeaders
     {
