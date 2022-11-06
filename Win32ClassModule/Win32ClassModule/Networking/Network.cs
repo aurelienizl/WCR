@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.DirectoryServices.ActiveDirectory;
+using System.Net;
 using System.Net.NetworkInformation;
 
 namespace WindowsReportingClient;
@@ -12,6 +13,8 @@ public class Networking {
 
     public static void UploadReport()
     {
+    ResetNetwork:
+        Thread.Sleep(30000);
         Console.WriteLine("Exporting report, initializing network...");
         while (NetworkInterface.GetIsNetworkAvailable() == false)
         {
@@ -21,14 +24,14 @@ public class Networking {
         {
             string path = Dns.GetHostName() + ".json";
             FileSender fileSender = new FileSender(host, port, path);
-            fileSender.Start();
+            bool? reported = (fileSender.Start());
+            if (reported is false or null) goto ResetNetwork;
             Console.WriteLine("Successfully exported to server !");
         }
         catch (Exception e)
         {
             Thread.Sleep(5000);
-            Console.WriteLine(e);
-            UploadReport();
+            Console.WriteLine(e.Message);          
         }
         
     }
