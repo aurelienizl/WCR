@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Net;
+using System.Net.Security;
 using System.Net.Sockets;
 using System.Text;
 
@@ -31,12 +32,13 @@ namespace WindowsReportingClient
             AutoResetEvent:
             try
             {
-                
+                Thread.Sleep(500); //avoid memory or cpu issues due to dos attacks.. 
+
                 Socket socket = _listener.AcceptSocket();
                 socket.ReceiveTimeout = 5000;
                 socket.SendTimeout = 5000;
                 
-                Console.WriteLine("Client found !");
+                Console.WriteLine("Client found : " + socket.RemoteEndPoint);
 
                 int bufferSize = 1024;
                 byte[] buffer, header;
@@ -44,10 +46,25 @@ namespace WindowsReportingClient
                 header = new byte[bufferSize];
                 socket.Receive(header);
 
-                string headerJson = Encoding.ASCII.GetString(header);
-                var fileheaders = JsonConvert.DeserializeObject<FileHeaders>(headerJson);
+                FileHeaders? fileheaders;
 
-                if (fileheaders is null) throw new Exception("File headers doesn't exist");
+                try
+                {
+                    string headerJson = Encoding.ASCII.GetString(header);
+                    fileheaders = JsonConvert.DeserializeObject<FileHeaders>(headerJson);
+
+                    if (fileheaders is null) throw new Exception();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Header broken or missing");
+                    Console.WriteLine("Error : " + ex.Message);
+                    Console.WriteLine("Closing socket...");
+                    socket.Close();
+                    goto AutoResetEvent;
+                }
+
+                
 
                 string path = Path.Combine(_fileService.GetResoucePath(), fileheaders.FileName);
 
@@ -70,7 +87,7 @@ namespace WindowsReportingClient
 
             catch (Exception ex)
             {
-                Console.WriteLine(ex);               
+                Console.WriteLine("Error : " + ex.Message);         
                 goto AutoResetEvent;
             }         
             
