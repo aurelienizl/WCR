@@ -52,7 +52,11 @@ namespace WindowsReportingClient
                     string headerJson = Encoding.ASCII.GetString(header);
                     fileheaders = JsonConvert.DeserializeObject<FileHeaders>(headerJson);
 
-                    if (fileheaders is null) throw new Exception();
+                    if (fileheaders is null)
+                    {
+                        throw new Exception();
+                    }
+
                 }
                 catch (Exception ex)
                 {

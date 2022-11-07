@@ -109,6 +109,7 @@ internal class SystemInfo
         }
         catch
         {
+            return "Unknown";
         }
 
         return "Unknown";
@@ -134,6 +135,7 @@ internal class SystemInfo
         }
         catch
         {
+            return "Unknown";
         }
 
         return "Unknown";
@@ -157,6 +159,7 @@ internal class SystemInfo
         }
         catch
         {
+            return "Unknown";
         }
 
         return "Unknown";
