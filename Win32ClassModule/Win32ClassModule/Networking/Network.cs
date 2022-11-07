@@ -22,7 +22,7 @@ public class Networking
 		catch (Exception e)
 		{
             Console.WriteLine(e.Message);
-            Thread.Sleep(1);
+            Thread.Sleep(30000);
             goto AutoReset;			
 		}
         
