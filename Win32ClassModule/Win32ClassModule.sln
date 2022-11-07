@@ -5,8 +5,6 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsReportingClient", "Win32ClassModule\WindowsReportingClient.csproj", "{54511F68-D9B0-4068-86B5-C127F21D04CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TcpClientApp", "TcpClient\TcpClientApp.csproj", "{8BA64FD1-5523-45C7-AC70-386B4BCD8EC4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TcpServerApp", "TcpServer\TcpServerApp.csproj", "{923319FD-6A28-4864-8C83-C3011D0B6C37}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{54511F68-D9B0-4068-86B5-C127F21D04CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54511F68-D9B0-4068-86B5-C127F21D04CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54511F68-D9B0-4068-86B5-C127F21D04CF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8BA64FD1-5523-45C7-AC70-386B4BCD8EC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8BA64FD1-5523-45C7-AC70-386B4BCD8EC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8BA64FD1-5523-45C7-AC70-386B4BCD8EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8BA64FD1-5523-45C7-AC70-386B4BCD8EC4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{923319FD-6A28-4864-8C83-C3011D0B6C37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{923319FD-6A28-4864-8C83-C3011D0B6C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{923319FD-6A28-4864-8C83-C3011D0B6C37}.Release|Any CPU.ActiveCfg = Release|Any CPU

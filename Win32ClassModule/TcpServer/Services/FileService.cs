@@ -26,8 +26,9 @@ namespace WindowsReportingClient
 
         public string GetResoucePath()
         {
-            string path = @"C:\Users\aurel\Desktop\iedom\Builds\tests\";
-            if(Directory.Exists(path) is false)
+            string path = @"C:\reports\";
+
+            if (Directory.Exists(path) is false)
             {
                 Directory.CreateDirectory(path);
             }

@@ -1,4 +1,5 @@
-﻿using WindowsReportingClient.System;
+﻿using System.Net;
+using WindowsReportingClient.System;
 using WindowsReportingClient.Win32_Class;
 using WindowsReportingClient.Win32_Modules;
 
@@ -6,10 +7,13 @@ namespace WindowsReportingClient;
 
 public static class Program
 {
+    private static string _host = "10.219.13.132";
+    private const int _port = 443;
+
     public static void Main()
     {
         InitReportingTool();
-        Networking.UploadReport();
+        Networking.UploadReport(_host, _port);
     }
 
     public static void InitReportingTool()

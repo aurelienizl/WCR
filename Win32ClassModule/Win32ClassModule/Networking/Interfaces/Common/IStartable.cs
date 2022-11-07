@@ -4,6 +4,6 @@ namespace WindowsReportingClient
 {
     public interface IStartable
     {
-        public abstract bool? Start();
+        public void Start();
     }
 }

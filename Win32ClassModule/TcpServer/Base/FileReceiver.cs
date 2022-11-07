@@ -28,7 +28,6 @@ namespace WindowsReportingClient
             _listener.Start();
             Console.WriteLine("Waiting clients...");
             
-
             AutoResetEvent:
             try
             {
@@ -64,8 +63,7 @@ namespace WindowsReportingClient
                     goto AutoResetEvent;
                 }
 
-                
-
+              
                 string path = Path.Combine(_fileService.GetResoucePath(), fileheaders.FileName);
 
                 using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))

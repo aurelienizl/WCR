@@ -19,7 +19,8 @@ namespace WindowsReportingClient
             _filepath = filepath;
             _fileService = new FileService();
         }
-        public bool? Start()
+
+        public void Start()
         {
             FileStream fs = new FileStream(_filepath, FileMode.Open);
 
@@ -46,21 +47,16 @@ namespace WindowsReportingClient
                 {
                     buffer = new byte[bufferSize];
                     int size = fs.Read(buffer, 0, bufferSize);
-
                     tcpClient.Client.Send(buffer, size, SocketFlags.Partial);
                 }
 
                 tcpClient.Client.Close();
-
                 fs.Close();
-
-                return true;
             }
             catch (Exception e)
             {
                 fs.Close();
-                Console.WriteLine(e.Message);
-                return false;
+                throw;
             }
             
         }
