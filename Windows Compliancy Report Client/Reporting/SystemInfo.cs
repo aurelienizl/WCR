@@ -73,7 +73,9 @@ internal class SystemInfo
     private static string RemoveLastChars(string input, int amount = 2)
     {
         if (input.Length > amount)
+        {
             input = input.Remove(input.Length - amount);
+        }
         return input;
     }
 
@@ -218,17 +220,25 @@ internal class SystemInfo
         {
             var gatewayAddress = ni.GetIPProperties().GatewayAddresses.FirstOrDefault();
             if (gatewayAddress != null) //exclude virtual physical nic with no default gateway
+            {
                 if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 ||
                     (ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet &&
                      ni.OperationalStatus == OperationalStatus.Up))
+                {
                     foreach (var ip in ni.GetIPProperties().UnicastAddresses)
                     {
                         if (ip.Address.AddressFamily != AddressFamily.InterNetwork ||
-                            ip.AddressPreferredLifetime == uint.MaxValue) // exclude virtual network addresses
+                            ip.AddressPreferredLifetime == uint.MaxValue)
+                        {
+                            // exclude virtual network addresses
                             continue;
-
+                        }
                         return ip.Address.ToString();
                     }
+                }
+
+            }
+
         }
 
         return "-";
@@ -245,23 +255,31 @@ internal class SystemInfo
     private static string GetMacAddress_()
     {
         foreach (var ni in NetworkInterface.GetAllNetworkInterfaces())
+        {
             if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 ||
-                (ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet &&
-                 ni.OperationalStatus == OperationalStatus.Up))
+               (ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet &&
+                ni.OperationalStatus == OperationalStatus.Up))
             {
                 var foundCorrect = false;
                 foreach (var ip in ni.GetIPProperties().UnicastAddresses)
                 {
                     if (ip.Address.AddressFamily != AddressFamily.InterNetwork ||
                         ip.AddressPreferredLifetime == uint.MaxValue) // exclude virtual network addresses
-                        continue;
 
+                    {
+                        continue;
+                    }
                     foundCorrect = ip.Address.ToString() == GetLanIpAddress_();
                 }
 
                 if (foundCorrect)
+                {
                     return GetFormattedMacAddress(ni.GetPhysicalAddress().ToString());
+                }
+
             }
+        }
+
 
         return "-";
     }

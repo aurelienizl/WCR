@@ -5,7 +5,7 @@ namespace Windows_Compliancy_Report_Client;
 
 internal class Cryptography
 {
-    public class Sha265
+    public static class Sha265
     {
         public static string ComputeSha256Hash(string rawData)
         {
@@ -17,7 +17,10 @@ internal class Cryptography
 
                 // Convert byte array to a string   
                 var builder = new StringBuilder();
-                for (var i = 0; i < bytes.Length; i++) builder.Append(bytes[i].ToString("x2"));
+                for (var i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
                 return builder.ToString();
             }
         }

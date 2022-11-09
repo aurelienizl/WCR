@@ -57,43 +57,46 @@ internal class Win32_QuickFixEngineering
                     "SELECT * FROM Win32_QuickFixEngineering");
 
             foreach (ManagementObject queryObj in searcher.Get())
+            {
                 list.Add(
-                    new Win32_QuickFixEngineering(
-                        !string.IsNullOrEmpty((string)queryObj["Caption"])
-                            ? (string)queryObj["Caption"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["Description"])
-                            ? (string)queryObj["Description"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["InstallDate"])
-                            ? (string)queryObj["InstallDate"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["Name"])
-                            ? (string)queryObj["Name"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["Status"])
-                            ? (string)queryObj["Status"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["CSName"])
-                            ? (string)queryObj["CSName"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["FixComments"])
-                            ? (string)queryObj["FixComments"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["HotFixID"])
-                            ? (string)queryObj["HotFixID"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["InstalledBy"])
-                            ? (string)queryObj["InstalledBy"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["InstalledOn"])
-                            ? (string)queryObj["InstalledOn"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["ServicePackInEffect"])
-                            ? (string)queryObj["ServicePackInEffect"]
-                            : "N/A"
-                    )
-                );
+            new Win32_QuickFixEngineering(
+                !string.IsNullOrEmpty((string)queryObj["Caption"])
+                    ? (string)queryObj["Caption"]
+                    : "N/A",
+                !string.IsNullOrEmpty((string)queryObj["Description"])
+                    ? (string)queryObj["Description"]
+                    : "N/A",
+                !string.IsNullOrEmpty((string)queryObj["InstallDate"])
+                    ? (string)queryObj["InstallDate"]
+                    : "N/A",
+                !string.IsNullOrEmpty((string)queryObj["Name"])
+                    ? (string)queryObj["Name"]
+                    : "N/A",
+                !string.IsNullOrEmpty((string)queryObj["Status"])
+                    ? (string)queryObj["Status"]
+                    : "N/A",
+                !string.IsNullOrEmpty((string)queryObj["CSName"])
+                    ? (string)queryObj["CSName"]
+                    : "N/A",
+                !string.IsNullOrEmpty((string)queryObj["FixComments"])
+                    ? (string)queryObj["FixComments"]
+                    : "N/A",
+                !string.IsNullOrEmpty((string)queryObj["HotFixID"])
+                    ? (string)queryObj["HotFixID"]
+                    : "N/A",
+                !string.IsNullOrEmpty((string)queryObj["InstalledBy"])
+                    ? (string)queryObj["InstalledBy"]
+                    : "N/A",
+                !string.IsNullOrEmpty((string)queryObj["InstalledOn"])
+                    ? (string)queryObj["InstalledOn"]
+                    : "N/A",
+                !string.IsNullOrEmpty((string)queryObj["ServicePackInEffect"])
+                    ? (string)queryObj["ServicePackInEffect"]
+                    : "N/A"
+            )
+        );
+            }
+        
             return list;
         }
         catch (Exception e)

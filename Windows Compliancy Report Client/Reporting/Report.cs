@@ -30,6 +30,9 @@ internal class Report
     public List<Account>? Accounts { get; }
     public SystemInfo? SystemInfo { get; }
 
+
+
+
     public static void GenerateReport(Report report)
     {
         if (Dns.GetHostName() != null)
