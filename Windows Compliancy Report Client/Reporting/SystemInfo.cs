@@ -113,8 +113,6 @@ internal class SystemInfo
         {
             return "Unknown";
         }
-
-        return "Unknown";
     }
 
     private static string GetMainboardName_()
@@ -139,8 +137,6 @@ internal class SystemInfo
         {
             return "Unknown";
         }
-
-        return "Unknown";
     }
 
     private static string GetCpuName_()
@@ -163,8 +159,6 @@ internal class SystemInfo
         {
             return "Unknown";
         }
-
-        return "Unknown";
     }
 
     private static int GetTotalPhysicalMemoryInMb_()

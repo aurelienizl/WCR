@@ -168,6 +168,7 @@ internal class Win32_Bios
         }
         catch (Exception e)
         {
+            Program.window?.Writeline(e.Message, false);
             return null;
         }
     }

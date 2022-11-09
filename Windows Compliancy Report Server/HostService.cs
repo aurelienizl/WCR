@@ -29,7 +29,10 @@ namespace Windows_Compliancy_Report_Server
             {
                 return true;
             }
-            else return false;
+            else
+            {
+                return false;
+            }
         }
     }
 }

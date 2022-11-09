@@ -7,7 +7,7 @@ namespace Windows_Compliancy_Report_Client
             InitializeComponent();
         }
 
-        public void Writeline(string line, bool reset = false)
+        public void Writeline(string line, bool reset)
         {
             
             if (reset)

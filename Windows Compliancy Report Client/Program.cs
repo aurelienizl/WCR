@@ -22,12 +22,21 @@ namespace Windows_Compliancy_Report_Client
 
         #region Network
 
-
+        
         private static Thread? NetworkThread;
         public static void InitNetworking()
         {
-
+            if (ReportingThread is null)
+            {
+                window?.Writeline("Generate report first !", false);
+                return;
+            }
             //Wait reporter to finished
+            if (ReportingThread.IsAlive)
+            {
+                window?.Writeline("Please wait reporter thread to finished !", false);
+                return;
+            }
 
             if (NetworkThread is null)
             {
@@ -35,10 +44,10 @@ namespace Windows_Compliancy_Report_Client
                 {
                     Thread.CurrentThread.IsBackground = true;
                     Networking.UploadReport("127.0.0.1", 443);
-                    window?.Writeline("Network upload job finished !");
+                    window?.Writeline("Network upload job finished !", false);
                 });
                 NetworkThread.Start();
-                window?.Writeline("Starting network upload...");
+                window?.Writeline("Starting network upload...", false);
                 return;
             }
             if (!NetworkThread.IsAlive)
@@ -47,13 +56,13 @@ namespace Windows_Compliancy_Report_Client
                 {
                     Thread.CurrentThread.IsBackground = true;
                     Networking.UploadReport("127.0.0.1", 443);
-                    window?.Writeline("Network upload job finished !");
+                    window?.Writeline("Network upload job finished !", false);
                 });
                 NetworkThread.Start();
-                window?.Writeline("Restarting network upload...");
+                window?.Writeline("Restarting network upload...", false);
 
             }
-            window?.Writeline("Network upload already running !");
+            window?.Writeline("Network upload already running !", false);
         }
         #endregion
 
@@ -69,19 +78,33 @@ namespace Windows_Compliancy_Report_Client
         private static Thread? ReportingThread;
         public static void InitReportingTool()
         {
+            //Check 1 : If networking thread is running or reporting thread is running exit,
+            
+
+
+            //Wait reporter to finished
+            if (NetworkThread is not null)
+            {
+                if (NetworkThread.IsAlive)
+                {
+                    window?.Writeline("Please wait networking thread to finished !", false);
+                    return;
+                }
+            }
+
             if (ReportingThread is null)
             {
                 LaunchReport();
-                window?.Writeline("Starting reporting tool...");
+                window?.Writeline("Starting reporting tool...", false);
                 return;
             }
             if (!ReportingThread.IsAlive)
             {
                 LaunchReport();
-                window?.Writeline("Restarting reporting tool...");
+                window?.Writeline("Restarting reporting tool...", false);
                 return;
             }
-            window?.Writeline("Reporting tool already running !");
+            window?.Writeline("Reporting tool already running !", false);
 
         }
         public static void LaunchReport()
@@ -97,14 +120,13 @@ namespace Windows_Compliancy_Report_Client
                     bios = Win32_Bios.GetBios();
                     if (bios != null)
                     {
-                        window?.Writeline("Bios check : OK !");
+                        window?.Writeline("Bios check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("Bios check : ERROR !");
+                        window?.Writeline("Bios check : ERROR !", false);
                     }
                 }));
-
 
                 threads.Add(new Thread(() =>
                 {
@@ -113,11 +135,11 @@ namespace Windows_Compliancy_Report_Client
                     
                     if (win32_EncryptableVolumes != null)
                     {
-                        window?.Writeline("Volume check : OK !");
+                        window?.Writeline("Volume check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("Volume check : ERROR !");
+                        window?.Writeline("Volume check : ERROR !", false);
                     }
                 }));
 
@@ -127,11 +149,11 @@ namespace Windows_Compliancy_Report_Client
                     win32_Tpm = Win32_Tpm.GetTpm();
                     if (win32_Tpm != null)
                     {
-                        window?.Writeline("Tpm check : OK !");
+                        window?.Writeline("Tpm check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("Tpm check : ERROR !");
+                        window?.Writeline("Tpm check : ERROR !", false);
                     }
                 }));
 
@@ -141,11 +163,11 @@ namespace Windows_Compliancy_Report_Client
                     win32_Products = Win32_Product.GetProducts();
                     if (win32_Products != null)
                     {
-                        window?.Writeline("Softwares check : OK !");
+                        window?.Writeline("Softwares check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("Softwares check : ERROR !");
+                        window?.Writeline("Softwares check : ERROR !", false);
                     }
                     
                 }));
@@ -157,11 +179,11 @@ namespace Windows_Compliancy_Report_Client
                     
                     if (X509CertList != null)
                     {
-                        window?.Writeline("Certificates check : OK !");
+                        window?.Writeline("Certificates check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("Certificates check : ERROR !");
+                        window?.Writeline("Certificates check : ERROR !", false);
                     }
                 }));
 
@@ -172,11 +194,11 @@ namespace Windows_Compliancy_Report_Client
                    
                     if (win32_QFE != null)
                     {
-                        window?.Writeline("Updates check : OK !");
+                        window?.Writeline("Updates check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("Updates check : ERROR !");
+                        window?.Writeline("Updates check : ERROR !", false);
                     }
                 }));
 
@@ -187,11 +209,11 @@ namespace Windows_Compliancy_Report_Client
                     
                     if (accounts != null)
                     {
-                        window?.Writeline("Admins check : OK !");
+                        window?.Writeline("Admins check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("Admins check : ERROR !");
+                        window?.Writeline("Admins check : ERROR !", false);
                     }
                 }));
 
@@ -201,11 +223,11 @@ namespace Windows_Compliancy_Report_Client
                     sysinfo = SystemInfo.GetSystemInfo();  
                     if (sysinfo != null)
                     {
-                        window?.Writeline("System info check : OK !");
+                        window?.Writeline("System info check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("System info check : ERROR !");
+                        window?.Writeline("System info check : ERROR !", false);
                     }
                 }));
 
@@ -231,7 +253,7 @@ namespace Windows_Compliancy_Report_Client
                 );
 
                 Report.GenerateReport(report);
-                window?.Writeline("Reporting job finished !");
+                window?.Writeline("Reporting job finished !", false);
             });
             ReportingThread.Start();
         }

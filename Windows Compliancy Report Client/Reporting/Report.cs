@@ -54,12 +54,11 @@ internal class Report
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-        }
-        finally
-        {
+            Program.window?.Writeline(e.Message, false);
             if (writer != null)
+            {
                 writer.Close();
+            }
         }
     }
 }

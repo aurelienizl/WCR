@@ -1,6 +1,6 @@
 ﻿namespace Windows_Compliancy_Report_Server;
 
-class Program
+static class Program
 {
     public static int Main()
     {

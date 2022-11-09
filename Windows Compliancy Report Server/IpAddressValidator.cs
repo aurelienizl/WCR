@@ -2,7 +2,7 @@
 
 namespace Windows_Compliancy_Report_Server
 {
-    public class IpAddressValidator
+    public static class IpAddressValidator
     {
         public static bool IsValid(string ip)
         {

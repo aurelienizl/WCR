@@ -55,6 +55,7 @@ namespace Windows_Compliancy_Report_Client
             }
             catch (Exception e)
             {
+                Program.window?.Writeline(e.Message, false);
                 fs.Close();
                 throw;
             }

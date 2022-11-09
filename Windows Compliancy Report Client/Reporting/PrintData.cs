@@ -1,6 +1,6 @@
 ﻿namespace Windows_Compliancy_Report_Client;
 
-internal class PrintData
+internal static class PrintData
 {
     public static void PrintTpm(List<Win32_Tpm> win32_tpmList)
     {

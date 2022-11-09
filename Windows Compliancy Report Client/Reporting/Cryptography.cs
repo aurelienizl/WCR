@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Windows_Compliancy_Report_Client;
 
-internal class Cryptography
+internal static class Cryptography
 {
     public static class Sha265
     {

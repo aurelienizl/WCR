@@ -6,7 +6,7 @@ namespace Windows_Compliancy_Report_Client;
 
 //Based on https://github.com/redmindsteam/share-bridge
 
-public class Networking
+public static class Networking
 {
 
     public static void UploadReport(string host, int port)
