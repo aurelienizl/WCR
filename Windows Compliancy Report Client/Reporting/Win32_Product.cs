@@ -197,7 +197,7 @@ internal class Win32_Product
         }
         catch (Exception e)
         {
-            Program.window?.Writeline(e.Message, false);
+            Program.window?.Writeline("Products exception : \n" + e.Message, false);
             return null;
         }
     }

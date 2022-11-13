@@ -168,7 +168,7 @@ internal class Win32_Bios
         }
         catch (Exception e)
         {
-            Program.window?.Writeline(e.Message, false);
+            Program.window?.Writeline("Bios exception : \n" + e.Message, false);
             return null;
         }
     }

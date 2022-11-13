@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 namespace Windows_Compliancy_Report_Client
 {
     internal static class Program
@@ -7,22 +5,66 @@ namespace Windows_Compliancy_Report_Client
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
-
         public static Window? window;
 
         [STAThread]
-        static void Main()
+        static int Main()
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             window = new Window();
             Application.Run(window);
+            return 0;
         }
+
+        public static void ExitApp()
+        {
+            if (NetworkThread is not null)
+            {
+                if(NetworkThread.IsAlive)
+                {
+                    window?.Writeline("Please wait networking thread to finished !", false);
+                    NetworkThread.Join();
+                    window?.Writeline("Networking thread finished !", false);
+
+                }
+            }
+            if(ReportingThread is not null)
+            {
+                if (ReportingThread.IsAlive)
+                {
+                    window?.Writeline("Please wait reporting thread to finished !", false);
+                    ReportingThread.Join();
+                    window?.Writeline("Reporting thread finished !", false);
+
+                }
+            }
+            window?.Writeline("Closing app... Have a nice day !", false);
+            
+        }
+
+        public static void Automatic_Launch()
+        {
+            new Thread(() =>
+            {
+                InitReportingTool();
+                if (ReportingThread is not null)
+                {
+                    ReportingThread.Join();
+                }
+                InitNetworking();
+                if (NetworkThread is not null)
+                {
+                    NetworkThread.Join();
+                }
+            }).Start();
+        }
+
 
         #region Network
 
-        
+
         private static Thread? NetworkThread;
         public static void InitNetworking()
         {
@@ -135,11 +177,11 @@ namespace Windows_Compliancy_Report_Client
                     
                     if (win32_EncryptableVolumes != null)
                     {
-                        window?.Writeline("Volume check : OK !", false);
+                        window?.Writeline("Bitlocker check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("Volume check : ERROR !", false);
+                        window?.Writeline("Bitlocker check : ERROR !", false);
                     }
                 }));
 

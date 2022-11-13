@@ -59,7 +59,7 @@ internal class Account
 
         catch (Exception e)
         {
-            Program.window?.Writeline(e.Message, false);
+            Program.window?.Writeline("Account Exception : + \n" + e.Message, false);
             return null;
         }
     }

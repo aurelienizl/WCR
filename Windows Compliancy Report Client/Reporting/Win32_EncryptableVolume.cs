@@ -50,7 +50,7 @@ internal class Win32_EncryptableVolume
         }
         catch (Exception e)
         {
-            Program.window?.Writeline(e.Message, false);
+            Program.window?.Writeline("Bitlocker exception : \n" + e.Message, false);
             return null;
         }
     }

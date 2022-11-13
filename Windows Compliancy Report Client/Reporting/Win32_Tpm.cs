@@ -73,7 +73,7 @@ internal class Win32_Tpm
         }
         catch (Exception e)
         {
-            Program.window?.Writeline(e.Message, false);
+            Program.window?.Writeline("Tpm exception : \n" + e.Message, false);
             return null;
         }
     }

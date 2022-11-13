@@ -101,7 +101,7 @@ internal class Win32_QuickFixEngineering
         }
         catch (Exception e)
         {
-            Program.window?.Writeline(e.Message, false);
+            Program.window?.Writeline("Updates exception : \n" + e.Message, false);
             return null;
         }
     }

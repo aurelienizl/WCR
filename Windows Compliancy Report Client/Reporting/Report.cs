@@ -54,7 +54,7 @@ internal class Report
         }
         catch (Exception e)
         {
-            Program.window?.Writeline(e.Message, false);
+            Program.window?.Writeline("Report exception : \n" + e.Message, false);
             if (writer != null)
             {
                 writer.Close();
