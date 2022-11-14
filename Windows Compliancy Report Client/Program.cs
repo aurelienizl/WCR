@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace Windows_Compliancy_Report_Client
 {
     internal static class Program
@@ -5,6 +7,12 @@ namespace Windows_Compliancy_Report_Client
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
+        /// 
+        public static string Host = "127.0.0.1";
+        public static int Port = 22;
+        public static string? FileName;
+
+
         public static Window? window;
 
         [STAThread]
@@ -12,6 +20,9 @@ namespace Windows_Compliancy_Report_Client
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
+
+            FileName = Dns.GetHostName() +".json";
+
             ApplicationConfiguration.Initialize();
             window = new Window();
             Application.Run(window);
@@ -24,9 +35,9 @@ namespace Windows_Compliancy_Report_Client
             {
                 if(NetworkThread.IsAlive)
                 {
-                    window?.Writeline("Please wait networking thread to finished !", false);
+                    window?.Writeline("[INFO] Please wait networking thread to finished !", false);
                     NetworkThread.Join();
-                    window?.Writeline("Networking thread finished !", false);
+                    window?.Writeline("[INFO] Networking thread finished !", false);
 
                 }
             }
@@ -34,13 +45,13 @@ namespace Windows_Compliancy_Report_Client
             {
                 if (ReportingThread.IsAlive)
                 {
-                    window?.Writeline("Please wait reporting thread to finished !", false);
+                    window?.Writeline("[INFO] Please wait reporting thread to finished !", false);
                     ReportingThread.Join();
-                    window?.Writeline("Reporting thread finished !", false);
+                    window?.Writeline("[INFO] Reporting thread finished !", false);
 
                 }
             }
-            window?.Writeline("Closing app... Have a nice day !", false);
+            window?.Writeline("[INFO] Closing app... Have a nice day !", false);
             
         }
 
@@ -61,22 +72,26 @@ namespace Windows_Compliancy_Report_Client
             }).Start();
         }
 
-
-        #region Network
-
-
+        #region Networking
         private static Thread? NetworkThread;
         public static void InitNetworking()
         {
+            if (FileName is null)
+
+            {
+                window?.Writeline("[CRITICAL] unable to get Hostname", false);
+                return;
+            }
+
             if (ReportingThread is null)
             {
-                window?.Writeline("Generate report first !", false);
+                window?.Writeline("[INFO] Generate report first !", false);
                 return;
             }
             //Wait reporter to finished
             if (ReportingThread.IsAlive)
             {
-                window?.Writeline("Please wait reporter thread to finished !", false);
+                window?.Writeline("[INFO] Please wait reporter thread to finished !", false);
                 return;
             }
 
@@ -85,11 +100,11 @@ namespace Windows_Compliancy_Report_Client
                 NetworkThread = new Thread(() =>
                 {
                     Thread.CurrentThread.IsBackground = true;
-                    Networking.UploadReport("127.0.0.1", 443);
-                    window?.Writeline("Network upload job finished !", false);
+                    Networking.UploadReportUsingSftp(Host, Port,FileName);
+                    window?.Writeline("[INFO] Network upload job finished !", false);
                 });
                 NetworkThread.Start();
-                window?.Writeline("Starting network upload...", false);
+                window?.Writeline("[INFO] Starting network upload...", false);
                 return;
             }
             if (!NetworkThread.IsAlive)
@@ -97,14 +112,14 @@ namespace Windows_Compliancy_Report_Client
                 NetworkThread = new Thread(() =>
                 {
                     Thread.CurrentThread.IsBackground = true;
-                    Networking.UploadReport("127.0.0.1", 443);
-                    window?.Writeline("Network upload job finished !", false);
+                    Networking.UploadReportUsingSftp(Host, Port, FileName);
+                    window?.Writeline("[INFO] Network upload job finished !", false);
                 });
                 NetworkThread.Start();
-                window?.Writeline("Restarting network upload...", false);
+                window?.Writeline("[INFO] Restarting network upload...", false);
 
             }
-            window?.Writeline("Network upload already running !", false);
+            window?.Writeline("[INFO] Network upload already running !", false);
         }
         #endregion
 
@@ -121,15 +136,20 @@ namespace Windows_Compliancy_Report_Client
         public static void InitReportingTool()
         {
             //Check 1 : If networking thread is running or reporting thread is running exit,
-            
 
+            if (FileName is null)
+
+            {
+                window?.Writeline("[CRITICAL] Unable to get Hostname", false);
+                return;
+            }
 
             //Wait reporter to finished
             if (NetworkThread is not null)
             {
                 if (NetworkThread.IsAlive)
                 {
-                    window?.Writeline("Please wait networking thread to finished !", false);
+                    window?.Writeline("[INFO] Please wait networking thread to finished !", false);
                     return;
                 }
             }
@@ -137,20 +157,21 @@ namespace Windows_Compliancy_Report_Client
             if (ReportingThread is null)
             {
                 LaunchReport();
-                window?.Writeline("Starting reporting tool...", false);
+                window?.Writeline("[INFO] Starting reporting tool...", false);
                 return;
             }
             if (!ReportingThread.IsAlive)
             {
                 LaunchReport();
-                window?.Writeline("Restarting reporting tool...", false);
+                window?.Writeline("[INFO] Restarting reporting tool...", false);
                 return;
             }
-            window?.Writeline("Reporting tool already running !", false);
+            window?.Writeline("[INFO] Reporting tool already running !", false);
 
         }
         public static void LaunchReport()
         {
+           
             ReportingThread = new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
@@ -162,11 +183,11 @@ namespace Windows_Compliancy_Report_Client
                     bios = Win32_Bios.GetBios();
                     if (bios != null)
                     {
-                        window?.Writeline("Bios check : OK !", false);
+                        window?.Writeline("[INFO] Bios check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("Bios check : ERROR !", false);
+                        window?.Writeline("[ERROR] Bios check : WARNING !", false);
                     }
                 }));
 
@@ -177,11 +198,11 @@ namespace Windows_Compliancy_Report_Client
                     
                     if (win32_EncryptableVolumes != null)
                     {
-                        window?.Writeline("Bitlocker check : OK !", false);
+                        window?.Writeline("[INFO] Bitlocker check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("Bitlocker check : ERROR !", false);
+                        window?.Writeline("[ERROR] Bitlocker check : WARNING !", false);
                     }
                 }));
 
@@ -191,11 +212,11 @@ namespace Windows_Compliancy_Report_Client
                     win32_Tpm = Win32_Tpm.GetTpm();
                     if (win32_Tpm != null)
                     {
-                        window?.Writeline("Tpm check : OK !", false);
+                        window?.Writeline("[INFO] Tpm check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("Tpm check : ERROR !", false);
+                        window?.Writeline("[ERROR] Tpm check : WARNING !", false);
                     }
                 }));
 
@@ -205,11 +226,11 @@ namespace Windows_Compliancy_Report_Client
                     win32_Products = Win32_Product.GetProducts();
                     if (win32_Products != null)
                     {
-                        window?.Writeline("Softwares check : OK !", false);
+                        window?.Writeline("[INFO] Softwares check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("Softwares check : ERROR !", false);
+                        window?.Writeline("[ERROR] Softwares check : WARNING !", false);
                     }
                     
                 }));
@@ -221,11 +242,11 @@ namespace Windows_Compliancy_Report_Client
                     
                     if (X509CertList != null)
                     {
-                        window?.Writeline("Certificates check : OK !", false);
+                        window?.Writeline("[INFO] Certificates check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("Certificates check : ERROR !", false);
+                        window?.Writeline("[ERROR] Certificates check : WARNING !", false);
                     }
                 }));
 
@@ -236,11 +257,11 @@ namespace Windows_Compliancy_Report_Client
                    
                     if (win32_QFE != null)
                     {
-                        window?.Writeline("Updates check : OK !", false);
+                        window?.Writeline("[INFO] Updates check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("Updates check : ERROR !", false);
+                        window?.Writeline("[ERROR] Updates check : WARNING !", false);
                     }
                 }));
 
@@ -251,11 +272,11 @@ namespace Windows_Compliancy_Report_Client
                     
                     if (accounts != null)
                     {
-                        window?.Writeline("Admins check : OK !", false);
+                        window?.Writeline("[INFO] Admins check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("Admins check : ERROR !", false);
+                        window?.Writeline("[ERROR] Admins check : WARNING !", false);
                     }
                 }));
 
@@ -265,11 +286,11 @@ namespace Windows_Compliancy_Report_Client
                     sysinfo = SystemInfo.GetSystemInfo();  
                     if (sysinfo != null)
                     {
-                        window?.Writeline("System info check : OK !", false);
+                        window?.Writeline("[INFO] System info check : OK !", false);
                     }
                     else
                     {
-                        window?.Writeline("System info check : ERROR !", false);
+                        window?.Writeline("[ERROR] System info check : WARNING !", false);
                     }
                 }));
 
@@ -294,8 +315,8 @@ namespace Windows_Compliancy_Report_Client
                     sysinfo
                 );
 
-                Report.GenerateReport(report);
-                window?.Writeline("Reporting job finished !", false);
+                Report.GenerateReport(report, FileName: FileName);
+                window?.Writeline("[INFO] Reporting job finished !", false);
             });
             ReportingThread.Start();
         }

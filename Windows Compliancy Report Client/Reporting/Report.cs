@@ -33,11 +33,11 @@ internal class Report
 
 
 
-    public static void GenerateReport(Report report)
+    public static void GenerateReport(Report report, string FileName)
     {
         if (Dns.GetHostName() != null)
         {
-            WriteToJsonFile(Dns.GetHostName() + ".json", report);
+            WriteToJsonFile(FileName, report);
         }
     }
 
