@@ -51,10 +51,7 @@ internal class Account
                 }
                 return accounts;
             }
-            else
-            {
-                throw new Exception();
-            }
+            return null; 
         }
 
         catch (Exception e)

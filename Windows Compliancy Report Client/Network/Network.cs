@@ -8,14 +8,14 @@ namespace Windows_Compliancy_Report_Client;
 
 public static class Networking
 {
-
+    #region networksMethods
     public static void UploadReportUsingSftp(string host, int port, string path)
     {
     AutoReset:
         while (!IsServerAlive(host))
         {
             Thread.Sleep(4000);
-        } 
+        }
         try
         {
             Sftp.Upload(host, port, path);
@@ -28,27 +28,7 @@ public static class Networking
         }
     }
 
-    public static bool IsServerAlive(string ipServer)
-    {
-        bool isServerAlive = false;
-        try
-        {
-            Ping ping = new Ping();
-            PingReply pingReply = ping.Send(ipServer, 5000);
-
-            if (pingReply.Status == IPStatus.Success)
-            {
-                isServerAlive = true;
-            }
-        }
-        catch (Exception e)
-        {
-            Program.window?.Writeline("[WARNING] Server unreachable", false);
-            Program.window?.Writeline("[EXCEPTION] " + e, false);
-        }
-        return isServerAlive;
-    }
-
+    //Not secure, no encryption. 
 
     [Obsolete]
     public static void UploadReportUsingTcpCient(string host, int port, string path)
@@ -71,6 +51,28 @@ public static class Networking
             Thread.Sleep(30000);
             goto AutoReset;
         }
+    }
+    #endregion
+
+    public static bool IsServerAlive(string host)
+    {
+        bool isServerAlive = false;
+        try
+        {
+            Ping ping = new Ping();
+            PingReply pingReply = ping.Send(host, 5000);
+
+            if (pingReply.Status == IPStatus.Success)
+            {
+                isServerAlive = true;
+            }
+        }
+        catch (Exception e)
+        {
+            Program.window?.Writeline("[WARNING] Server unreachable", false);
+            Program.window?.Writeline("[EXCEPTION] " + e, false);
+        }
+        return isServerAlive;
     }
 
 }
