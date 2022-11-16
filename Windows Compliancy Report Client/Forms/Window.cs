@@ -49,16 +49,28 @@ public partial class Window : Form
         Program.InitNetworking();
     }
 
-    public static bool exit = false;
+    Thread exit_thread;
 
     private void Exit_Click(object sender, EventArgs e)
     {
-        new Thread(() =>
+        if (exit_thread == null || !exit_thread.IsAlive)
         {
-            Program.ExitApp();
-            Thread.Sleep(2000);
-            Application.Exit();
-        }).Start();
+            Program.window?.Writeline("[INFO] Running exit thread !", false);
+
+            exit_thread = new Thread(() =>
+            {
+                Program.ExitApp();
+                Thread.Sleep(2000);
+                Application.Exit();
+                Environment.Exit(0);
+            });
+            exit_thread.Start();
+        }
+        else
+        {
+            Program.window?.Writeline("[INFO] Exit Thread already running !", false);
+        }
+       
     }
 
     #endregion

@@ -82,7 +82,7 @@ internal static class Program
         if (FileName is null)
 
         {
-            window?.Writeline("[CRITICAL] unable to get Hostname", false);
+            window?.Writeline("[CRITICAL] Unable to get Hostname", false);
             return;
         }
 
@@ -110,11 +110,11 @@ internal static class Program
                 window?.Writeline("[INFO] Network upload job finished !", false);
             });
             NetworkThread.Start();
-            window?.Writeline("[INFO] Starting network upload...", false);
+            window?.Writeline("[INFO] Starting network thread...", false);
             return;
         }
 
-        window?.Writeline("[INFO] Network upload already running !", false);
+        window?.Writeline("[INFO] Network thread already running !", false);
     }
 
     #endregion
@@ -154,11 +154,11 @@ internal static class Program
         if (ReportingThread is null || !ReportingThread.IsAlive)
         {
             LaunchReport();
-            window?.Writeline("[INFO] Starting reporting tool...", false);
+            window?.Writeline("[INFO] Starting reporting thread...", false);
             return;
         }
 
-        window?.Writeline("[INFO] Reporting tool already running !", false);
+        window?.Writeline("[INFO] Reporting thread already running !", false);
     }
 
     public static void LaunchReport()
