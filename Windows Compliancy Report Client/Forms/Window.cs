@@ -11,12 +11,12 @@ public partial class Window : Form
 
     public void Writeline(string line, bool reset)
     {
-        if (Program.window is not null)
+        if (Program.window is null) return;
+        if (reset)
         {
-            if (reset)
-                Invoke((Delegate)(() => { listBox1.Items.Clear(); }));
-            Invoke((Delegate)(() => { listBox1.Items.Add(line); }));
+            Invoke((Delegate)(() => { listBox1.Items.Clear(); }));
         }
+        Invoke((Delegate)(() => { listBox1.Items.Add(line); }));
     }
 
     #endregion
@@ -49,11 +49,11 @@ public partial class Window : Form
         Program.InitNetworking();
     }
 
-    Thread exit_thread;
+    private Thread? exit_thread;
 
     private void Exit_Click(object sender, EventArgs e)
     {
-        if (exit_thread == null || !exit_thread.IsAlive)
+        if (exit_thread is not { IsAlive: true })
         {
             Program.window?.Writeline("[INFO] Running exit thread !", false);
 
@@ -95,13 +95,11 @@ public partial class Window : Form
 
     private void Window_FormClosing(object sender, FormClosingEventArgs e)
     {
-        if (e.CloseReason == CloseReason.UserClosing)
-        {
-            resetForm();
-            notifyIcon.Visible = true;
-            Hide();
-            e.Cancel = true;
-        }
+        if (e.CloseReason != CloseReason.UserClosing) return;
+        resetForm();
+        notifyIcon.Visible = true;
+        Hide();
+        e.Cancel = true;
     }
 
     #endregion
