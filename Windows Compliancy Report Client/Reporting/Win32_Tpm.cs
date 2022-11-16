@@ -47,7 +47,6 @@ internal class Win32_Tpm
                     "SELECT * FROM Win32_Tpm");
 
             foreach (ManagementObject queryObj in searcher.Get())
-            {
                 list.Add(new Win32_Tpm(
                     (bool)queryObj["IsActivated_InitialValue"],
                     (bool)queryObj["IsEnabled_InitialValue"],
@@ -66,10 +65,7 @@ internal class Win32_Tpm
                         ? (string)queryObj["PhysicalPresenceVersionInfo"]
                         : "N/A"
                 ));
-                
-            }
             return list;
-
         }
         catch (Exception e)
         {

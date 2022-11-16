@@ -1,9 +1,6 @@
-﻿using System;
+﻿namespace Windows_Compliancy_Report_Client;
 
-namespace Windows_Compliancy_Report_Client
+public interface IStopable
 {
-    public interface IStopable
-    {
-        public void Stop();
-    }
+    public void Stop();
 }

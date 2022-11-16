@@ -1,36 +1,31 @@
-﻿namespace Windows_Compliancy_Report_Client
+﻿namespace Windows_Compliancy_Report_Client;
+
+public class FileService : IFileService
 {
-    public class FileService : IFileService
+    public FileHeaders GetFileInfo(string path)
     {
-        public FileHeaders GetFileInfo(string path)
+        try
         {
-            try
-            {
-                FileHeaders fileHeaders = new FileHeaders();
-                FileInfo fileInfo = new FileInfo(path);
+            var fileHeaders = new FileHeaders();
+            var fileInfo = new FileInfo(path);
 
-                fileHeaders.FileName = fileInfo.Name;
-                fileHeaders.Lenth = fileInfo.Length;
-                fileHeaders.Extension = fileInfo.Extension;
+            fileHeaders.FileName = fileInfo.Name;
+            fileHeaders.Lenth = fileInfo.Length;
+            fileHeaders.Extension = fileInfo.Extension;
 
-                return fileHeaders;
-            }
-
-            catch
-            {
-                return new FileHeaders();
-            }
-
+            return fileHeaders;
         }
 
-        public string GetResoucePath()
+        catch
         {
-            string path = @"D:\";
-            if (Directory.Exists(path) is false)
-            {
-                Directory.CreateDirectory(path);
-            }
-            return path;
+            return new FileHeaders();
         }
+    }
+
+    public string GetResoucePath()
+    {
+        var path = @"D:\";
+        if (Directory.Exists(path) is false) Directory.CreateDirectory(path);
+        return path;
     }
 }

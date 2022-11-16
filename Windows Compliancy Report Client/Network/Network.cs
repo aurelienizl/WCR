@@ -1,6 +1,4 @@
-﻿using System.DirectoryServices.ActiveDirectory;
-using System.Net;
-using System.Net.NetworkInformation;
+﻿using System.Net.NetworkInformation;
 
 namespace Windows_Compliancy_Report_Client;
 
@@ -8,15 +6,36 @@ namespace Windows_Compliancy_Report_Client;
 
 public static class Networking
 {
+    public static bool IsServerAlive(string host)
+    {
+        var isServerAlive = false;
+        try
+        {
+            var ping = new Ping();
+            var pingReply = ping.Send(host, 5000);
+
+            if (pingReply.Status == IPStatus.Success) isServerAlive = true;
+        }
+        catch (Exception e)
+        {
+            Program.window?.Writeline("[WARNING] Server unreachable", false);
+            Program.window?.Writeline("[EXCEPTION] " + e, false);
+        }
+
+        return isServerAlive;
+    }
+
     #region networksMethods
+
     public static void UploadReportUsingSftp(string host, int port, string path)
     {
-    AutoReset:
+        AutoReset:
         while (!IsServerAlive(host))
         {
             Program.window?.Writeline("[INFO] Server unreachable... restarting", false);
             Thread.Sleep(30000);
         }
+
         try
         {
             Sftp.Upload(host, port, path);
@@ -34,15 +53,11 @@ public static class Networking
     [Obsolete]
     public static void UploadReportUsingTcpCient(string host, int port, string path)
     {
+        while (!IsServerAlive(host)) Thread.Sleep(4000);
 
-        while (!IsServerAlive(host))
-        {
-            Thread.Sleep(4000);
-        }
+        var fileSender = new FileSender(host, port, path);
 
-        FileSender fileSender = new FileSender(host, port, path);
-
-    AutoReset:
+        AutoReset:
         try
         {
             fileSender.Start();
@@ -53,28 +68,6 @@ public static class Networking
             goto AutoReset;
         }
     }
+
     #endregion
-
-    public static bool IsServerAlive(string host)
-    {
-        bool isServerAlive = false;
-        try
-        {
-            Ping ping = new Ping();
-            PingReply pingReply = ping.Send(host, 5000);
-
-            if (pingReply.Status == IPStatus.Success)
-            {
-                isServerAlive = true;
-            }
-        }
-        catch (Exception e)
-        {
-            Program.window?.Writeline("[WARNING] Server unreachable", false);
-            Program.window?.Writeline("[EXCEPTION] " + e, false);
-        }
-        return isServerAlive;
-    }
-
 }
-

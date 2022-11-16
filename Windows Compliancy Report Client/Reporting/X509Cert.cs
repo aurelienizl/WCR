@@ -27,22 +27,20 @@ internal class X509Cert
             var list = new List<X509Cert>();
 
             foreach (var certificate in store.Certificates)
-            {
                 list.Add(
-                   new X509Cert(
-                       !string.IsNullOrEmpty(certificate.Issuer)
-                           ? certificate.Issuer
-                           : "N/A",
-                       !string.IsNullOrEmpty(certificate.Subject)
-                           ? certificate.Subject
-                           : "N/A",
-                       !string.IsNullOrEmpty(certificate.GetExpirationDateString())
-                           ? certificate.GetExpirationDateString()
-                           : "N/A"
-                   )
-               );
-            }
-               
+                    new X509Cert(
+                        !string.IsNullOrEmpty(certificate.Issuer)
+                            ? certificate.Issuer
+                            : "N/A",
+                        !string.IsNullOrEmpty(certificate.Subject)
+                            ? certificate.Subject
+                            : "N/A",
+                        !string.IsNullOrEmpty(certificate.GetExpirationDateString())
+                            ? certificate.GetExpirationDateString()
+                            : "N/A"
+                    )
+                );
+
 
             return list;
         }

@@ -56,14 +56,8 @@ internal static class PrintData
     {
         foreach (var bios in win32_Bios)
         {
-            foreach (var elt in bios.GetBiosCharacteristics)
-            {
-                Console.WriteLine("Bios characteristics " + elt);
-            }
-            foreach (var elt in bios.GetBIOSVersion)
-            {
-                Console.WriteLine("Bios versions : " + elt);
-            }
+            foreach (var elt in bios.GetBiosCharacteristics) Console.WriteLine("Bios characteristics " + elt);
+            foreach (var elt in bios.GetBIOSVersion) Console.WriteLine("Bios versions : " + elt);
             Console.WriteLine("Build number : " + bios.GetBuildNumber);
             Console.WriteLine("Caption : " + bios.GetCaption);
             Console.WriteLine("Code set : " + bios.GetCodeSet);
@@ -75,10 +69,7 @@ internal static class PrintData
             Console.WriteLine("Installable language : " + bios.GetInstallableLanguages);
             Console.WriteLine("Installation date : " + bios.GetInstallDate);
             Console.WriteLine("Language edition : " + bios.GetLanguageEdition);
-            foreach (var elt in bios.GetListOfLanguages)
-            {
-                Console.WriteLine("Installed languages : " + elt);
-            }
+            foreach (var elt in bios.GetListOfLanguages) Console.WriteLine("Installed languages : " + elt);
             Console.WriteLine("Manifacturer : " + bios.GetManufacturer);
             Console.WriteLine("Name : " + bios.GetName);
             Console.WriteLine("Others target os : " + bios.GetOtherTargetOS);
@@ -114,10 +105,7 @@ internal static class PrintData
 
     public static void PrintCerts(List<X509Cert> certList)
     {
-        if (certList is null)
-        {
-            return;
-        }
+        if (certList is null) return;
         foreach (var cert in certList)
         {
             Console.WriteLine(cert.GetIssuer);

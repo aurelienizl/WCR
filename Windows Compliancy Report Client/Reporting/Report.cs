@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Net;
+﻿using System.Net;
+using Newtonsoft.Json;
 
 namespace Windows_Compliancy_Report_Client;
 
@@ -33,13 +33,9 @@ internal class Report
     public List<Startup>? Startup { get; }
 
 
-
     public static void GenerateReport(Report report, string FileName)
     {
-        if (Dns.GetHostName() != null)
-        {
-            WriteToJsonFile(FileName, report);
-        }
+        if (Dns.GetHostName() != null) WriteToJsonFile(FileName, report);
     }
 
     public static void WriteToJsonFile<T>(string filePath, T objectToWrite, bool append = false)
@@ -56,10 +52,7 @@ internal class Report
         catch (Exception e)
         {
             Program.window?.Writeline("Report exception : \n" + e.Message, false);
-            if (writer != null)
-            {
-                writer.Close();
-            }
+            if (writer != null) writer.Close();
         }
     }
 }

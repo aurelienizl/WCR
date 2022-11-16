@@ -17,10 +17,7 @@ internal static class Cryptography
 
                 // Convert byte array to a string   
                 var builder = new StringBuilder();
-                for (var i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
+                for (var i = 0; i < bytes.Length; i++) builder.Append(bytes[i].ToString("x2"));
                 return builder.ToString();
             }
         }

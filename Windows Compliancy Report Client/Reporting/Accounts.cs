@@ -31,7 +31,7 @@ internal class Account
             var admGroup = localMachine.Children.Find("administrateurs", "group");
             var members = admGroup.Invoke("members", null);
             //Change "administrateurs" if you are using others windows languages versions (administrateurs = FR)
-            if(members is not null)
+            if (members is not null)
             {
                 foreach (var groupMember in members as IEnumerable)
                 {
@@ -49,9 +49,11 @@ internal class Account
                     );
                     accounts.Add(account);
                 }
+
                 return accounts;
             }
-            return null; 
+
+            return null;
         }
 
         catch (Exception e)

@@ -1,5 +1,4 @@
 ﻿using System.Management;
-using System.Threading;
 
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
 
@@ -111,7 +110,6 @@ internal class Win32_Product
 
             foreach (ManagementObject queryObj in searcher.Get())
             {
-
                 var win32_Products =
                     new Win32_Product(
                         (ushort)queryObj["AssignmentType"],

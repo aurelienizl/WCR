@@ -1,19 +1,14 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Windows_Compliancy_Report_Client
+namespace Windows_Compliancy_Report_Client;
+
+public class FileHeaders
 {
-    public class FileHeaders
-    {
-        [Required]
-        public string FileName { get; set; } = default!;
+    [Required] public string FileName { get; set; } = default!;
 
-        [Required]
-        public long Lenth { get; set; }
+    [Required] public long Lenth { get; set; }
 
-        public string Extension { get; set; } = default!;
+    public string Extension { get; set; } = default!;
 
-        [Required]
-        public string SecretKey { get; set; } = default!;
-    }
+    [Required] public string SecretKey { get; set; } = default!;
 }
