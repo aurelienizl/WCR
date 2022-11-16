@@ -18,6 +18,7 @@ namespace Windows_Compliancy_Report_Client
         [STAThread]
         static int Main()
         {
+
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             FileName = Dns.GetHostName() + ".json";
@@ -133,6 +134,7 @@ namespace Windows_Compliancy_Report_Client
         private static List<Win32_QuickFixEngineering>? win32_QFE { get; set; }
         private static List<Account>? accounts { get; set; }
         private static SystemInfo? sysinfo { get; set; }
+        private static List<Startup>? startups { get; set; }
         private static Thread? ReportingThread;
         public static void InitReportingTool()
         {
@@ -289,6 +291,20 @@ namespace Windows_Compliancy_Report_Client
                     }
                 }));
 
+                threads.Add(new Thread(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    startups = Startup.GetStartupApps();
+                    if (startups != null)
+                    {
+                        window?.Writeline("[INFO] Startup info check : OK !", false);
+                    }
+                    else
+                    {
+                        window?.Writeline("[ERROR] Startup info check : WARNING !", false);
+                    }
+                }));
+
 
                 foreach (var item in threads)
                 {
@@ -307,7 +323,8 @@ namespace Windows_Compliancy_Report_Client
                     X509CertList,
                     win32_QFE,
                     accounts,
-                    sysinfo
+                    sysinfo,
+                    startups
                 );
 
                 #pragma warning disable CS8604 // Existence possible d'un argument de référence null.

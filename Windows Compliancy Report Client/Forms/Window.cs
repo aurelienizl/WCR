@@ -84,7 +84,7 @@ namespace Windows_Compliancy_Report_Client
         private void resetForm()
         {
             this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width + 10, Screen.PrimaryScreen.Bounds.Height - this.Height - 40);
-            this.Size = new Size(275, 330);
+            this.Size = new Size(450, 600);
         }
 
         private void Window_FormClosing(object sender, FormClosingEventArgs e)

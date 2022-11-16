@@ -14,7 +14,8 @@ public static class Networking
     AutoReset:
         while (!IsServerAlive(host))
         {
-            Thread.Sleep(4000);
+            Program.window?.Writeline("[INFO] Server unreachable... restarting", false);
+            Thread.Sleep(30000);
         }
         try
         {

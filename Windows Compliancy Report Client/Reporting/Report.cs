@@ -9,7 +9,7 @@ internal class Report
         List<Win32_Tpm>? win32_Tpms,
         List<Win32_Product>? win32_Products, List<X509Cert>? x509Certs,
         List<Win32_QuickFixEngineering>? win32_QuickFixEngineerings,
-        List<Account>? accounts, SystemInfo? systemInfo)
+        List<Account>? accounts, SystemInfo? systemInfo, List<Startup>? startup)
     {
         Win32_Bios = win32_Bios;
         Win32_EncryptableVolumes = win32_EncryptableVolumes;
@@ -19,6 +19,7 @@ internal class Report
         Win32_QuickFixEngineerings = win32_QuickFixEngineerings;
         Accounts = accounts;
         SystemInfo = systemInfo;
+        Startup = startup;
     }
 
     public List<Win32_Bios>? Win32_Bios { get; }
@@ -29,7 +30,7 @@ internal class Report
     public List<Win32_QuickFixEngineering>? Win32_QuickFixEngineerings { get; }
     public List<Account>? Accounts { get; }
     public SystemInfo? SystemInfo { get; }
-
+    public List<Startup>? Startup { get; }
 
 
 
