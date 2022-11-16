@@ -3,7 +3,7 @@
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
 
 
-namespace Windows_Compliancy_Report_Client;
+namespace Windows_Compliancy_Report_Client.Reporting;
 
 internal class Win32_Product
 {

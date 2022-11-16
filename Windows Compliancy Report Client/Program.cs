@@ -1,5 +1,8 @@
 using System.Net;
 using System.Security.Principal;
+using Windows_Compliancy_Report_Client.Forms;
+using Windows_Compliancy_Report_Client.Network;
+using Windows_Compliancy_Report_Client.Reporting;
 
 namespace Windows_Compliancy_Report_Client;
 
@@ -8,10 +11,9 @@ internal static class Program
     /// <summary>
     ///     The main entry point for the application.
     /// </summary>
-    public static string Host = "10.209.242.60";
-
-    public static int Port = 443;
-    public static string? FileName;
+    private const string Host = "10.209.242.60";
+    private const int Port = 443;
+    private static string? FileName;
 
     public static Window? window;
 
@@ -21,9 +23,9 @@ internal static class Program
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
         FileName = Dns.GetHostName() + ".json";
-        if (!IsAdministrator() || FileName is null)
+        if (!IsAdministrator())
         {
-            MessageBox.Show("Program needs admin rights or Hostname not found");
+            MessageBox.Show(@"Run as admin or hostname not found");
             return 0;
         }
 
@@ -33,7 +35,7 @@ internal static class Program
         return 0;
     }
 
-    public static bool IsAdministrator()
+    private static bool IsAdministrator()
     {
         var identity = WindowsIdentity.GetCurrent();
         var principal = new WindowsPrincipal(identity);

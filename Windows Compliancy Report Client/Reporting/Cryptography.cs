@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Windows_Compliancy_Report_Client;
+namespace Windows_Compliancy_Report_Client.Reporting;
 
 internal static class Cryptography
 {

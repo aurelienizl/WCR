@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 
-namespace Windows_Compliancy_Report_Client;
+namespace Windows_Compliancy_Report_Client.Reporting;
 
 internal class X509Cert
 {

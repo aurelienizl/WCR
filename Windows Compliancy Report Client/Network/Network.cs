@@ -1,6 +1,8 @@
 ﻿using System.Net.NetworkInformation;
+using Windows_Compliancy_Report_Client.Network.Networking_sftp;
+using Windows_Compliancy_Report_Client.Network.Networking_tcpclient;
 
-namespace Windows_Compliancy_Report_Client;
+namespace Windows_Compliancy_Report_Client.Network;
 
 //Based on https://github.com/redmindsteam/share-bridge
 

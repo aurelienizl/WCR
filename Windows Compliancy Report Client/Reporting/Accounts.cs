@@ -5,7 +5,7 @@ using System.DirectoryServices;
 #pragma warning disable CS8602 // Déréférencement d'une éventuelle référence null. -> Issue fixed but compilator reports warning
 
 
-namespace Windows_Compliancy_Report_Client;
+namespace Windows_Compliancy_Report_Client.Reporting;
 
 internal class Account
 {

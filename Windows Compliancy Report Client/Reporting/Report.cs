@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using Newtonsoft.Json;
 
-namespace Windows_Compliancy_Report_Client;
+namespace Windows_Compliancy_Report_Client.Reporting;
 
 internal class Report
 {

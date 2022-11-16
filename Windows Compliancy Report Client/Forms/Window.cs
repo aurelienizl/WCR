@@ -1,4 +1,4 @@
-namespace Windows_Compliancy_Report_Client;
+namespace Windows_Compliancy_Report_Client.Forms;
 
 public partial class Window : Form
 {
@@ -12,10 +12,7 @@ public partial class Window : Form
     public void Writeline(string line, bool reset)
     {
         if (Program.window is null) return;
-        if (reset)
-        {
-            Invoke((Delegate)(() => { listBox1.Items.Clear(); }));
-        }
+        if (reset) Invoke((Delegate)(() => { listBox1.Items.Clear(); }));
         Invoke((Delegate)(() => { listBox1.Items.Add(line); }));
     }
 
@@ -70,7 +67,6 @@ public partial class Window : Form
         {
             Program.window?.Writeline("[INFO] Exit Thread already running !", false);
         }
-       
     }
 
     #endregion

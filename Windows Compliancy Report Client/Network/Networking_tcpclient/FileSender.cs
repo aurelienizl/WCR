@@ -2,7 +2,7 @@
 using System.Text;
 using Newtonsoft.Json;
 
-namespace Windows_Compliancy_Report_Client;
+namespace Windows_Compliancy_Report_Client.Network.Networking_tcpclient;
 
 public class FileSender : IStartable
 {
@@ -10,9 +10,8 @@ public class FileSender : IStartable
     private readonly FileService _fileService;
     private readonly string _host;
     private readonly int _port;
-    private FileStream _stream;
-
-    private TcpClient _tcpClient;
+    private FileStream? _stream;
+    private TcpClient? _tcpClient;
 
     public FileSender(string host, int port, string filepath)
     {
@@ -28,7 +27,6 @@ public class FileSender : IStartable
         {
             _stream = new FileStream(_filepath, FileMode.Open);
             var bufferSize = 1024;
-            byte[] buffer, header;
 
             var bufferCount = Convert.ToInt32(Math.Ceiling(_stream.Length / (double)bufferSize));
 
@@ -36,7 +34,7 @@ public class FileSender : IStartable
             _tcpClient.SendTimeout = 5000;
             _tcpClient.ReceiveTimeout = 5000;
 
-            header = new byte[bufferSize];
+            var header = new byte[bufferSize];
             var fileHeaders = _fileService.GetFileInfo(_filepath);
             var headerStr = JsonConvert.SerializeObject(fileHeaders);
 
@@ -46,7 +44,7 @@ public class FileSender : IStartable
 
             for (var i = 0; i < bufferCount; i++)
             {
-                buffer = new byte[bufferSize];
+                var buffer = new byte[bufferSize];
                 var size = _stream.Read(buffer, 0, bufferSize);
                 _tcpClient.Client.Send(buffer, size, SocketFlags.Partial);
             }
