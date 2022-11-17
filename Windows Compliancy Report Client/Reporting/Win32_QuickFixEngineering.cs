@@ -24,27 +24,27 @@ namespace Windows_Compliancy_Report_Client.Reporting
             GetServicePackInEffect = servicePackInEffect;
         }
 
-        public string GetCaption { get; }
+        public string? GetCaption { get; }
 
-        public string GetDescription { get; }
+        public string? GetDescription { get; }
 
-        public string GetInstallDate { get; }
+        public string? GetInstallDate { get; }
 
-        public string GetName { get; }
+        public string? GetName { get; }
 
-        public string GetStatus { get; }
+        public string? GetStatus { get; }
 
-        public string GetCSName { get; }
+        public string? GetCSName { get; }
 
-        public string GetFixComments { get; }
+        public string? GetFixComments { get; }
 
-        public string GetHotFixID { get; }
+        public string? GetHotFixID { get; }
 
-        public string GetInstalledBy { get; }
+        public string? GetInstalledBy { get; }
 
-        public string GetInstalledOn { get; }
+        public string? GetInstalledOn { get; }
 
-        public string GetServicePackInEffect { get; }
+        public string? GetServicePackInEffect { get; }
 
         public static List<Win32_QuickFixEngineering>? GetQuickFixEngineering()
         {

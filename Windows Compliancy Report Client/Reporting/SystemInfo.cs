@@ -27,25 +27,25 @@ internal class SystemInfo
         GetHardwareID = hardwareID;
     }
 
-    public string GetOsVersion { get; }
+    public string? GetOsVersion { get; }
 
-    public string GetBiosManufacturer { get; }
+    public string? GetBiosManufacturer { get; }
 
-    public string GetMainboardName { get; }
+    public string? GetMainboardName { get; }
 
-    public string GetCpuName { get; }
+    public string? GetCpuName { get; }
 
-    public int GetTotalPhysicalMemoryInMb { get; }
+    public int? GetTotalPhysicalMemoryInMb { get; }
 
-    public string GetGpuName { get; }
+    public string? GetGpuName { get; }
 
-    public string GetLanIpAddress { get; }
+    public string? GetLanIpAddress { get; }
 
-    public string GetMacAddress { get; }
+    public string? GetMacAddress { get; }
 
-    public string GetTimeDate { get; }
+    public string? GetTimeDate { get; }
 
-    public string GetHardwareID { get; }
+    public string? GetHardwareID { get; }
 
     public static SystemInfo? GetSystemInfo()
     {

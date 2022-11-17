@@ -123,15 +123,15 @@ internal static class Program
 
     #region Report
 
-    private static List<Win32_Bios>? bios { get; set; }
+    private static List<Win32_Bios>? Bios { get; set; }
     private static List<Win32_EncryptableVolume>? win32_EncryptableVolumes { get; set; }
-    private static List<Win32_Tpm>? win32_Tpm { get; set; }
-    private static List<Win32_Product>? win32_Products { get; set; }
+    private static List<Win32_Tpm>? Win32_Tpm { get; set; }
+    private static List<Win32_Product>? Win32_Products { get; set; }
     private static List<X509Cert>? X509CertList { get; set; }
-    private static List<Win32_QuickFixEngineering>? win32_QFE { get; set; }
-    private static List<Account>? accounts { get; set; }
-    private static SystemInfo? sysinfo { get; set; }
-    private static List<Startup>? startups { get; set; }
+    private static List<Win32_QuickFixEngineering>? Win32_QFE { get; set; }
+    private static List<Account>? Accounts { get; set; }
+    private static SystemInfo? Sysinfo { get; set; }
+    private static List<Startup>? Startups { get; set; }
     private static Thread? ReportingThread;
 
     public static void InitReportingTool()
@@ -173,8 +173,8 @@ internal static class Program
             threads.Add(new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                bios = Win32_Bios.GetBios();
-                if (bios != null)
+                Bios = Win32_Bios.GetBios();
+                if (Bios != null)
                     window?.Writeline("[INFO] Bios check : OK !", false);
                 else
                     window?.Writeline("[ERROR] Bios check : WARNING !", false);
@@ -194,8 +194,8 @@ internal static class Program
             threads.Add(new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                win32_Tpm = Win32_Tpm.GetTpm();
-                if (win32_Tpm != null)
+                Win32_Tpm = Reporting.Win32_Tpm.GetTpm();
+                if (Win32_Tpm != null)
                     window?.Writeline("[INFO] Tpm check : OK !", false);
                 else
                     window?.Writeline("[ERROR] Tpm check : WARNING !", false);
@@ -204,8 +204,8 @@ internal static class Program
             threads.Add(new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                win32_Products = Win32_Product.GetProducts();
-                if (win32_Products != null)
+                Win32_Products = Win32_Product.GetProducts();
+                if (Win32_Products != null)
                     window?.Writeline("[INFO] Softwares check : OK !", false);
                 else
                     window?.Writeline("[ERROR] Softwares check : WARNING !", false);
@@ -225,9 +225,9 @@ internal static class Program
             threads.Add(new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                win32_QFE = Win32_QuickFixEngineering.GetQuickFixEngineering();
+                Win32_QFE = Win32_QuickFixEngineering.GetQuickFixEngineering();
 
-                if (win32_QFE != null)
+                if (Win32_QFE != null)
                     window?.Writeline("[INFO] Updates check : OK !", false);
                 else
                     window?.Writeline("[ERROR] Updates check : WARNING !", false);
@@ -236,9 +236,9 @@ internal static class Program
             threads.Add(new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                accounts = Account.GetLocalUsers();
+                Accounts = Account.GetLocalUsers();
 
-                if (accounts != null)
+                if (Accounts != null)
                     window?.Writeline("[INFO] Admins check : OK !", false);
                 else
                     window?.Writeline("[ERROR] Admins check : WARNING !", false);
@@ -247,8 +247,8 @@ internal static class Program
             threads.Add(new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                sysinfo = SystemInfo.GetSystemInfo();
-                if (sysinfo != null)
+                Sysinfo = SystemInfo.GetSystemInfo();
+                if (Sysinfo != null)
                     window?.Writeline("[INFO] System info check : OK !", false);
                 else
                     window?.Writeline("[ERROR] System info check : WARNING !", false);
@@ -257,8 +257,8 @@ internal static class Program
             threads.Add(new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                startups = Startup.GetStartupApps();
-                if (startups != null)
+                Startups = Startup.GetStartupApps();
+                if (Startups != null)
                     window?.Writeline("[INFO] Startup info check : OK !", false);
                 else
                     window?.Writeline("[ERROR] Startup info check : WARNING !", false);
@@ -269,20 +269,20 @@ internal static class Program
             foreach (var item in threads) item.Join();
 
             var report = new Report(
-                bios,
+                Bios,
                 win32_EncryptableVolumes,
-                win32_Tpm,
-                win32_Products,
+                Win32_Tpm,
+                Win32_Products,
                 X509CertList,
-                win32_QFE,
-                accounts,
-                sysinfo,
-                startups
+                Win32_QFE,
+                Accounts,
+                Sysinfo,
+                Startups
             );
 
-#pragma warning disable CS8604 // Existence possible d'un argument de r�f�rence null.
+#pragma warning disable CS8604 
             Report.GenerateReport(report, FileName);
-#pragma warning restore CS8604 // Existence possible d'un argument de r�f�rence null.
+#pragma warning restore CS8604
 
             window?.Writeline("[INFO] Reporting job finished !", false);
         });

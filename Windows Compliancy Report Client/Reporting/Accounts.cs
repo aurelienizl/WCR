@@ -16,11 +16,11 @@ internal class Account
         GetGuid = guid;
     }
 
-    public string GetName { get; }
+    public string? GetName { get; }
 
-    public string GetAuthenticationType { get; }
+    public string? GetAuthenticationType { get; }
 
-    public string GetGuid { get; }
+    public string? GetGuid { get; }
 
     public static List<Account>? GetLocalUsers()
     {

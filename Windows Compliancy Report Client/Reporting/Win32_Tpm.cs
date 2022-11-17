@@ -20,11 +20,11 @@ internal class Win32_Tpm
         GetPhysicalPresenceVersionInfo = physicalPresenceVersionInfo;
     }
 
-    public bool GetIsActivated_InitialValue { get; }
+    public bool? GetIsActivated_InitialValue { get; }
 
-    public bool GetIsEnabled_InitialValue { get; }
+    public bool? GetIsEnabled_InitialValue { get; }
 
-    public bool GetIsOwned_InitialValue { get; }
+    public bool? GetIsOwned_InitialValue { get; }
 
     public string? GetSpecVersion { get; }
 
@@ -32,7 +32,7 @@ internal class Win32_Tpm
 
     public string? GetManufacturerVersionInfo { get; }
 
-    public uint GetManufacturerId { get; }
+    public uint? GetManufacturerId { get; }
 
     public string? GetPhysicalPresenceVersionInfo { get; }
 

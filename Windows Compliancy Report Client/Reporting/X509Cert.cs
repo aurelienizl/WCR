@@ -11,11 +11,11 @@ internal class X509Cert
         GetExpirationDate = expirationDate;
     }
 
-    public string GetIssuer { get; }
+    public string? GetIssuer { get; }
 
-    public string GetSubject { get; }
+    public string? GetSubject { get; }
 
-    public string GetExpirationDate { get; }
+    public string? GetExpirationDate { get; }
 
     public static List<X509Cert>? GetX509Cert()
     {

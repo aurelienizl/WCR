@@ -46,57 +46,57 @@ internal class Win32_Product
         GetVersion = version;
     }
 
-    public ushort GetAssignmentType { get; }
+    public ushort? GetAssignmentType { get; }
 
-    public string GetCaption { get; }
+    public string? GetCaption { get; }
 
-    public string GetDescription { get; }
+    public string? GetDescription { get; }
 
-    public string GetIdentifyingNumber { get; }
+    public string? GetIdentifyingNumber { get; }
 
-    public string GetInstallDate { get; }
+    public string? GetInstallDate { get; }
 
-    public string GetInstallDate2 { get; }
+    public string? GetInstallDate2 { get; }
 
-    public string GetInstallLocation { get; }
+    public string? GetInstallLocation { get; }
 
-    public short GetInstallState { get; }
+    public short? GetInstallState { get; }
 
-    public string GetHelpLink { get; }
+    public string? GetHelpLink { get; }
+        
+    public string? GetHelpTelephone { get; }
 
-    public string GetHelpTelephone { get; }
+    public string? GetInstallSource { get; }
 
-    public string GetInstallSource { get; }
+    public string? GetLanguage { get; }
 
-    public string GetLanguage { get; }
+    public string? GetLocalPackage { get; }
 
-    public string GetLocalPackage { get; }
+    public string? GetName { get; }
 
-    public string GetName { get; }
+    public string? GetPackageCache { get; }
 
-    public string GetPackageCache { get; }
+    public string? GetPackageCode { get; }
 
-    public string GetPackageCode { get; }
+    public string? GetPackageName { get; }
 
-    public string GetPackageName { get; }
+    public string? GetProductID { get; }
 
-    public string GetProductID { get; }
+    public string? GetRegOwner { get; }
 
-    public string GetRegOwner { get; }
+    public string? GetRegCompany { get; }
 
-    public string GetRegCompany { get; }
+    public string? GetSKUNumber { get; }
 
-    public string GetSKUNumber { get; }
+    public string? GetTransforms { get; }
 
-    public string GetTransforms { get; }
+    public string? GetURLInfoAbout { get; }
 
-    public string GetURLInfoAbout { get; }
+    public string? GetURLUpdateInfo { get; }
 
-    public string GetURLUpdateInfo { get; }
+    public string? GetVendor { get; }
 
-    public string GetVendor { get; }
-
-    public string GetVersion { get; }
+    public string? GetVersion { get; }
 
     public static List<Win32_Product>? GetProducts()
     {

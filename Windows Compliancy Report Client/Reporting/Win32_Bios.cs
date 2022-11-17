@@ -52,67 +52,67 @@ internal class Win32_Bios
         GetVersion = version;
     }
 
-    public ushort[] GetBiosCharacteristics { get; }
+    public ushort[]? GetBiosCharacteristics { get; }
 
-    public string[] GetBIOSVersion { get; }
+    public string[]? GetBIOSVersion { get; }
 
-    public string GetBuildNumber { get; }
+    public string? GetBuildNumber { get; }
 
-    public string GetCaption { get; }
+    public string? GetCaption { get; }
 
     public string GetCodeSet { get; }
 
-    public string GetCurrentLanguage { get; }
+    public string? GetCurrentLanguage { get; }
 
-    public string GetDescription { get; }
+    public string? GetDescription { get; }
 
-    public byte GetEmbeddedControllerMajorVersion { get; }
+    public byte? GetEmbeddedControllerMajorVersion { get; }
 
-    public byte GetEmbeddedControllerMinorVersion { get; }
+    public byte? GetEmbeddedControllerMinorVersion { get; }
 
-    public string GetIdentificationCode { get; }
+    public string? GetIdentificationCode { get; }
 
-    public ushort GetInstallableLanguages { get; }
+    public ushort? GetInstallableLanguages { get; }
 
-    public string GetInstallDate { get; }
+    public string? GetInstallDate { get; }
 
-    public string GetLanguageEdition { get; }
+    public string? GetLanguageEdition { get; }
 
-    public string[] GetListOfLanguages { get; }
+    public string[]? GetListOfLanguages { get; }
 
-    public string GetManufacturer { get; }
+    public string? GetManufacturer { get; }
 
-    public string GetName { get; }
+    public string? GetName { get; }
 
-    public string GetOtherTargetOS { get; }
+    public string? GetOtherTargetOS { get; }
 
-    public bool GetPrimaryBIOS { get; }
+    public bool? GetPrimaryBIOS { get; }
 
-    public string GetReleaseDate { get; }
+    public string? GetReleaseDate { get; }
 
-    public string GetSerialNumber { get; }
+    public string? GetSerialNumber { get; }
 
-    public string GetSMBIOSBIOSVersion { get; }
+    public string? GetSMBIOSBIOSVersion { get; }
 
-    public ushort GetSMBIOSMajorVersion { get; }
+    public ushort? GetSMBIOSMajorVersion { get; }
 
-    public ushort GetSMBIOSMinorVersion { get; }
+    public ushort? GetSMBIOSMinorVersion { get; }
 
-    public bool GetSMBIOSPresent { get; }
+    public bool? GetSMBIOSPresent { get; }
 
-    public string GetSoftwareElementID { get; }
+    public string? GetSoftwareElementID { get; }
 
-    public ushort GetSoftwareElementState { get; }
+    public ushort? GetSoftwareElementState { get; }
 
-    public string GetStatus { get; }
+    public string? GetStatus { get; }
 
-    public byte GetSystemBiosMajorVersion { get; }
+    public byte? GetSystemBiosMajorVersion { get; }
 
-    public byte GetSystemBiosMinorVersion { get; }
+    public byte? GetSystemBiosMinorVersion { get; }
 
-    public ushort GetTargetOperatingSystem { get; }
+    public ushort? GetTargetOperatingSystem { get; }
 
-    public string GetVersion { get; }
+    public string? GetVersion { get; }
 
     public static List<Win32_Bios>? GetBios()
     {
