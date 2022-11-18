@@ -8,20 +8,20 @@ namespace Windows_Compliancy_Report_Client;
 
 internal static class Program
 {
-    /// <summary>
-    ///     The main entry point for the application.
-    /// </summary>
+    //<params> Hardcoded parameters
+
     private const string Host = "10.209.242.60";
     private const int Port = 443;
     private static string? FileName;
+
+    //</params>
 
     public static Window? window;
 
     [STAThread]
     private static int Main()
     {
-        // To customize application configuration such as set high DPI settings or default font,
-        // see https://aka.ms/applicationconfiguration.
+        
         FileName = Dns.GetHostName() + ".json";
         if (!IsAdministrator())
         {
@@ -35,6 +35,8 @@ internal static class Program
         return 0;
     }
 
+
+    //Check if program is properly launched
     private static bool IsAdministrator()
     {
         var identity = WindowsIdentity.GetCurrent();
@@ -42,6 +44,7 @@ internal static class Program
         return principal.IsInRole(WindowsBuiltInRole.Administrator);
     }
 
+    //Called when user press button exit
     public static void ExitApp()
     {
         if (NetworkThread is not null)
@@ -63,6 +66,7 @@ internal static class Program
         window?.Writeline("[INFO] Closing app... Have a nice day !", false);
     }
 
+    //Automatic startup sequence
     public static void Automatic_Launch()
     {
         new Thread(() =>
