@@ -2,14 +2,14 @@
 
 namespace Windows_Server_Dashboard.Reports;
 
-internal class Startup
+internal class Win32_Startup
 {
-    public Startup(string? name)
+    public Win32_Startup(string? name)
     {
         Name = name;
     }
 
-    public string? Name { get; }
+    public string? Name { get; set; }
 
-    
+
 }

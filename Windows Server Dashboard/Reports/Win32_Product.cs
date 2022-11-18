@@ -41,55 +41,55 @@ internal class Win32_Product
         GetVersion = version;
     }
 
-    public ushort? GetAssignmentType { get; }
+    public ushort? GetAssignmentType { get; set; }
 
-    public string? GetCaption { get; }
+    public string? GetCaption { get; set; }
 
-    public string? GetDescription { get; }
+    public string? GetDescription { get; set; }
 
-    public string? GetIdentifyingNumber { get; }
+    public string? GetIdentifyingNumber { get; set; }
 
-    public string? GetInstallDate { get; }
+    public string? GetInstallDate { get; set; }
 
-    public string? GetInstallDate2 { get; }
+    public string? GetInstallDate2 { get; set; }
 
-    public string? GetInstallLocation { get; }
+    public string? GetInstallLocation { get; set; }
 
-    public short? GetInstallState { get; }
+    public short? GetInstallState { get; set; }
 
-    public string? GetHelpLink { get; }
-        
-    public string? GetHelpTelephone { get; }
+    public string? GetHelpLink { get; set; }
 
-    public string? GetInstallSource { get; }
+    public string? GetHelpTelephone { get; set; }
 
-    public string? GetLanguage { get; }
+    public string? GetInstallSource { get; set; }
 
-    public string? GetLocalPackage { get; }
+    public string? GetLanguage { get; set; }
 
-    public string? GetName { get; }
+    public string? GetLocalPackage{ get; set; }
 
-    public string? GetPackageCache { get; }
+    public string? GetName { get; set; }
 
-    public string? GetPackageCode { get; }
+    public string? GetPackageCache { get; set; }
 
-    public string? GetPackageName { get; }
+    public string? GetPackageCode { get; set; }
 
-    public string? GetProductID { get; }
+    public string? GetPackageName { get; set; }
 
-    public string? GetRegOwner { get; }
+    public string? GetProductID { get; set; }
 
-    public string? GetRegCompany { get; }
+    public string? GetRegOwner { get; set; }
 
-    public string? GetSKUNumber { get; }
+    public string? GetRegCompany { get; set; }
 
-    public string? GetTransforms { get; }
+    public string? GetSKUNumber { get; set; }
 
-    public string? GetURLInfoAbout { get; }
+    public string? GetTransforms { get; set; }
 
-    public string? GetURLUpdateInfo { get; }
+    public string? GetURLInfoAbout { get; set; }
 
-    public string? GetVendor { get; }
+    public string? GetURLUpdateInfo { get; set; }
 
-    public string? GetVersion { get; }
+    public string? GetVendor { get; set; }
+
+    public string? GetVersion { get; set; }
 }

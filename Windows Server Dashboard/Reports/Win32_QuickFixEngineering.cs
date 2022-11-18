@@ -21,29 +21,29 @@ namespace Windows_Server_Dashboard.Reports
             GetServicePackInEffect = servicePackInEffect;
         }
 
-        public string? GetCaption { get; }
+        public string? GetCaption { get; set; }
 
-        public string? GetDescription { get; }
+        public string? GetDescription { get; set; }
 
-        public string? GetInstallDate { get; }
+        public string? GetInstallDate { get; set; }
 
-        public string? GetName { get; }
+        public string? GetName { get; set; }
 
-        public string? GetStatus { get; }
+        public string? GetStatus { get; set; }
 
-        public string? GetCSName { get; }
+        public string? GetCSName { get; set; }
 
-        public string? GetFixComments { get; }
+        public string? GetFixComments { get; set; }
 
-        public string? GetHotFixID { get; }
+        public string? GetHotFixID { get; set; }
 
-        public string? GetInstalledBy { get; }
+        public string? GetInstalledBy { get; set; }
 
-        public string? GetInstalledOn { get; }
+        public string? GetInstalledOn { get; set; }
 
-        public string? GetServicePackInEffect { get; }
+        public string? GetServicePackInEffect { get; set; }
 
-       
-        
+
+
     }
 }

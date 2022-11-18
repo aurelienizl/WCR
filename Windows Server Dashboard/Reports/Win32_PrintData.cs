@@ -1,6 +1,6 @@
 ﻿namespace Windows_Server_Dashboard.Reports
 {
-    internal static class PrintData
+    internal static class Win32_PrintData
     {
         public static void PrintTpm(List<Win32_Tpm> win32_tpmList)
         {
@@ -103,7 +103,7 @@
             }
         }
 
-        public static void PrintCerts(List<X509Cert> certList)
+        public static void PrintCerts(List<Win32_X509Cert> certList)
         {
             if (certList is null) return;
             foreach (var cert in certList)
@@ -134,7 +134,7 @@
             }
         }
 
-        public static void PrintAccounts(List<Account> accounts)
+        public static void PrintAccounts(List<Win32_Accounts> accounts)
         {
             foreach (var account in accounts)
             {
@@ -145,7 +145,7 @@
             }
         }
 
-        public static void PrintSystemInfo(SystemInfo systemInfo)
+        public static void PrintSystemInfo(Win32_SystemInfo systemInfo)
         {
             Console.WriteLine("System version : " + systemInfo.GetOsVersion);
             Console.WriteLine("Bios manufacturer : " + systemInfo.GetBiosManufacturer);

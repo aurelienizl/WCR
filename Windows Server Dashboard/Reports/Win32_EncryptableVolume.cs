@@ -12,13 +12,13 @@ internal class Win32_EncryptableVolume
         GetProtectionStatus = protectionStatus;
     }
 
-    public string? GetDeviceID { get; }
+    public string? GetDeviceID { get; set; }
 
-    public string? GetPersistentVolumeID { get; }
+    public string? GetPersistentVolumeID { get; set; }
 
-    public string? GetDriveLetter { get; }
+    public string? GetDriveLetter { get; set; }
 
-    public uint? GetProtectionStatus { get; }
+    public uint? GetProtectionStatus { get; set; }
 
-   
+
 }

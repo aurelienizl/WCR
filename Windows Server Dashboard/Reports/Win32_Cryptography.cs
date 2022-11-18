@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Windows_Server_Dashboard.Reports;
 
-internal static class Cryptography
+internal static class Win32_Cryptography
 {
     public static class Sha265
     {
