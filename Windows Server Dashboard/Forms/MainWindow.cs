@@ -11,7 +11,7 @@ namespace Windows_Server_Dashboard
         public MainWindow()
         {
             InitializeComponent();
-            SetupUI();
+            //SetupUI();
         }
 
         private void SetupUI()
