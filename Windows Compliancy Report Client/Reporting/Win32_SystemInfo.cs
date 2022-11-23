@@ -9,9 +9,9 @@ using System.Text.RegularExpressions;
 
 namespace Windows_Compliancy_Report_Client.Reporting;
 
-internal class SystemInfo
+internal class Win32_SystemInfo
 {
-    public SystemInfo(string osVersion, string biosManufacturer, string mainboardName, string cpuName,
+    public Win32_SystemInfo(string osVersion, string biosManufacturer, string mainboardName, string cpuName,
         int totalPhysicalMemoryInMb, string gpuName, string lanIpAddress,
         string macAddress, string timeDate, string hardwareID)
     {
@@ -47,11 +47,11 @@ internal class SystemInfo
 
     public string? GetHardwareID { get; }
 
-    public static SystemInfo? GetSystemInfo()
+    public static Win32_SystemInfo? GetSystemInfo()
     {
         try
         {
-            return new SystemInfo(
+            return new Win32_SystemInfo(
                 GetOsVersion_(),
                 GetBiosManufacturer_(),
                 GetMainboardName_(),

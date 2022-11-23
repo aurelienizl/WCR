@@ -131,11 +131,11 @@ internal static class Program
     private static List<Win32_EncryptableVolume>? win32_EncryptableVolumes { get; set; }
     private static List<Win32_Tpm>? Win32_Tpm { get; set; }
     private static List<Win32_Product>? Win32_Products { get; set; }
-    private static List<X509Cert>? X509CertList { get; set; }
+    private static List<Win32_X509Cert>? X509CertList { get; set; }
     private static List<Win32_QuickFixEngineering>? Win32_QFE { get; set; }
     private static List<Account>? Accounts { get; set; }
-    private static SystemInfo? Sysinfo { get; set; }
-    private static List<Startup>? Startups { get; set; }
+    private static Win32_SystemInfo? Sysinfo { get; set; }
+    private static List<Win32_Startup>? Startups { get; set; }
     private static Thread? ReportingThread;
 
     public static void InitReportingTool()
@@ -218,7 +218,7 @@ internal static class Program
             threads.Add(new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                X509CertList = X509Cert.GetX509Cert();
+                X509CertList = Win32_X509Cert.GetX509Cert();
 
                 if (X509CertList != null)
                     window?.Writeline("[INFO] Certificates check : OK !", false);
@@ -251,7 +251,7 @@ internal static class Program
             threads.Add(new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                Sysinfo = SystemInfo.GetSystemInfo();
+                Sysinfo = Win32_SystemInfo.GetSystemInfo();
                 if (Sysinfo != null)
                     window?.Writeline("[INFO] System info check : OK !", false);
                 else
@@ -261,7 +261,7 @@ internal static class Program
             threads.Add(new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                Startups = Startup.GetStartupApps();
+                Startups = Win32_Startup.GetStartupApps();
                 if (Startups != null)
                     window?.Writeline("[INFO] Startup info check : OK !", false);
                 else
@@ -272,7 +272,7 @@ internal static class Program
             foreach (var item in threads) item.Start();
             foreach (var item in threads) item.Join();
 
-            var report = new Report(
+            var report = new Win32_Report(
                 Bios,
                 win32_EncryptableVolumes,
                 Win32_Tpm,
@@ -285,7 +285,7 @@ internal static class Program
             );
 
 #pragma warning disable CS8604 
-            Report.GenerateReport(report, FileName);
+            Win32_Report.GenerateReport(report, FileName);
 #pragma warning restore CS8604
 
             window?.Writeline("[INFO] Reporting job finished !", false);

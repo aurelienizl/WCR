@@ -2,9 +2,9 @@
 
 namespace Windows_Compliancy_Report_Client.Reporting;
 
-internal class X509Cert
+internal class Win32_X509Cert
 {
-    public X509Cert(string issuer, string subject, string expirationDate)
+    public Win32_X509Cert(string issuer, string subject, string expirationDate)
     {
         GetIssuer = issuer;
         GetSubject = subject;
@@ -17,18 +17,18 @@ internal class X509Cert
 
     public string? GetExpirationDate { get; }
 
-    public static List<X509Cert>? GetX509Cert()
+    public static List<Win32_X509Cert>? GetX509Cert()
     {
         try
         {
             var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
             store.Open(OpenFlags.ReadOnly);
 
-            var list = new List<X509Cert>();
+            var list = new List<Win32_X509Cert>();
 
             foreach (var certificate in store.Certificates)
                 list.Add(
-                    new X509Cert(
+                    new Win32_X509Cert(
                         !string.IsNullOrEmpty(certificate.Issuer)
                             ? certificate.Issuer
                             : "N/A",

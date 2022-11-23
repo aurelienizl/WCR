@@ -27,9 +27,9 @@ public partial class Window : Form
 
     private void Window_Shown(object sender, EventArgs e)
     {
+        Hide();
         resetForm();
         notifyIcon.Visible = true;
-        Hide();
     }
 
     #endregion
@@ -58,6 +58,7 @@ public partial class Window : Form
             {
                 Program.ExitApp();
                 Thread.Sleep(2000);
+                notifyIcon.Visible = false; 
                 Application.Exit();
                 Environment.Exit(0);
             });

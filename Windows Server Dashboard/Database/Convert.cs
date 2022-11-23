@@ -29,8 +29,10 @@ namespace Windows_Server_Dashboard.Database
             dataTable.TableName = "Accounts";
             foreach (var prop in accounts[0].GetType().GetProperties())
             {
-                DataColumn column = new DataColumn(prop.Name.Substring(3), typeof(string));
-                dataTable.Columns.Add(column);
+                DataColumn column = new DataColumn(filename, typeof(string));
+
+                DataColumn tmp = new DataColumn(prop.Name.Substring(3), typeof(string));
+                dataTable.Columns.Add(tmp);
             }
             foreach (var account in accounts)
             {
@@ -43,47 +45,51 @@ namespace Windows_Server_Dashboard.Database
         {
             DataTable dataTable = new DataTable();
             dataTable.TableName = "Bios";
-            foreach (var prop in bios[0].GetType().GetProperties())
+            if(bios.Count > 0)
             {
-                DataColumn column = new DataColumn(prop.Name.Substring(3), typeof(string));
-                dataTable.Columns.Add(column);
+                foreach (var prop in bios[0].GetType().GetProperties())
+                {
+                    DataColumn column = new DataColumn(prop.Name.Substring(3), typeof(string));
+                    dataTable.Columns.Add(column);
+                }
+                foreach (var tmp in bios)
+                {
+                    dataTable.Rows.Add(
+                        String.Join(", ", tmp.GetBiosCharacteristics!.ToArray()),
+                        String.Join(", ", tmp.GetBIOSVersion!.ToArray()),
+                        tmp.GetBuildNumber,
+                        tmp.GetCaption,
+                        tmp.GetCodeSet,
+                        tmp.GetCurrentLanguage,
+                        tmp.GetDescription,
+                        tmp.GetEmbeddedControllerMajorVersion,
+                        tmp.GetEmbeddedControllerMinorVersion,
+                        tmp.GetIdentificationCode,
+                        tmp.GetInstallableLanguages,
+                        tmp.GetInstallDate,
+                        tmp.GetLanguageEdition,
+                        String.Join(", ", tmp.GetListOfLanguages!.ToArray()),
+                        tmp.GetManufacturer,
+                        tmp.GetName,
+                        tmp.GetOtherTargetOS,
+                        tmp.GetPrimaryBIOS,
+                        tmp.GetReleaseDate,
+                        tmp.GetSerialNumber,
+                        tmp.GetSMBIOSBIOSVersion,
+                        tmp.GetSMBIOSMajorVersion,
+                        tmp.GetSMBIOSMinorVersion,
+                        tmp.GetSMBIOSPresent,
+                        tmp.GetSoftwareElementID,
+                        tmp.GetSoftwareElementState,
+                        tmp.GetStatus,
+                        tmp.GetSystemBiosMajorVersion,
+                        tmp.GetSystemBiosMinorVersion,
+                        tmp.GetTargetOperatingSystem,
+                        tmp.GetVersion
+                        );
+                }
             }
-            foreach (var tmp in bios)
-            {
-                dataTable.Rows.Add(
-                    String.Join(", ", tmp.GetBiosCharacteristics!.ToArray()),
-                    String.Join(", ", tmp.GetBIOSVersion!.ToArray()),
-                    tmp.GetBuildNumber,
-                    tmp.GetCaption,
-                    tmp.GetCodeSet,
-                    tmp.GetCurrentLanguage,
-                    tmp.GetDescription,
-                    tmp.GetEmbeddedControllerMajorVersion,
-                    tmp.GetEmbeddedControllerMinorVersion,
-                    tmp.GetIdentificationCode,
-                    tmp.GetInstallableLanguages,
-                    tmp.GetInstallDate,
-                    tmp.GetLanguageEdition,
-                    String.Join(", ", tmp.GetListOfLanguages!.ToArray()),
-                    tmp.GetManufacturer,
-                    tmp.GetName,
-                    tmp.GetOtherTargetOS,
-                    tmp.GetPrimaryBIOS,
-                    tmp.GetReleaseDate,
-                    tmp.GetSerialNumber,
-                    tmp.GetSMBIOSBIOSVersion,
-                    tmp.GetSMBIOSMajorVersion,
-                    tmp.GetSMBIOSMinorVersion,
-                    tmp.GetSMBIOSPresent,
-                    tmp.GetSoftwareElementID,
-                    tmp.GetSoftwareElementState,
-                    tmp.GetStatus,
-                    tmp.GetSystemBiosMajorVersion,
-                    tmp.GetSystemBiosMinorVersion,
-                    tmp.GetTargetOperatingSystem,
-                    tmp.GetVersion
-                    );
-            }
+            
             dataTable.WriteXml(path + @"bios\" + filename + ".xml");
         }
 
@@ -113,71 +119,77 @@ namespace Windows_Server_Dashboard.Database
         {
             DataTable dataTable = new DataTable();
             dataTable.TableName = "Products";
-            foreach (var prop in products[0].GetType().GetProperties())
+            if (products.Count > 0)
             {
-                DataColumn column = new DataColumn(prop.Name.Substring(3), typeof(string));
-                dataTable.Columns.Add(column);
-            }
-            foreach (var tmp in products)
-            {
-                dataTable.Rows.Add(
-                    tmp.GetAssignmentType,
-                    tmp.GetCaption,
-                    tmp.GetDescription,
-                    tmp.GetIdentifyingNumber,
-                    tmp.GetInstallDate,
-                    tmp.GetInstallDate2,
-                    tmp.GetInstallLocation,
-                    tmp.GetInstallState,
-                    tmp.GetHelpLink,
-                    tmp.GetHelpTelephone,
-                    tmp.GetInstallSource,
-                    tmp.GetLanguage,
-                    tmp.GetLocalPackage,
-                    tmp.GetName,
-                    tmp.GetPackageCache,
-                    tmp.GetPackageCode,
-                    tmp.GetPackageName,
-                    tmp.GetProductID,
-                    tmp.GetRegOwner,
-                    tmp.GetRegCompany,
-                    tmp.GetSKUNumber,
-                    tmp.GetTransforms,
-                    tmp.GetURLInfoAbout,
-                    tmp.GetURLUpdateInfo,
-                    tmp.GetVendor,
-                    tmp.GetVersion
-                    );
-            }
+                foreach (var prop in products[0].GetType().GetProperties())
+                {
+                    DataColumn column = new DataColumn(prop.Name.Substring(3), typeof(string));
+                    dataTable.Columns.Add(column);
+                }
+                foreach (var tmp in products)
+                {
+                    dataTable.Rows.Add(
+                        tmp.GetAssignmentType,
+                        tmp.GetCaption,
+                        tmp.GetDescription,
+                        tmp.GetIdentifyingNumber,
+                        tmp.GetInstallDate,
+                        tmp.GetInstallDate2,
+                        tmp.GetInstallLocation,
+                        tmp.GetInstallState,
+                        tmp.GetHelpLink,
+                        tmp.GetHelpTelephone,
+                        tmp.GetInstallSource,
+                        tmp.GetLanguage,
+                        tmp.GetLocalPackage,
+                        tmp.GetName,
+                        tmp.GetPackageCache,
+                        tmp.GetPackageCode,
+                        tmp.GetPackageName,
+                        tmp.GetProductID,
+                        tmp.GetRegOwner,
+                        tmp.GetRegCompany,
+                        tmp.GetSKUNumber,
+                        tmp.GetTransforms,
+                        tmp.GetURLInfoAbout,
+                        tmp.GetURLUpdateInfo,
+                        tmp.GetVendor,
+                        tmp.GetVersion
+                        );
+                }
+            }         
             dataTable.WriteXml(path + @"products\" + filename + ".xml");
-
         }
 
         public static void ExportQFE(List<Win32_QuickFixEngineering> win32_QuickFixEngineering, string path, string filename)
         {
             DataTable dataTable = new DataTable();
             dataTable.TableName = "qfe";
-            foreach (var prop in win32_QuickFixEngineering[0].GetType().GetProperties())
+            if (win32_QuickFixEngineering.Count > 0 )
             {
-                DataColumn column = new DataColumn(prop.Name.Substring(3), typeof(string));
-                dataTable.Columns.Add(column);
+                foreach (var prop in win32_QuickFixEngineering[0].GetType().GetProperties())
+                {
+                    DataColumn column = new DataColumn(prop.Name.Substring(3), typeof(string));
+                    dataTable.Columns.Add(column);
+                }
+                foreach (var tmp in win32_QuickFixEngineering)
+                {
+                    dataTable.Rows.Add(
+                        tmp.GetCaption,
+                        tmp.GetDescription,
+                        tmp.GetInstallDate,
+                        tmp.GetName,
+                        tmp.GetStatus,
+                        tmp.GetCSName,
+                        tmp.GetFixComments,
+                        tmp.GetHotFixID,
+                        tmp.GetInstalledBy,
+                        tmp.GetInstalledOn,
+                        tmp.GetServicePackInEffect
+                        );
+                }
             }
-            foreach (var tmp in win32_QuickFixEngineering)
-            {
-                dataTable.Rows.Add(
-                    tmp.GetCaption,
-                    tmp.GetDescription,
-                    tmp.GetInstallDate,
-                    tmp.GetName,
-                    tmp.GetStatus,
-                    tmp.GetCSName,
-                    tmp.GetFixComments,
-                    tmp.GetHotFixID,
-                    tmp.GetInstalledBy,
-                    tmp.GetInstalledOn,
-                    tmp.GetServicePackInEffect
-                    );
-            }
+            
             dataTable.WriteXml(path + @"qfe\" + filename + ".xml");
 
         }
@@ -186,17 +198,20 @@ namespace Windows_Server_Dashboard.Database
         {
             DataTable dataTable = new DataTable();
             dataTable.TableName = "Startup";
-            foreach (var prop in win32_Startup[0].GetType().GetProperties())
+            if (win32_Startup.Count > 0)
             {
-                DataColumn column = new DataColumn(prop.Name.Substring(3), typeof(string));
-                dataTable.Columns.Add(column);
-            }
-            foreach (var tmp in win32_Startup)
-            {
-                dataTable.Rows.Add(
-                    tmp.Name
-                    );
-            }
+                foreach (var prop in win32_Startup[0].GetType().GetProperties())
+                {
+                    DataColumn column = new DataColumn(prop.Name.Substring(3), typeof(string));
+                    dataTable.Columns.Add(column);
+                }
+                foreach (var tmp in win32_Startup)
+                {
+                    dataTable.Rows.Add(
+                        tmp.Name
+                        );
+                }
+            }      
             dataTable.WriteXml(path + @"startup\" + filename + ".xml");
 
         }
@@ -205,6 +220,8 @@ namespace Windows_Server_Dashboard.Database
         {
             DataTable dataTable = new DataTable();
             dataTable.TableName = "Sysinfo";
+            DataColumn column_ = new DataColumn("Hostname", typeof(string));
+            dataTable.Columns.Add(column_);
             foreach (var prop in win32_SystemInfo.GetType().GetProperties())
             {
                 DataColumn column = new DataColumn(prop.Name.Substring(3), typeof(string));
@@ -212,6 +229,7 @@ namespace Windows_Server_Dashboard.Database
             }
 
             dataTable.Rows.Add(
+                filename,
                 win32_SystemInfo.GetOsVersion,
                 win32_SystemInfo.GetBiosManufacturer,
                 win32_SystemInfo.GetMainboardName,
@@ -231,23 +249,26 @@ namespace Windows_Server_Dashboard.Database
         {
             DataTable dataTable = new DataTable();
             dataTable.TableName = "Tpm";
-            foreach (var prop in win32_Tpm[0].GetType().GetProperties())
+            if (win32_Tpm.Count > 0)
             {
-                DataColumn column = new DataColumn(prop.Name.Substring(3), typeof(string));
-                dataTable.Columns.Add(column);
-            }
-            foreach (var tmp in win32_Tpm)
-            {
-                dataTable.Rows.Add(
-                    tmp.GetIsActivated_InitialValue,
-                    tmp.GetIsEnabled_InitialValue,
-                    tmp.GetIsOwned_InitialValue,
-                    tmp.GetSpecVersion,
-                    tmp.GetManufacturerVersion,
-                    tmp.GetManufacturerVersionInfo,
-                    tmp.GetManufacturerId,
-                    tmp.GetPhysicalPresenceVersionInfo
-                    );
+                foreach (var prop in win32_Tpm[0].GetType().GetProperties())
+                {
+                    DataColumn column = new DataColumn(prop.Name.Substring(3), typeof(string));
+                    dataTable.Columns.Add(column);
+                }
+                foreach (var tmp in win32_Tpm)
+                {
+                    dataTable.Rows.Add(
+                        tmp.GetIsActivated_InitialValue,
+                        tmp.GetIsEnabled_InitialValue,
+                        tmp.GetIsOwned_InitialValue,
+                        tmp.GetSpecVersion,
+                        tmp.GetManufacturerVersion,
+                        tmp.GetManufacturerVersionInfo,
+                        tmp.GetManufacturerId,
+                        tmp.GetPhysicalPresenceVersionInfo
+                        );
+                }
             }
             dataTable.WriteXml(path + @"tpm\" + filename + ".xml");
         }
@@ -256,18 +277,21 @@ namespace Windows_Server_Dashboard.Database
         {
             DataTable dataTable = new DataTable();
             dataTable.TableName = "X509Cert";
-            foreach (var prop in win32_X509Cert[0].GetType().GetProperties())
+            if(win32_X509Cert.Count > 0)
             {
-                DataColumn column = new DataColumn(prop.Name.Substring(3), typeof(string));
-                dataTable.Columns.Add(column);
-            }
-            foreach (var tmp in win32_X509Cert)
-            {
-                dataTable.Rows.Add(
-                    tmp.GetIssuer,
-                    tmp.GetSubject,
-                    tmp.GetExpirationDate
-                    );
+                foreach (var prop in win32_X509Cert[0].GetType().GetProperties())
+                {
+                    DataColumn column = new DataColumn(prop.Name.Substring(3), typeof(string));
+                    dataTable.Columns.Add(column);
+                }
+                foreach (var tmp in win32_X509Cert)
+                {
+                    dataTable.Rows.Add(
+                        tmp.GetIssuer,
+                        tmp.GetSubject,
+                        tmp.GetExpirationDate
+                        );
+                }
             }
             dataTable.WriteXml(path + @"x509crt\" + filename + ".xml");
         }

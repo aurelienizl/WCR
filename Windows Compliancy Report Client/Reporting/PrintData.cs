@@ -103,7 +103,7 @@
             }
         }
 
-        public static void PrintCerts(List<X509Cert> certList)
+        public static void PrintCerts(List<Win32_X509Cert> certList)
         {
             if (certList is null) return;
             foreach (var cert in certList)
@@ -145,7 +145,7 @@
             }
         }
 
-        public static void PrintSystemInfo(SystemInfo systemInfo)
+        public static void PrintSystemInfo(Win32_SystemInfo systemInfo)
         {
             Console.WriteLine("System version : " + systemInfo.GetOsVersion);
             Console.WriteLine("Bios manufacturer : " + systemInfo.GetBiosManufacturer);

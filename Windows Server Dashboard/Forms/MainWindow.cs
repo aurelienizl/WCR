@@ -1,3 +1,4 @@
+using System.Data;
 using Windows_Server_Dashboard.Reports;
 
 namespace Windows_Server_Dashboard
@@ -11,29 +12,21 @@ namespace Windows_Server_Dashboard
         public MainWindow()
         {
             InitializeComponent();
-            //SetupUI();
+            InitMainWindow();
+
         }
-
-        private void SetupUI()
+ 
+        private void InitMainWindow()
         {
-            foreach(var report in Program.Reports!)
-            {
-                string[] data = new string[]
-                {
-                    report.Win32_QuickFixEngineerings[0].GetCSName,
-                    report.Win32_SystemInfo.GetOsVersion,
-                    report.Win32_Bios[0].GetSMBIOSBIOSVersion,
-                    report.Win32_Tpms[0].GetIsActivated_InitialValue.ToString(),
-                    report.Win32_EncryptableVolumes[0].GetProtectionStatus.ToString(),
-                    report.Win32_SystemInfo.GetLanIpAddress,
-                    report.Win32_SystemInfo.GetMacAddress,
-                    report.Win32_SystemInfo.GetHardwareID, 
-                    report.Win32_SystemInfo.GetTimeDate
+            DataSet dataSet = new DataSet();
+            dataSet.ReadXml(@"C:\WCRS\database\sysinfo\L90-L02.xml");
+            DataTable dt1 = dataSet.Tables[0];
 
-
-                };
-                dataGridView1.Rows.Add(data);
-            }
+            DataSet dataSet1 = new DataSet();
+            dataSet1.ReadXml(@"C:\WCRS\database\sysinfo\L90-L19.xml");
+            DataTable dt2 = dataSet.Tables[0];
+            dt1.Merge(dt2);
+            dataGridView1.DataSource = dt1;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

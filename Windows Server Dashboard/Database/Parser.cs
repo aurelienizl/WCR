@@ -19,10 +19,8 @@ namespace Windows_Server_Dashboard.Database
                     try
                     {
                         var source = File.ReadAllText(files);
-                        dynamic data = JObject.Parse(source);
-                        var d = JsonConvert.SerializeObject(data);
 
-                        Win32_Report? report = JsonConvert.DeserializeObject<Win32_Report>(d);
+                        Win32_Report? report = JsonConvert.DeserializeObject<Win32_Report>(source);
 
                         if (report is not null)
                         {

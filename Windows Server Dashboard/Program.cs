@@ -16,7 +16,7 @@ namespace Windows_Server_Dashboard
         static void Main()
         {
             Database.Database.InitializeDatabase();
-            
+
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();

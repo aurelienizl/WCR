@@ -2,18 +2,18 @@
 
 namespace Windows_Compliancy_Report_Client.Reporting;
 
-internal class Startup
+internal class Win32_Startup
 {
-    public Startup(string? name)
+    public Win32_Startup(string? name)
     {
         Name = name;
     }
 
     public string? Name { get; }
 
-    public static List<Startup>? GetStartupApps()
+    public static List<Win32_Startup>? GetStartupApps()
     {
-        var apps = new List<Startup>();
+        var apps = new List<Win32_Startup>();
 
         try
         {
@@ -36,26 +36,26 @@ internal class Startup
         }
     }
 
-    private static List<Startup> StartupFolder()
+    private static List<Win32_Startup> StartupFolder()
     {
-        if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Startup))) return new List<Startup>();
+        if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Startup))) return new List<Win32_Startup>();
         var files = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.Startup)).GetFiles();
         return Convert(files.Where(info => info.Name != "desktop.ini").Select(info => info.Name).ToList());
     }
 
-    private static List<Startup> RegistryChecks(string key, RegistryHive hive)
+    private static List<Win32_Startup> RegistryChecks(string key, RegistryHive hive)
     {
         using var startupKey = RegistryKey.OpenBaseKey(hive, RegistryView.Registry32)
             .OpenSubKey(key);
         var valueNames = startupKey?.GetValueNames();
-        if (valueNames is null) return new List<Startup>();
+        if (valueNames is null) return new List<Win32_Startup>();
         return Convert(valueNames.ToList());
     }
 
-    private static List<Startup> Convert(List<string> list)
+    private static List<Win32_Startup> Convert(List<string> list)
     {
-        var res = new List<Startup>();
-        foreach (var val in list) res.Add(new Startup(val));
+        var res = new List<Win32_Startup>();
+        foreach (var val in list) res.Add(new Win32_Startup(val));
         return res;
     }
 }
