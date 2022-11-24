@@ -72,9 +72,9 @@ internal static class Program
         new Thread(() =>
         {
             InitReportingTool();
-            if (ReportingThread is not null) ReportingThread.Join();
+            ReportingThread?.Join();
             InitNetworking();
-            if (NetworkThread is not null) NetworkThread.Join();
+            NetworkThread?.Join();
         }).Start();
     }
 
@@ -167,106 +167,100 @@ internal static class Program
         window?.Writeline("[INFO] Reporting thread already running !", false);
     }
 
-    public static void LaunchReport()
+    private static void LaunchReport()
     {
         ReportingThread = new Thread(() =>
         {
             Thread.CurrentThread.IsBackground = true;
-            var threads = new List<Thread>();
-
-            threads.Add(new Thread(() =>
+            var threads = new List<Thread>
             {
-                Thread.CurrentThread.IsBackground = true;
-                Bios = Win32_Bios.GetBios();
-                if (Bios != null)
-                    window?.Writeline("[INFO] Bios check : OK !", false);
-                else
-                    window?.Writeline("[ERROR] Bios check : WARNING !", false);
-            }));
+                new(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    Bios = Win32_Bios.GetBios();
+                    window?.Writeline(Bios != null 
+                        ? "[INFO] Bios check : OK !" 
+                        : "[ERROR] Bios check : WARNING !", false);
+                }),
+                new(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    win32_EncryptableVolumes = Win32_EncryptableVolume.GetEncryptableVolume();
 
-            threads.Add(new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                win32_EncryptableVolumes = Win32_EncryptableVolume.GetEncryptableVolume();
+                    window?.Writeline(
+                        win32_EncryptableVolumes != null
+                            ? "[INFO] Bitlocker check : OK !"
+                            : "[ERROR] Bitlocker check : WARNING !", false);
+                }),
+                new(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    Win32_Tpm = Reporting.Win32_Tpm.GetTpm();
+                    window?.Writeline(Win32_Tpm != null 
+                            ? "[INFO] Tpm check : OK !" 
+                            : "[ERROR] Tpm check : WARNING !",
+                        false);
+                }),
+                new(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    Win32_Products = Win32_Product.GetProducts();
+                    window?.Writeline(
+                        Win32_Products != null 
+                            ? "[INFO] Softwares check : OK !" 
+                            : "[ERROR] Softwares check : WARNING !",
+                        false);
+                }),
+                new(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    X509CertList = Win32_X509Cert.GetX509Cert();
 
-                if (win32_EncryptableVolumes != null)
-                    window?.Writeline("[INFO] Bitlocker check : OK !", false);
-                else
-                    window?.Writeline("[ERROR] Bitlocker check : WARNING !", false);
-            }));
+                    window?.Writeline(
+                        X509CertList != null
+                            ? "[INFO] Certificates check : OK !"
+                            : "[ERROR] Certificates check : WARNING !", false);
+                }),
+                new(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    Win32_QFE = Win32_QuickFixEngineering.GetQuickFixEngineering();
 
-            threads.Add(new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                Win32_Tpm = Reporting.Win32_Tpm.GetTpm();
-                if (Win32_Tpm != null)
-                    window?.Writeline("[INFO] Tpm check : OK !", false);
-                else
-                    window?.Writeline("[ERROR] Tpm check : WARNING !", false);
-            }));
+                    window?.Writeline(
+                        Win32_QFE != null 
+                            ? "[INFO] Updates check : OK !" 
+                            : "[ERROR] Updates check : WARNING !", false);
+                }),
+                new(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    Accounts = Account.GetLocalUsers();
 
-            threads.Add(new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                Win32_Products = Win32_Product.GetProducts();
-                if (Win32_Products != null)
-                    window?.Writeline("[INFO] Softwares check : OK !", false);
-                else
-                    window?.Writeline("[ERROR] Softwares check : WARNING !", false);
-            }));
-
-            threads.Add(new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                X509CertList = Win32_X509Cert.GetX509Cert();
-
-                if (X509CertList != null)
-                    window?.Writeline("[INFO] Certificates check : OK !", false);
-                else
-                    window?.Writeline("[ERROR] Certificates check : WARNING !", false);
-            }));
-
-            threads.Add(new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                Win32_QFE = Win32_QuickFixEngineering.GetQuickFixEngineering();
-
-                if (Win32_QFE != null)
-                    window?.Writeline("[INFO] Updates check : OK !", false);
-                else
-                    window?.Writeline("[ERROR] Updates check : WARNING !", false);
-            }));
-
-            threads.Add(new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                Accounts = Account.GetLocalUsers();
-
-                if (Accounts != null)
-                    window?.Writeline("[INFO] Admins check : OK !", false);
-                else
-                    window?.Writeline("[ERROR] Admins check : WARNING !", false);
-            }));
-
-            threads.Add(new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                Sysinfo = Win32_SystemInfo.GetSystemInfo();
-                if (Sysinfo != null)
-                    window?.Writeline("[INFO] System info check : OK !", false);
-                else
-                    window?.Writeline("[ERROR] System info check : WARNING !", false);
-            }));
-
-            threads.Add(new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                Startups = Win32_Startup.GetStartupApps();
-                if (Startups != null)
-                    window?.Writeline("[INFO] Startup info check : OK !", false);
-                else
-                    window?.Writeline("[ERROR] Startup info check : WARNING !", false);
-            }));
+                    window?.Writeline(
+                        Accounts != null 
+                            ? "[INFO] Admins check : OK !" 
+                            : "[ERROR] Admins check : WARNING !", false);
+                }),
+                new(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    Sysinfo = Win32_SystemInfo.GetSystemInfo();
+                    window?.Writeline(
+                        Sysinfo != null 
+                            ? "[INFO] System info check : OK !" 
+                            : "[ERROR] System info check : WARNING !",
+                        false);
+                }),
+                new(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    Startups = Win32_Startup.GetStartupApps();
+                    window?.Writeline(
+                        Startups != null
+                            ? "[INFO] Startup info check : OK !"
+                            : "[ERROR] Startup info check : WARNING !", false);
+                })
+            };
 
 
             foreach (var item in threads) item.Start();
