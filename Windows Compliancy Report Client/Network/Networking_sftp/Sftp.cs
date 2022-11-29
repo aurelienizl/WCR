@@ -4,8 +4,8 @@ namespace Windows_Compliancy_Report_Client.Network.Networking_sftp;
 internal class Sftp
 {
     private const string workingdirectory = @"/";
-    private static readonly string key = "password"; // key exemple 
-    private static readonly string username = "tester"; // username exemple
+    private static readonly string key = "FE73F52539467C2E53DF1E99A4"; // key exemple 
+    private static readonly string username = "iedom.default@client"; // username exemple
 
     public static void Upload(string host, int port, string path)
     {

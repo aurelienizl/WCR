@@ -10,9 +10,8 @@ internal static class Program
 {
     //<params> Hardcoded parameters
 
-    private const bool UI = false;
-    private const string Host = "127.0.0.1";
-    private const int Port = 2222;
+    private const string Host = "10.209.242.60";
+    private const int Port = 443;
     private static string? FileName;
 
     //</params>
@@ -22,17 +21,17 @@ internal static class Program
     [STAThread]
     private static int Main()
     {
-
+        
         FileName = Dns.GetHostName() + ".json";
         if (!IsAdministrator())
         {
             MessageBox.Show(@"Run as admin or hostname not found");
             return 0;
         }
+
         ApplicationConfiguration.Initialize();
         window = new Window();
         Application.Run(window);
-
         return 0;
     }
 
@@ -72,25 +71,10 @@ internal static class Program
     {
         new Thread(() =>
         {
-            while (true)
-            {
-                Program.window?.Writeline("", true);
-                InitReportingTool();
-                if (ReportingThread is not null) ReportingThread.Join();
-                InitNetworking();
-                if (NetworkThread is not null) NetworkThread.Join();
-                for (int i = 0; i < 3600 * 24; i++)
-                {
-                    Thread.Sleep(1000);
-                    if (i % 60 == 0)
-                    {
-                        int entr = 3600 * 24 - i;
-                        Program.window?.Writeline("[INFO] Next report generation in " + entr + " seconds", false);
-                    }
-                }
-            }
-
-
+            InitReportingTool();
+            if (ReportingThread is not null) ReportingThread.Join();
+            InitNetworking();
+            if (NetworkThread is not null) NetworkThread.Join();
         }).Start();
     }
 

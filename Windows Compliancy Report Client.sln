@@ -5,9 +5,9 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Windows Compliancy Report Client", "Windows Compliancy Report Client\Windows Compliancy Report Client.csproj", "{FAD58FEA-4039-43F1-85F5-99F5155857A6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Windows Server Dashboard", "Windows Server Dashboard\Windows Server Dashboard.csproj", "{8156B7B4-4AA1-4E7F-B447-7A40F8ECBD76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Windows Compliancy Report Server", "Windows Compliancy Report Server\Windows Compliancy Report Server.csproj", "{B1399383-C961-4E9E-99D4-0F118282B73B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows Compliancy Report Service", "Windows COmpliancy Report Service\Windows Compliancy Report Service.csproj", "{5ED0D3B2-2069-400F-A20E-AE797E7BF478}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows Server Dashboard", "Windows Server Dashboard\Windows Server Dashboard.csproj", "{8156B7B4-4AA1-4E7F-B447-7A40F8ECBD76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{FAD58FEA-4039-43F1-85F5-99F5155857A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAD58FEA-4039-43F1-85F5-99F5155857A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAD58FEA-4039-43F1-85F5-99F5155857A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1399383-C961-4E9E-99D4-0F118282B73B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1399383-C961-4E9E-99D4-0F118282B73B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1399383-C961-4E9E-99D4-0F118282B73B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1399383-C961-4E9E-99D4-0F118282B73B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8156B7B4-4AA1-4E7F-B447-7A40F8ECBD76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8156B7B4-4AA1-4E7F-B447-7A40F8ECBD76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8156B7B4-4AA1-4E7F-B447-7A40F8ECBD76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8156B7B4-4AA1-4E7F-B447-7A40F8ECBD76}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5ED0D3B2-2069-400F-A20E-AE797E7BF478}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5ED0D3B2-2069-400F-A20E-AE797E7BF478}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5ED0D3B2-2069-400F-A20E-AE797E7BF478}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5ED0D3B2-2069-400F-A20E-AE797E7BF478}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
