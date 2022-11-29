@@ -71,10 +71,25 @@ internal static class Program
     {
         new Thread(() =>
         {
-            InitReportingTool();
-            if (ReportingThread is not null) ReportingThread.Join();
-            InitNetworking();
-            if (NetworkThread is not null) NetworkThread.Join();
+            while (true)
+            {
+                Program.window?.Writeline("", true);
+                InitReportingTool();
+                if (ReportingThread is not null) ReportingThread.Join();
+                InitNetworking();
+                if (NetworkThread is not null) NetworkThread.Join();
+                for (int i = 0; i < 3600 * 24; i++)
+                {
+                    Thread.Sleep(1000);
+                    if (i % 60 == 0)
+                    {
+                        int entr = 3600 * 24 - i;
+                        Program.window?.Writeline("[INFO] Next report generation in " + entr + " seconds", false);
+                    }
+                }
+            }
+
+
         }).Start();
     }
 
