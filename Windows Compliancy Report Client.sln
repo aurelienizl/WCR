@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Windows Compliancy Report C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Windows Server Dashboard", "Windows Server Dashboard\Windows Server Dashboard.csproj", "{8156B7B4-4AA1-4E7F-B447-7A40F8ECBD76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCRC Service", "WCRC Service\WCRC Service.csproj", "{A1F18455-F01B-4272-AABC-298D77AB5FD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8156B7B4-4AA1-4E7F-B447-7A40F8ECBD76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8156B7B4-4AA1-4E7F-B447-7A40F8ECBD76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8156B7B4-4AA1-4E7F-B447-7A40F8ECBD76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1F18455-F01B-4272-AABC-298D77AB5FD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1F18455-F01B-4272-AABC-298D77AB5FD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1F18455-F01B-4272-AABC-298D77AB5FD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1F18455-F01B-4272-AABC-298D77AB5FD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
