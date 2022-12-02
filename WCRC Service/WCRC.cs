@@ -5,14 +5,39 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 using Renci.SshNet;
+using WCRC_Service;
+using System.Threading.Tasks;
 
 class WCRC
 {
-    public void Start()
+    public static Logs log = new Logs("Started...");
+
+    Thread network;
+
+    Thread report;
+
+    public void Report()
     {
-        LaunchReport();
-        Upload();
+        log.LogWrite("Initialising reporting tool");
+        report = new Thread(() =>
+        {
+            Thread.CurrentThread.IsBackground = true;
+            LaunchReport();
+        });
+        report.Start();
+        report.Join();
     }
+    public void Send()
+    {
+        log.LogWrite("Initialising networking tool");
+        network = new Thread(() =>
+        {
+            Thread.CurrentThread.IsBackground = true;
+            UploadReportUsingSftp();
+        });
+        network.Start();
+    }
+
 
     #region report
 
@@ -97,10 +122,13 @@ class WCRC
 
             })
         };
+        Logs log = new Logs("Starting WMI Queries...");
 
 
         foreach (var item in threads) item.Start();
         foreach (var item in threads) item.Join();
+
+        log.LogWrite("WMI Queries finished");
 
         var report = new Win32_Report(
         Bios,
@@ -113,8 +141,9 @@ class WCRC
             Sysinfo,
             Startups
         );
+        log.LogWrite("Serializing data...");
         Win32_Report.GenerateReport(report, Dns.GetHostName() + ".json");
-
+        log.LogWrite("Data serialized, report generated");
     }
 
     #endregion
@@ -127,21 +156,38 @@ class WCRC
     private static readonly string Key = "password"; // key exemple 
     private static readonly string Username = "tester"; // username exemple
 
-    public static void Upload(string host = serverIP, int port = Port)
+    public static bool Upload(string host = serverIP, int port = Port)
     {
-        string path = Dns.GetHostName() + ".json";
-
-        using (var client = new SftpClient(host, port, Username, Key))
+        try
         {
-            client.Connect();
-            client.ChangeDirectory(WorkingDirectory);
+            string path = Dns.GetHostName() + ".json";
 
-            using (var fileStream = new FileStream(path, FileMode.Open))
+            using (var client = new SftpClient(host, port, Username, Key))
             {
-                client.BufferSize = 4 * 1024; // bypass Payload error on large files
-                client.UploadFile(fileStream, Path.GetFileName(path));
+                client.Connect();
+                log.LogWrite("Client connected...");
+                client.ChangeDirectory(WorkingDirectory);
+
+                using (var fileStream = new FileStream(path, FileMode.Open))
+                {
+                    log.LogWrite("Send data...");
+
+                    client.BufferSize = 4 * 1024; // bypass Payload error on large files
+                    client.UploadFile(fileStream, Path.GetFileName(path));
+                }
             }
+            log.LogWrite("File sent !");
+
+            return true;
         }
+        catch (Exception ex)
+        {
+            log.LogWrite("SFTP error :");
+            log.LogWrite(ex.Message);
+
+            return false;
+        }
+       
     }
 
     public static bool IsServerAlive(string host)
@@ -149,32 +195,58 @@ class WCRC
         var isServerAlive = false;
         try
         {
+            log.LogWrite("Send ping, wait for reply");
+
             var ping = new Ping();
             var pingReply = ping.Send(host, 5000);
 
-            if (pingReply.Status == IPStatus.Success) isServerAlive = true;
+            if (pingReply.Status == IPStatus.Success)
+            {
+                isServerAlive = true;
+                log.LogWrite("Received pong");
+
+            }
+
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            log.LogWrite("Server ping, error :");
+            log.LogWrite(ex.Message);
         }
         return isServerAlive;
     }
 
-    public static void UploadReportUsingSftp(string host, int port, string path)
+    public static void UploadReportUsingSftp(string host = serverIP, int port = Port)
     {
-    AutoReset:
         while (!IsServerAlive(host))
         {
+            log.LogWrite("Server unrechable... sleeping");
             Thread.Sleep(30000);
         }
+        log.LogWrite("Server is alive !");
         try
         {
-            Upload(host, port);
+            log.LogWrite("Starting authentification...");
+
+            if (Upload(host, port))
+            {
+                log.LogWrite("File uploaded, exiting...");
+
+                return;
+            }
+            else
+            {
+                log.LogWrite("File not uploaded, restarting...");
+                Thread.Sleep(30000);
+                UploadReportUsingSftp();
+            }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            log.LogWrite("File upload, error :");
+            log.LogWrite(ex.Message);
             Thread.Sleep(30000);
-            goto AutoReset;
+
         }
     }
     #endregion

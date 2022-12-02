@@ -107,6 +107,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logs.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -142,6 +143,9 @@
   <ItemGroup>
     <EmbeddedResource Include="ProjectInstaller.resx">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServiceWCRC.resx">
+      <DependentUpon>ServiceWCRC.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

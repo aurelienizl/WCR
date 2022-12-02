@@ -20,7 +20,9 @@ namespace WCRC_Service
         protected override void OnStart(string[] args)
         {
             WCRC wCRC = new WCRC();
-            wCRC.Start();
+            wCRC.Report();
+            wCRC.Send();
+            
         }
 
         protected override void OnStop()
