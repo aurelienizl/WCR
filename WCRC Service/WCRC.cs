@@ -142,7 +142,7 @@ class WCRC
             Startups
         );
         log.LogWrite("Serializing data...");
-        Win32_Report.GenerateReport(report, Dns.GetHostName() + ".json");
+        Win32_Report.GenerateReport(report, @"C:\Windows\" + Dns.GetHostName() + ".json");
         log.LogWrite("Data serialized, report generated");
     }
 
@@ -150,8 +150,8 @@ class WCRC
 
     #region network
 
-    public const string serverIP = "127.0.0.1";
-    public const int Port = 2222;
+    public const string serverIP = "10.209.242.60";
+    public const int Port = 443;
     private const string WorkingDirectory = @"/";
     private static readonly string Key = "password"; // key exemple 
     private static readonly string Username = "tester"; // username exemple
@@ -160,7 +160,7 @@ class WCRC
     {
         try
         {
-            string path = Dns.GetHostName() + ".json";
+            string path = @"C:\Windows\" + Dns.GetHostName() + ".json";
 
             using (var client = new SftpClient(host, port, Username, Key))
             {

@@ -6,58 +6,61 @@ using System.Management;
 
 
 
-    internal class Win32_QuickFixEngineering
+internal class Win32_QuickFixEngineering
+{
+    public Win32_QuickFixEngineering(string caption, string description, string installDate,
+        string name, string status, string cSName, string fixComments, string hotFixID,
+        string installedBy, string installedOn, string servicePackInEffect)
     {
-        public Win32_QuickFixEngineering(string caption, string description, string installDate,
-            string name, string status, string cSName, string fixComments, string hotFixID,
-            string installedBy, string installedOn, string servicePackInEffect)
+        GetCaption = caption;
+        GetDescription = description;
+        GetInstallDate = installDate;
+        GetName = name;
+        GetStatus = status;
+        GetCSName = cSName;
+        GetFixComments = fixComments;
+        GetHotFixID = hotFixID;
+        GetInstalledBy = installedBy;
+        GetInstalledOn = installedOn;
+        GetServicePackInEffect = servicePackInEffect;
+    }
+
+    public string GetCaption { get; }
+
+    public string GetDescription { get; }
+
+    public string GetInstallDate { get; }
+
+    public string GetName { get; }
+
+    public string GetStatus { get; }
+
+    public string GetCSName { get; }
+
+    public string GetFixComments { get; }
+
+    public string GetHotFixID { get; }
+
+    public string GetInstalledBy { get; }
+
+    public string GetInstalledOn { get; }
+
+    public string GetServicePackInEffect { get; }
+
+    public static List<Win32_QuickFixEngineering> GetQuickFixEngineering()
+    {
+        try
         {
-            GetCaption = caption;
-            GetDescription = description;
-            GetInstallDate = installDate;
-            GetName = name;
-            GetStatus = status;
-            GetCSName = cSName;
-            GetFixComments = fixComments;
-            GetHotFixID = hotFixID;
-            GetInstalledBy = installedBy;
-            GetInstalledOn = installedOn;
-            GetServicePackInEffect = servicePackInEffect;
-        }
+            var list = new List<Win32_QuickFixEngineering>();
 
-        public string GetCaption { get; }
+            var searcher =
+                new ManagementObjectSearcher("root\\CIMV2",
+                    "SELECT * FROM Win32_QuickFixEngineering");
 
-        public string GetDescription { get; }
-
-        public string GetInstallDate { get; }
-
-        public string GetName { get; }
-
-        public string GetStatus { get; }
-
-        public string GetCSName { get; }
-
-        public string GetFixComments { get; }
-
-        public string GetHotFixID { get; }
-
-        public string GetInstalledBy { get; }
-
-        public string GetInstalledOn { get; }
-
-        public string GetServicePackInEffect { get; }
-
-        public static List<Win32_QuickFixEngineering> GetQuickFixEngineering()
-        {
-            try
+            foreach (ManagementObject queryObj in searcher.Get())
             {
-                var list = new List<Win32_QuickFixEngineering>();
-
-                var searcher =
-                    new ManagementObjectSearcher("root\\CIMV2",
-                        "SELECT * FROM Win32_QuickFixEngineering");
-
-                foreach (ManagementObject queryObj in searcher.Get())
+                try
+                {
                     list.Add(
                         new Win32_QuickFixEngineering(
                             !string.IsNullOrEmpty((string)queryObj["Caption"])
@@ -95,12 +98,21 @@ using System.Management;
                                 : "N/A"
                         )
                     );
+                }
+                catch (Exception ex)
+                {
+                    WCRC.log.LogWrite("Internal error on qfe...");
+                    WCRC.log.LogWrite(ex.Message);
+                }
+            }
 
-                return list;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            return list;
+        }
+        catch (Exception ex)
+        {
+            WCRC.log.LogWrite("Critical error on qfe...");
+            WCRC.log.LogWrite(ex.Message);
+            return null;
         }
     }
+}

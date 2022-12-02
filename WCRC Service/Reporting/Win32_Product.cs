@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Management;
 
@@ -110,91 +111,103 @@ internal class Win32_Product
 
             foreach (ManagementObject queryObj in searcher.Get())
             {
-                var win32_Products =
-                    new Win32_Product(
-                        (ushort)queryObj["AssignmentType"],
-                        !string.IsNullOrEmpty((string)queryObj["Caption"])
-                            ? (string)queryObj["Caption"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["Description"])
-                            ? (string)queryObj["Description"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["IdentifyingNumber"])
-                            ? (string)queryObj["IdentifyingNumber"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["InstallDate"])
-                            ? (string)queryObj["InstallDate"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["InstallDate2"])
-                            ? (string)queryObj["InstallDate2"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["InstallLocation"])
-                            ? (string)queryObj["InstallLocation"]
-                            : "N/A",
-                        (short)queryObj["InstallState"],
-                        !string.IsNullOrEmpty((string)queryObj["HelpLink"])
-                            ? (string)queryObj["HelpLink"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["HelpTelephone"])
-                            ? (string)queryObj["HelpTelephone"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["InstallSource"])
-                            ? (string)queryObj["InstallSource"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["Language"])
-                            ? (string)queryObj["Language"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["LocalPackage"])
-                            ? (string)queryObj["LocalPackage"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["Name"])
-                            ? (string)queryObj["Name"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["PackageCache"])
-                            ? (string)queryObj["PackageCache"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["PackageCode"])
-                            ? (string)queryObj["PackageCode"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["PackageName"])
-                            ? (string)queryObj["PackageName"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["ProductID"])
-                            ? (string)queryObj["ProductID"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["RegOwner"])
-                            ? (string)queryObj["RegOwner"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["RegCompany"])
-                            ? (string)queryObj["RegCompany"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["SKUNumber"])
-                            ? (string)queryObj["SKUNumber"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["Transforms"])
-                            ? (string)queryObj["Transforms"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["URLInfoAbout"])
-                            ? (string)queryObj["URLInfoAbout"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["URLUpdateInfo"])
-                            ? (string)queryObj["URLUpdateInfo"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["Vendor"])
-                            ? (string)queryObj["Vendor"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["Version"])
-                            ? (string)queryObj["Version"]
-                            : "N/A"
-                    );
+                try
+                {
+                    var win32_Products =
+                   new Win32_Product(
+                       (ushort)queryObj["AssignmentType"],
+                       !string.IsNullOrEmpty((string)queryObj["Caption"])
+                           ? (string)queryObj["Caption"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["Description"])
+                           ? (string)queryObj["Description"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["IdentifyingNumber"])
+                           ? (string)queryObj["IdentifyingNumber"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["InstallDate"])
+                           ? (string)queryObj["InstallDate"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["InstallDate2"])
+                           ? (string)queryObj["InstallDate2"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["InstallLocation"])
+                           ? (string)queryObj["InstallLocation"]
+                           : "N/A",
+                       (short)queryObj["InstallState"],
+                       !string.IsNullOrEmpty((string)queryObj["HelpLink"])
+                           ? (string)queryObj["HelpLink"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["HelpTelephone"])
+                           ? (string)queryObj["HelpTelephone"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["InstallSource"])
+                           ? (string)queryObj["InstallSource"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["Language"])
+                           ? (string)queryObj["Language"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["LocalPackage"])
+                           ? (string)queryObj["LocalPackage"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["Name"])
+                           ? (string)queryObj["Name"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["PackageCache"])
+                           ? (string)queryObj["PackageCache"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["PackageCode"])
+                           ? (string)queryObj["PackageCode"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["PackageName"])
+                           ? (string)queryObj["PackageName"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["ProductID"])
+                           ? (string)queryObj["ProductID"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["RegOwner"])
+                           ? (string)queryObj["RegOwner"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["RegCompany"])
+                           ? (string)queryObj["RegCompany"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["SKUNumber"])
+                           ? (string)queryObj["SKUNumber"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["Transforms"])
+                           ? (string)queryObj["Transforms"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["URLInfoAbout"])
+                           ? (string)queryObj["URLInfoAbout"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["URLUpdateInfo"])
+                           ? (string)queryObj["URLUpdateInfo"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["Vendor"])
+                           ? (string)queryObj["Vendor"]
+                           : "N/A",
+                       !string.IsNullOrEmpty((string)queryObj["Version"])
+                           ? (string)queryObj["Version"]
+                           : "N/A"
+                   );
 
-                products.Add(win32_Products);
+                    products.Add(win32_Products);
+                }
+               catch(Exception ex)
+                {
+                    WCRC.log.LogWrite("Internal error on products...");
+                    WCRC.log.LogWrite(ex.Message);
+
+                }
             }
 
             return products;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            WCRC.log.LogWrite("Critical error on products...");
+            WCRC.log.LogWrite(ex.Message);
+
             return null;
         }
     }

@@ -36,19 +36,28 @@ internal class Account
             {
                 foreach (var groupMember in members as IEnumerable)
                 {
-                    var s = new DirectoryEntry(groupMember);
-                    var account = new Account(
-                        !string.IsNullOrEmpty(s.Name)
-                            ? s.Name
-                            : "N/A",
-                        !string.IsNullOrEmpty(s.AuthenticationType.ToString())
-                            ? s.AuthenticationType.ToString()
-                            : "N/A",
-                        !string.IsNullOrEmpty(s.NativeGuid)
-                            ? s.NativeGuid
-                            : "N/A"
-                    );
-                    accounts.Add(account);
+                    try
+                    {
+                        var s = new DirectoryEntry(groupMember);
+                        var account = new Account(
+                            !string.IsNullOrEmpty(s.Name)
+                                ? s.Name
+                                : "N/A",
+                            !string.IsNullOrEmpty(s.AuthenticationType.ToString())
+                                ? s.AuthenticationType.ToString()
+                                : "N/A",
+                            !string.IsNullOrEmpty(s.NativeGuid)
+                                ? s.NativeGuid
+                                : "N/A"
+                        );
+                        accounts.Add(account);
+                    }
+                    catch (Exception ex)
+                    {
+                        WCRC.log.LogWrite("Internal error on accounts...");
+                        WCRC.log.LogWrite(ex.Message);
+                    }
+                   
                 }
 
                 return accounts;
@@ -57,8 +66,10 @@ internal class Account
             return null;
         }
 
-        catch (Exception)
+        catch (Exception ex)
         {
+            WCRC.log.LogWrite("Critical error on accounts...");
+            WCRC.log.LogWrite(ex.Message);
             return null;
         }
     }

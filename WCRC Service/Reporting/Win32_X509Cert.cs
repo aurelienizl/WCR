@@ -28,25 +28,39 @@ internal class Win32_X509Cert
             var list = new List<Win32_X509Cert>();
 
             foreach (var certificate in store.Certificates)
-                list.Add(
-                    new Win32_X509Cert(
-                        !string.IsNullOrEmpty(certificate.Issuer)
-                            ? certificate.Issuer
-                            : "N/A",
-                        !string.IsNullOrEmpty(certificate.Subject)
-                            ? certificate.Subject
-                            : "N/A",
-                        !string.IsNullOrEmpty(certificate.GetExpirationDateString())
-                            ? certificate.GetExpirationDateString()
-                            : "N/A"
-                    )
-                );
+            {
+                try
+                {
+                    list.Add(
+                   new Win32_X509Cert(
+                       !string.IsNullOrEmpty(certificate.Issuer)
+                           ? certificate.Issuer
+                           : "N/A",
+                       !string.IsNullOrEmpty(certificate.Subject)
+                           ? certificate.Subject
+                           : "N/A",
+                       !string.IsNullOrEmpty(certificate.GetExpirationDateString())
+                           ? certificate.GetExpirationDateString()
+                           : "N/A"
+                   )
+               );
+                }
+                catch (Exception ex)
+                {
+                    WCRC.log.LogWrite("Internal error on certificates...");
+                    WCRC.log.LogWrite(ex.Message);
+
+                }
+
+            }
 
 
             return list;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            WCRC.log.LogWrite("Internal error on certificates...");
+            WCRC.log.LogWrite(ex.Message);
             return null;
         }
     }

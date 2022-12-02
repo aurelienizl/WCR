@@ -35,7 +35,10 @@ internal class Win32_EncryptableVolume
                     "SELECT * FROM Win32_EncryptableVolume");
 
             foreach (ManagementObject queryObj in searcher.Get())
-                list.Add(
+            {
+                try
+                {
+                    list.Add(
                     new Win32_EncryptableVolume(
                         !string.IsNullOrEmpty((string)queryObj["DeviceID"]) ? (string)queryObj["DeviceID"] : "N/A",
                         !string.IsNullOrEmpty((string)queryObj["PersistentVolumeID"])
@@ -46,11 +49,20 @@ internal class Win32_EncryptableVolume
                             : "N/A",
                         (uint)queryObj["ProtectionStatus"]
                     ));
-
+                }
+                catch (Exception ex)
+                {
+                    WCRC.log.LogWrite("Internal error on volumes...");
+                    WCRC.log.LogWrite(ex.Message);
+                }
+            }
+               
             return list;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            WCRC.log.LogWrite("Critical error on volumes...");
+            WCRC.log.LogWrite(ex.Message);
             return null;
         }
     }

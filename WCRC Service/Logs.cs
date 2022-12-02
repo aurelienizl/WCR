@@ -13,6 +13,7 @@ namespace WCRC_Service
         private string m_exePath = string.Empty;
         public Logs(string logMessage)
         {
+            File.Delete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\" + "log.txt");
             LogWrite(logMessage);
         }
         public void LogWrite(string logMessage)
