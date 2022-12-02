@@ -35,8 +35,8 @@ internal class Win32_Startup
         }
         catch (Exception)
         {
-            WCRC.Win32_Error_.Startup_error += 1;
-            WCRC.Win32_Error_.Critical_Startup_error += 1;
+            WCRC._Win32_Error.Startup_error += 1;
+            WCRC._Win32_Error.Critical_Startup_error += 1;
             return null;
         }
     }

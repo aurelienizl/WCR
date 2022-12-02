@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Management;
-
+using WCRC_Core.Reporting;
 
 public class Win32_Tpms
 {
@@ -72,16 +72,16 @@ public class Win32_Tpms
                 {
                     WCRC.log.LogWrite("Internal error on tpms...");
                     WCRC.log.LogWrite(ex.Message);
+                    WCRC.Win32_Error_.Tpms_error += 1;
                 }
-            }
-               
-               
+            }           
             return list;
         }
         catch (Exception ex)
         {
             WCRC.log.LogWrite("Critical error on tpms...");
             WCRC.log.LogWrite(ex.Message);
+            WCRC.Win32_Error_.Critical_Tpms_error += 1;
             return null;
         }
     }

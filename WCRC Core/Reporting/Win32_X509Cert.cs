@@ -48,7 +48,7 @@ internal class Win32_X509Cert
                 {
                     WCRC.log.LogWrite("Internal error on certificates...");
                     WCRC.log.LogWrite(ex.Message);
-                    WCRC.Win32_Error_.Certificates_error += 1;
+                    WCRC._Win32_Error.Certificates_error += 1;
                 }
             }
             return list;
@@ -57,7 +57,7 @@ internal class Win32_X509Cert
         {
             WCRC.log.LogWrite("Internal error on certificates...");
             WCRC.log.LogWrite(ex.Message);
-            WCRC.Win32_Error_.Critical_Certificates_error += 1;
+            WCRC._Win32_Error.Critical_Certificates_error += 1;
             return null;
         }
     }

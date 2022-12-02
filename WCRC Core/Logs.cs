@@ -10,6 +10,7 @@ namespace WCRC_Service
 {
     public class Logs
     {
+        private string m_exePath = string.Empty;
         public Logs(string logMessage)
         {
             File.Delete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\" + "log.txt");
@@ -17,7 +18,8 @@ namespace WCRC_Service
         }
         public void LogWrite(string logMessage)
         {
-            string m_exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            Console.WriteLine(logMessage);
+            m_exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             try
             {
                 using (StreamWriter w = File.AppendText(m_exePath + "\\" + "log.txt"))

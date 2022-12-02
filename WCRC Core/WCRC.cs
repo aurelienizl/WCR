@@ -42,77 +42,77 @@ class WCRC
 
     #region report
 
-    private static List<Win32_Bios> Bios_ { get; set; }
-    private static List<Win32_EncryptableVolumes> Win32_EncryptableVolumes_ { get; set; }
-    private static List<Win32_Tpms> Win32_Tpm_ { get; set; }
-    private static List<Win32_Products> Win32_Products_ { get; set; }
-    private static List<Win32_X509Cert> X509CertList_ { get; set; }
-    private static List<Win32_QuickFixEngineerings> Win32_QFE_ { get; set; }
-    private static List<Account> Accounts_ { get; set; }
-    private static Win32_SystemInfo Sysinfo_ { get; set; }
-    private static List<Win32_Startup> Startups_ { get; set; }
-    public static Win32_Error Win32_Error_ { get; set; }
+    private static List<Win32_Bios> _Bios { get; set; }
+    private static List<Win32_EncryptableVolumes> _Win32_EncryptableVolumes { get; set; }
+    private static List<Win32_Tpms> _Win32_Tpm { get; set; }
+    private static List<Win32_Products> _Win32_Products { get; set; }
+    private static List<Win32_X509Cert> _X509CertList { get; set; }
+    private static List<Win32_QuickFixEngineerings> _Win32_QFE { get; set; }
+    private static List<Account> _Accounts { get; set; }
+    private static Win32_SystemInfo _Sysinfo { get; set; }
+    private static List<Win32_Startup> _Startups { get; set; }
+    public static Win32_Error _Win32_Error { get; set; }
 
     public static void LaunchReport()
     {
         Thread.CurrentThread.IsBackground = true;
-        Win32_Error_ = new Win32_Error();
+        _Win32_Error = new Win32_Error();
 
         var threads = new List<Thread>
         {
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                Bios_ = Win32_Bios.GetBios();
+                _Bios = Win32_Bios.GetBios();
             }),
 
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                Win32_EncryptableVolumes_ = Win32_EncryptableVolumes.GetEncryptableVolume();
+                _Win32_EncryptableVolumes = Win32_EncryptableVolumes.GetEncryptableVolume();
             }),
 
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                Win32_Tpm_ = Win32_Tpms.GetTpm();
+                _Win32_Tpm = Win32_Tpms.GetTpm();
             }),
 
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                Win32_Products_ = global::Win32_Products.GetProducts();
+                _Win32_Products = global::Win32_Products.GetProducts();
             }),
 
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                X509CertList_ = Win32_X509Cert.GetX509Cert();
+                _X509CertList = Win32_X509Cert.GetX509Cert();
             }),
 
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                Win32_QFE_ = Win32_QuickFixEngineerings.GetQuickFixEngineering();
+                _Win32_QFE = Win32_QuickFixEngineerings.GetQuickFixEngineering();
             }),
 
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                Accounts_ = Account.GetLocalUsers();
+                _Accounts = Account.GetLocalUsers();
             }),
 
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                Sysinfo_ = Win32_SystemInfo.GetSystemInfo();
+                _Sysinfo = Win32_SystemInfo.GetSystemInfo();
 
             }),
 
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                Startups_ = Win32_Startup.GetStartupApps();
+                _Startups = Win32_Startup.GetStartupApps();
             })
         };
 
@@ -124,16 +124,16 @@ class WCRC
         log.LogWrite("WMI Queries finished");
 
         var report = new Win32_Report(
-        Bios_,
-            Win32_EncryptableVolumes_,
-        Win32_Tpm_,
-            Win32_Products_,
-            X509CertList_,
-        Win32_QFE_,
-            Accounts_,
-            Sysinfo_,
-            Startups_,
-            Win32_Error_
+        _Bios,
+            _Win32_EncryptableVolumes,
+        _Win32_Tpm,
+            _Win32_Products,
+            _X509CertList,
+        _Win32_QFE,
+            _Accounts,
+            _Sysinfo,
+            _Startups,
+            _Win32_Error
         );
 
         log.LogWrite("Serializing data...");

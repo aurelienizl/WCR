@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Management;
+using WCRC_Core.Reporting;
 
-#pragma warning disable CA1416 // Valider la compatibilité de la plateforme
-
-
-
-internal class Win32_QuickFixEngineering
+internal class Win32_QuickFixEngineerings
 {
-    public Win32_QuickFixEngineering(string caption, string description, string installDate,
+    public Win32_QuickFixEngineerings(string caption, string description, string installDate,
         string name, string status, string cSName, string fixComments, string hotFixID,
         string installedBy, string installedOn, string servicePackInEffect)
     {
@@ -47,11 +44,11 @@ internal class Win32_QuickFixEngineering
 
     public string GetServicePackInEffect { get; }
 
-    public static List<Win32_QuickFixEngineering> GetQuickFixEngineering()
+    public static List<Win32_QuickFixEngineerings> GetQuickFixEngineering()
     {
         try
         {
-            var list = new List<Win32_QuickFixEngineering>();
+            var list = new List<Win32_QuickFixEngineerings>();
 
             var searcher =
                 new ManagementObjectSearcher("root\\CIMV2",
@@ -62,7 +59,7 @@ internal class Win32_QuickFixEngineering
                 try
                 {
                     list.Add(
-                        new Win32_QuickFixEngineering(
+                        new Win32_QuickFixEngineerings(
                             !string.IsNullOrEmpty((string)queryObj["Caption"])
                                 ? (string)queryObj["Caption"]
                                 : "N/A",
@@ -103,6 +100,8 @@ internal class Win32_QuickFixEngineering
                 {
                     WCRC.log.LogWrite("Internal error on qfe...");
                     WCRC.log.LogWrite(ex.Message);
+                    WCRC._Win32_Error.QuickFixEngineerings_error += 1;
+
                 }
             }
 
@@ -112,6 +111,8 @@ internal class Win32_QuickFixEngineering
         {
             WCRC.log.LogWrite("Critical error on qfe...");
             WCRC.log.LogWrite(ex.Message);
+            WCRC._Win32_Error.Critical_QuickFixEngineerings_error += 1;
+
             return null;
         }
     }

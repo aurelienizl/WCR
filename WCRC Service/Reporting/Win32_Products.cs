@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Management;
+using WCRC_Core.Reporting;
 
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
 
 
-internal class Win32_Product
+internal class Win32_Products
 {
-    public Win32_Product(ushort assignmentType, string caption, string description,
+    public Win32_Products(ushort assignmentType, string caption, string description,
         string identifyingNumber, string installDate, string installDate2,
         string installLocation, short installState, string helpLink,
         string helpTelephone, string installSource, string language,
@@ -99,11 +100,11 @@ internal class Win32_Product
 
     public string GetVersion { get; }
 
-    public static List<Win32_Product> GetProducts()
+    public static List<Win32_Products> GetProducts()
     {
         try
         {
-            var products = new List<Win32_Product>();
+            var products = new List<Win32_Products>();
 
             var searcher =
                 new ManagementObjectSearcher("root\\CIMV2",
@@ -114,7 +115,7 @@ internal class Win32_Product
                 try
                 {
                     var win32_Products =
-                   new Win32_Product(
+                   new Win32_Products(
                        (ushort)queryObj["AssignmentType"],
                        !string.IsNullOrEmpty((string)queryObj["Caption"])
                            ? (string)queryObj["Caption"]
@@ -197,6 +198,7 @@ internal class Win32_Product
                 {
                     WCRC.log.LogWrite("Internal error on products...");
                     WCRC.log.LogWrite(ex.Message);
+                    WCRC.Win32_Error_.Products_error += 1;
 
                 }
             }
@@ -207,6 +209,7 @@ internal class Win32_Product
         {
             WCRC.log.LogWrite("Critical error on products...");
             WCRC.log.LogWrite(ex.Message);
+            WCRC.Win32_Error_.Critical_Products_error += 1;
 
             return null;
         }

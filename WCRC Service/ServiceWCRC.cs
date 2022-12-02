@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace WCRC_Service
 {
@@ -19,15 +13,25 @@ namespace WCRC_Service
 
         protected override void OnStart(string[] args)
         {
-            WCRC wCRC = new WCRC();
-            wCRC.Report();
-            wCRC.Send();
-            
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                while (true)
+                {
+                    WCRC wCRC = new WCRC();
+                    wCRC.Report();
+                    wCRC.Send();
+                    for (int i = 0; i < 60 * 60 * 12; i++)
+                    {
+                        Thread.Sleep(30);
+                    }
+                }
+            }).Start();
         }
 
         protected override void OnStop()
         {
-            
+            Environment.Exit(0);
         }
     }
 }

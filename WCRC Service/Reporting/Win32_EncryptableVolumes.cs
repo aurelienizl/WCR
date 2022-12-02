@@ -1,13 +1,11 @@
-﻿#pragma warning disable CA1416 // Valider la compatibilité de la plateforme
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Management;
 
 
-internal class Win32_EncryptableVolume
+internal class Win32_EncryptableVolumes
 {
-    public Win32_EncryptableVolume(string deviceID, string persistentVolumeID, string driveLetter,
+    public Win32_EncryptableVolumes(string deviceID, string persistentVolumeID, string driveLetter,
         uint protectionStatus)
     {
         GetDeviceID = deviceID;
@@ -24,11 +22,11 @@ internal class Win32_EncryptableVolume
 
     public uint? GetProtectionStatus { get; }
 
-    public static List<Win32_EncryptableVolume> GetEncryptableVolume()
+    public static List<Win32_EncryptableVolumes> GetEncryptableVolume()
     {
         try
         {
-            var list = new List<Win32_EncryptableVolume>();
+            var list = new List<Win32_EncryptableVolumes>();
 
             var searcher =
                 new ManagementObjectSearcher("root\\CIMV2\\Security\\MicrosoftVolumeEncryption",
@@ -39,7 +37,7 @@ internal class Win32_EncryptableVolume
                 try
                 {
                     list.Add(
-                    new Win32_EncryptableVolume(
+                    new Win32_EncryptableVolumes(
                         !string.IsNullOrEmpty((string)queryObj["DeviceID"]) ? (string)queryObj["DeviceID"] : "N/A",
                         !string.IsNullOrEmpty((string)queryObj["PersistentVolumeID"])
                             ? (string)queryObj["PersistentVolumeID"]
@@ -54,6 +52,8 @@ internal class Win32_EncryptableVolume
                 {
                     WCRC.log.LogWrite("Internal error on volumes...");
                     WCRC.log.LogWrite(ex.Message);
+                    WCRC.Win32_Error_.EncryptableVolumes_error += 1;
+
                 }
             }
                
@@ -63,6 +63,7 @@ internal class Win32_EncryptableVolume
         {
             WCRC.log.LogWrite("Critical error on volumes...");
             WCRC.log.LogWrite(ex.Message);
+            WCRC.Win32_Error_.Critical_EncryptableVolumes_error += 1;
             return null;
         }
     }

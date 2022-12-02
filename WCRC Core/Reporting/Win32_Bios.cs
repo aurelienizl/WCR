@@ -172,7 +172,7 @@ internal class Win32_Bios
                 {
                     WCRC.log.LogWrite("Internal error on bios...");
                     WCRC.log.LogWrite(ex.Message);
-                    WCRC.Win32_Error_.Bios_error += 1;
+                    WCRC._Win32_Error.Bios_error += 1;
                 }
                
             }
@@ -183,7 +183,7 @@ internal class Win32_Bios
         {
             WCRC.log.LogWrite("Critical error on bios...");
             WCRC.log.LogWrite(ex.Message);
-            WCRC.Win32_Error_.Critical_Bios_error += 1;
+            WCRC._Win32_Error.Critical_Bios_error += 1;
             return null;
         }
     }

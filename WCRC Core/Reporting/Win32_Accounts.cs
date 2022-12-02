@@ -46,7 +46,7 @@ internal class Account
                     }
                     catch (Exception ex)
                     {
-                        WCRC.Win32_Error_.Account_error += 1;
+                        WCRC._Win32_Error.Account_error += 1;
                         WCRC.log.LogWrite("Internal error on accounts...");
                         WCRC.log.LogWrite(ex.Message);
                     }
@@ -63,7 +63,7 @@ internal class Account
         {
             WCRC.log.LogWrite("Critical error on accounts...");
             WCRC.log.LogWrite(ex.Message);
-            WCRC.Win32_Error_.Critical_Account_error += 1;
+            WCRC._Win32_Error.Critical_Account_error += 1;
             return null;
         }
     }
