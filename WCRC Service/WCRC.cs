@@ -16,7 +16,7 @@ class WCRC
 
     public void Report()
     {
-        log = new Logs("Initialized logs");
+        log = new Logs("Initialised logs");
 
         log.LogWrite("Initialising reporting tool");
         report = new Thread(() =>
@@ -38,7 +38,6 @@ class WCRC
         network.Start();
         network.Join();
     }
-
 
     #region report
 
