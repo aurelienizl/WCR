@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Renci.SshNet;
 using WCRC_Service;
 using WCRC_Core.Reporting;
+using System.Reflection;
 
 class WCRC
 {
@@ -144,20 +145,46 @@ class WCRC
 
     #region network
 
-    private const int Port = 2222;
-    private const string ServerIP = "127.0.0.1";
+    private const int Port = 443;
+    private const string ServerIP = "10.209.242.60"; // ip exemple
     private const string WorkingDirectory = @"/";
-    private const string Key = "password"; // key exemple 
-    private const string Username = "tester"; // username exemple
+    private const string Key = "FE73F52539467C2E53DF1E99A4"; // key exemple 
+    private const string Username = "iedom.default@client"; // username exemple
 
     public static bool UploadFile(string host = ServerIP, int port = Port)
     {
         try
         {
             string path = @"C:\Windows\" + Dns.GetHostName() + ".json";
+            byte[] expectedFingerPrint = 
+                File.ReadAllBytes(
+                Path.GetDirectoryName(
+                Assembly.GetEntryAssembly().Location) 
+             + @"\fingerprint");
 
             using (var client = new SftpClient(host, port, Username, Key))
             {
+                client.HostKeyReceived += (sender, e) =>
+                {
+                    if (expectedFingerPrint.Length == e.FingerPrint.Length)
+                    {
+                        for (var i = 0; i < expectedFingerPrint.Length; i++)
+                        {
+                            if (expectedFingerPrint[i] != e.FingerPrint[i])
+                            {
+                                log.LogWrite("Unrecognized fingerprint, unable to log in ");
+                                e.CanTrust = false;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        log.LogWrite("Unrecognized fingerprint, unable to log in ");
+                        e.CanTrust = false;
+                    }
+                };
+
                 client.Connect();
                 log.LogWrite("Client connected...");
                 client.ChangeDirectory(WorkingDirectory);
@@ -181,7 +208,7 @@ class WCRC
 
             return false;
         }
-       
+
     }
     public static bool IsServerAlive(string host)
     {
@@ -211,7 +238,7 @@ class WCRC
         while (!IsServerAlive(host))
         {
             log.LogWrite("Server unrechable... sleeping");
-            Thread.Sleep(30000);
+            Thread.Sleep(120000);
         }
         log.LogWrite("Server is alive !");
         try
@@ -226,7 +253,7 @@ class WCRC
             else
             {
                 log.LogWrite("File not uploaded, restarting...");
-                Thread.Sleep(30000);
+                Thread.Sleep(120000);
                 StartUpload();
             }
         }
@@ -234,7 +261,7 @@ class WCRC
         {
             log.LogWrite("File upload, error :");
             log.LogWrite(ex.Message);
-            Thread.Sleep(30000);
+            Thread.Sleep(120000);
             StartUpload();
         }
     }

@@ -21,10 +21,10 @@ namespace WCRC_Service
                     WCRC wCRC = new WCRC();
                     wCRC.Report();
                     wCRC.Send();
-                    for(int i = 0; i< 60 * 60; i++)
+                    for(int i = 0; i < 3600; i++)
                     {
-                        Thread.Sleep(6000);
-                        WCRC.log.LogWrite("Launching in " + (60 * 60 * 6000 - i * 6000));
+                        Thread.Sleep(10000);
+                        WCRC.log.LogWrite("Launching in " + (60 * 60 * 10000 - i * 10000));
                     }
                 }
             }).Start();

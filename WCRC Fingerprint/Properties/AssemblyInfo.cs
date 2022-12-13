@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WCRC Core")]
+[assembly: AssemblyTitle("WCRC Fingerprint")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WCRC Core")]
+[assembly: AssemblyProduct("WCRC Fingerprint")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("25020de5-6b9b-4e29-b22e-2bc029354abe")]
+[assembly: Guid("5c29aef0-92d6-446f-976f-fd89cd9bfb3f")]
 
 // Version information for an assembly consists of the following four values:
 //
