@@ -1,13 +1,14 @@
-﻿using System.Net;
-using System.Net.NetworkInformation;
-using System.Threading;
-using System.IO;
+﻿using Renci.SshNet;
 using System;
 using System.Collections.Generic;
-using Renci.SshNet;
-using WCRC_Service;
-using WCRC_Core.Reporting;
+using System.IO;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Reflection;
+using System.Text.RegularExpressions;
+using System.Threading;
+using WCRC_Core.Reporting;
+using WCRC_Service;
 
 class WCRC
 {
@@ -145,44 +146,78 @@ class WCRC
 
     #region network
 
+    private const int ErrorDelay = 1000;
     private const int Port = 443;
-    private const string ServerIP = "10.209.242.60"; // ip exemple
+    private const string ServerDNSBackup = "r90-spoint.ie.in"; // ip exemple
+    private const string ServerDNS = "s90-spoint.ie.in"; // ip exemple
+    private static string ip;
     private const string WorkingDirectory = @"/";
     private const string Key = "FE73F52539467C2E53DF1E99A4"; // key exemple 
     private const string Username = "iedom.default@client"; // username exemple
 
-    public static bool UploadFile(string host = ServerIP, int port = Port)
+    public static bool UploadFile(string host, int port)
     {
         try
         {
+            
+
             string path = @"C:\Windows\" + Dns.GetHostName() + ".json";
-            byte[] expectedFingerPrint = 
+            byte[] expectedFingerPrint1 = 
                 File.ReadAllBytes(
                 Path.GetDirectoryName(
                 Assembly.GetEntryAssembly().Location) 
-             + @"\fingerprint");
+             + @"\fingerprint1");
+
+            byte[] expectedFingerPrint2 =
+                File.ReadAllBytes(
+                Path.GetDirectoryName(
+                Assembly.GetEntryAssembly().Location)
+             + @"\fingerprint2");
+
+
 
             using (var client = new SftpClient(host, port, Username, Key))
             {
+                bool fgp1 = true;
+                bool fgp2 = true;
+
                 client.HostKeyReceived += (sender, e) =>
                 {
-                    if (expectedFingerPrint.Length == e.FingerPrint.Length)
+                    if (expectedFingerPrint1.Length == e.FingerPrint.Length)
                     {
-                        for (var i = 0; i < expectedFingerPrint.Length; i++)
+                        for (var i = 0; i < expectedFingerPrint1.Length; i++)
                         {
-                            if (expectedFingerPrint[i] != e.FingerPrint[i])
+                            if (expectedFingerPrint1[i] != e.FingerPrint[i])
                             {
-                                log.LogWrite("Unrecognized fingerprint, unable to log in ");
-                                e.CanTrust = false;
+                                log.LogWrite("Unrecognized fingerprint from fingerprint 1");
+                                fgp1 = false;
                                 break;
                             }
                         }
                     }
                     else
                     {
-                        log.LogWrite("Unrecognized fingerprint, unable to log in ");
-                        e.CanTrust = false;
+                        log.LogWrite("Unrecognized fingerprint from fingerprint 1");
+                        fgp1 = false;
                     }
+                    if (expectedFingerPrint2.Length == e.FingerPrint.Length)
+                    {
+                        for (var i = 0; i < expectedFingerPrint2.Length; i++)
+                        {
+                            if (expectedFingerPrint2[i] != e.FingerPrint[i])
+                            {
+                                log.LogWrite("Unrecognized fingerprint from fingerprint 2");
+                                fgp2 = false;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        log.LogWrite("Unrecognized fingerprint from fingerprint 2");
+                        fgp2 = false;
+                    }
+                    e.CanTrust = fgp1 || fgp2;
                 };
 
                 client.Connect();
@@ -233,37 +268,62 @@ class WCRC
         }
         return isServerAlive;
     }
-    public static void StartUpload(string host = ServerIP, int port = Port)
+    public static void StartUpload()
     {
-        while (!IsServerAlive(host))
+        while(!SetIpAddr(ServerDNSBackup))
         {
-            log.LogWrite("Server unrechable... sleeping");
-            Thread.Sleep(120000);
+            if(SetIpAddr(ServerDNS))
+            {
+                break;
+            }
+            Thread.Sleep(ErrorDelay);
         }
-        log.LogWrite("Server is alive !");
+
+        while(!IsServerAlive(ip))
+        {
+            Thread.Sleep(ErrorDelay);
+        }
+
+        while(!UploadFile(ip, Port))
+        {
+            Thread.Sleep(ErrorDelay);
+        }
+    }
+
+    public static bool SetIpAddr(string dns)
+    {
         try
         {
-            log.LogWrite("Starting authentification...");
-
-            if (UploadFile(host, port))
+            log.LogWrite("Getting ip address from hostname...");
+            IPAddress[] addresslist = Dns.GetHostAddresses(dns);
+            if (addresslist.Length == 0)
             {
-                log.LogWrite("File uploaded, exiting...");
-                return;
+                log.LogWrite("Unable to get ip address from hostname...");
+                return false;
             }
-            else
+            if (!IsIpValid(addresslist[0].ToString()))
             {
-                log.LogWrite("File not uploaded, restarting...");
-                Thread.Sleep(120000);
-                StartUpload();
+                log.LogWrite("Ip address is not valid !");
+                return false;
             }
+            ip = addresslist[0].ToString();
+            log.LogWrite("Found ip : " + ip);
+            return true;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            log.LogWrite("File upload, error :");
-            log.LogWrite(ex.Message);
-            Thread.Sleep(120000);
-            StartUpload();
+            log.LogWrite("Error getting ip from hostname " + dns);
+            return false;
         }
+    }
+
+    static bool IsIpValid(string ip)
+    {
+        if (!Regex.IsMatch(ip, "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"))
+        {
+            return false;
+        }
+        return true;
     }
 
     #endregion
