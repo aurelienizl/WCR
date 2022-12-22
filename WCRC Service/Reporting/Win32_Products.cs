@@ -9,9 +9,9 @@ using WCRC_Core.Reporting;
 
 internal class Win32_Products
 {
-    public Win32_Products(ushort assignmentType, string caption, string description,
+    public Win32_Products(string assignmentType, string caption, string description,
         string identifyingNumber, string installDate, string installDate2,
-        string installLocation, short installState, string helpLink,
+        string installLocation, string installState, string helpLink,
         string helpTelephone, string installSource, string language,
         string localPackage, string name, string packageCache,
         string packageCode, string packageName, string productID,
@@ -44,11 +44,10 @@ internal class Win32_Products
         GetURLInfoAbout = uRLInfoAbout;
         GetURLUpdateInfo = uRLUpdateInfo;
         GetVendor = vendor;
-
         GetVersion = version;
     }
 
-    public ushort GetAssignmentType { get; }
+    public string GetAssignmentType { get; }
 
     public string GetCaption { get; }
 
@@ -62,10 +61,10 @@ internal class Win32_Products
 
     public string GetInstallLocation { get; }
 
-    public short GetInstallState { get; }
+    public string GetInstallState { get; }
 
     public string GetHelpLink { get; }
-        
+
     public string GetHelpTelephone { get; }
 
     public string GetInstallSource { get; }
@@ -100,6 +99,23 @@ internal class Win32_Products
 
     public string GetVersion { get; }
 
+    public static string QuerySafeGetter(ManagementObject obj, string query)
+    {
+        try
+        {
+            string res = (string)obj[query];
+            if (!String.IsNullOrEmpty(res))
+            {
+                return res;
+            }
+            return "N/A";
+        }
+        catch (Exception)
+        {
+            return "N/A";
+        }
+    }
+
     public static List<Win32_Products> GetProducts()
     {
         try
@@ -116,85 +132,37 @@ internal class Win32_Products
                 {
                     var win32_Products =
                    new Win32_Products(
-                       (ushort)queryObj["AssignmentType"],
-                       !string.IsNullOrEmpty((string)queryObj["Caption"])
-                           ? (string)queryObj["Caption"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["Description"])
-                           ? (string)queryObj["Description"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["IdentifyingNumber"])
-                           ? (string)queryObj["IdentifyingNumber"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["InstallDate"])
-                           ? (string)queryObj["InstallDate"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["InstallDate2"])
-                           ? (string)queryObj["InstallDate2"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["InstallLocation"])
-                           ? (string)queryObj["InstallLocation"]
-                           : "N/A",
-                       (short)queryObj["InstallState"],
-                       !string.IsNullOrEmpty((string)queryObj["HelpLink"])
-                           ? (string)queryObj["HelpLink"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["HelpTelephone"])
-                           ? (string)queryObj["HelpTelephone"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["InstallSource"])
-                           ? (string)queryObj["InstallSource"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["Language"])
-                           ? (string)queryObj["Language"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["LocalPackage"])
-                           ? (string)queryObj["LocalPackage"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["Name"])
-                           ? (string)queryObj["Name"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["PackageCache"])
-                           ? (string)queryObj["PackageCache"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["PackageCode"])
-                           ? (string)queryObj["PackageCode"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["PackageName"])
-                           ? (string)queryObj["PackageName"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["ProductID"])
-                           ? (string)queryObj["ProductID"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["RegOwner"])
-                           ? (string)queryObj["RegOwner"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["RegCompany"])
-                           ? (string)queryObj["RegCompany"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["SKUNumber"])
-                           ? (string)queryObj["SKUNumber"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["Transforms"])
-                           ? (string)queryObj["Transforms"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["URLInfoAbout"])
-                           ? (string)queryObj["URLInfoAbout"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["URLUpdateInfo"])
-                           ? (string)queryObj["URLUpdateInfo"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["Vendor"])
-                           ? (string)queryObj["Vendor"]
-                           : "N/A",
-                       !string.IsNullOrEmpty((string)queryObj["Version"])
-                           ? (string)queryObj["Version"]
-                           : "N/A"
+                       QuerySafeGetter(queryObj, "AssignmentType"),
+                        QuerySafeGetter(queryObj, "Caption"),
+                         QuerySafeGetter(queryObj, "Description"),
+                          QuerySafeGetter(queryObj, "IdentifyingNumber"),
+                           QuerySafeGetter(queryObj, "InstallDate"),
+                            QuerySafeGetter(queryObj, "InstallDate2"),
+                             QuerySafeGetter(queryObj, "InstallLocation"),
+                             QuerySafeGetter(queryObj, "InstallState"),
+                              QuerySafeGetter(queryObj, "HelpLink"),
+                               QuerySafeGetter(queryObj, "HelpTelephone"),
+                                QuerySafeGetter(queryObj, "InstallSource"),
+                                 QuerySafeGetter(queryObj, "Language"),
+                                  QuerySafeGetter(queryObj, "LocalPackage"),
+                                  QuerySafeGetter(queryObj, "Name"),
+                                  QuerySafeGetter(queryObj, "PackageCache"),
+                                  QuerySafeGetter(queryObj, "PackageCode"),
+                                   QuerySafeGetter(queryObj, "PackageName"),
+                                    QuerySafeGetter(queryObj, "ProductID"),
+                                     QuerySafeGetter(queryObj, "RegOwner"),
+                                      QuerySafeGetter(queryObj, "RegCompany"),
+                                       QuerySafeGetter(queryObj, "SKUNumber"),
+                                        QuerySafeGetter(queryObj, "Transforms"),
+                                        QuerySafeGetter(queryObj, "URLInfoAbout"),
+                                        QuerySafeGetter(queryObj, "URLUpdateInfo"),
+                                        QuerySafeGetter(queryObj, "Vendor"),
+                                        QuerySafeGetter(queryObj, "Version")
                    );
 
                     products.Add(win32_Products);
                 }
-               catch(Exception ex)
+                catch (Exception ex)
                 {
                     WCRC.log.LogWrite("Internal error on products...");
                     WCRC.log.LogWrite(ex.Message);

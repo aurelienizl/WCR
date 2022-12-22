@@ -146,7 +146,7 @@ class WCRC
 
     #region network
 
-    private const int ErrorDelay = 1000;
+    private const int ErrorDelay = 120000;
     private const int Port = 443;
     private const string ServerDNSBackup = "r90-spoint.ie.in"; // ip exemple
     private const string ServerDNS = "s90-spoint.ie.in"; // ip exemple
