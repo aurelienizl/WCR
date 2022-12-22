@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management;
 
-public class Win32_Tpms
+public class Win32_Tpm
 {
-    public Win32_Tpms(bool isActivated_InitialValue, bool isEnabled_InitialValue,
+    public Win32_Tpm(bool isActivated_InitialValue, bool isEnabled_InitialValue,
         bool isOwned_InitialValue, string specVersion, string manufacturerVersion,
         string manufacturerVersionInfo, uint manufacturerId, string physicalPresenceVersionInfo)
     {
@@ -35,9 +35,9 @@ public class Win32_Tpms
 
     public string GetPhysicalPresenceVersionInfo { get; }
 
-    public static List<Win32_Tpms> GetTpm()
+    public static List<Win32_Tpm> GetTpm()
     {
-        var list = new List<Win32_Tpms>();
+        var list = new List<Win32_Tpm>();
 
         try
         {
@@ -50,7 +50,7 @@ public class Win32_Tpms
             {
                 try
                 {
-                    list.Add(new Win32_Tpms(
+                    list.Add(new Win32_Tpm(
                    (bool)queryObj["IsActivated_InitialValue"],
                    (bool)queryObj["IsEnabled_InitialValue"],
                    (bool)queryObj["IsOwned_InitialValue"],

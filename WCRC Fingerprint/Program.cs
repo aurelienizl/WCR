@@ -1,7 +1,9 @@
-﻿using Renci.SshNet;
+﻿using Microsoft.Win32;
 using System;
-using System.IO;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Management;
+using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 
 namespace WCRC_Fingerprint
 {
@@ -9,61 +11,68 @@ namespace WCRC_Fingerprint
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Type host ip :");
-            string host = Console.ReadLine();
-            Console.WriteLine("Type port number :");
-            string port = Console.ReadLine();
-            GetFingerprint(host, port);
-            Console.WriteLine("Press enter to exit");
-            Console.ReadLine();
-        }
 
-        static int IsPortValid(string portAsStroing)
+            foreach (var val in GetWin32_Defenders())
+                foreach (var data in val)
+                    Console.WriteLine(data);
+            Console.ReadLine();
+
+        }
+        public static string QuerySafeGetter(ManagementObject obj, string query)
         {
             try
             {
-                int port = Convert.ToInt32(portAsStroing);
-                if (port < 65536 || port > 1)
+                if(!String.IsNullOrEmpty(obj[query].ToString()))
                 {
-                    return port;
+                    return obj[query].ToString();
                 }
+
+                string res = (string)obj[query];
+                if (!String.IsNullOrEmpty(res))
+                {
+                    return res;
+                }
+                return "N/A";
             }
             catch (Exception)
             {
-                Console.WriteLine("Critical : Unable to parse port");
+                return "N/A";
             }
-            return -1;
         }
-        static void GetFingerprint(string ip, string portAsString)
+
+        public static List<List<string>> GetWin32_Defenders()
         {
-            int port;
-            port = IsPortValid(portAsString);
-            if (port is -1) return;
+            List<List<string>> win32_Defenders = new List<List<string>>();
 
-            if (!Regex.IsMatch(ip, "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"))
+            try
             {
-                Console.WriteLine("CRITICAL : Unable to parse ip");
-                return;
+
+                ManagementObjectSearcher wmiData = new ManagementObjectSearcher(@"root\SecurityCenter2", "SELECT * FROM AntiVirusProduct");
+                ManagementObjectCollection data = wmiData.Get();
+
+                foreach (ManagementObject obj in data)
+                {
+                    win32_Defenders.Add(
+                        new List<string>(
+
+                        )
+                        { QuerySafeGetter(obj, "instanceGuid"),
+                        QuerySafeGetter(obj, "displayName"),
+                        QuerySafeGetter(obj, "pathToSignedProductExe"),
+                        QuerySafeGetter(obj, "pathToSignedReportingExe"),
+                        QuerySafeGetter(obj, "productState"),
+                        QuerySafeGetter(obj, "timestamp")});
+                }
+
+                return win32_Defenders;
+            }
+            catch (Exception)
+            {
+
+                return win32_Defenders;
             }
 
-            using (var client = new SftpClient(ip, port, "guest", "pwd"))
-            {
-                client.HostKeyReceived += (sender, e) =>
-                {
-                    File.WriteAllBytes("fingerprint", e.FingerPrint);
-                };
-                try
-                {
-                    client.Connect();
-                    client.Dispose();
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Error, cannot connect");
-                }
-            }
-            Console.WriteLine("Got fingerprint, exit");
         }
-    }
 
+    }
 }

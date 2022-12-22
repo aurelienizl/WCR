@@ -108,45 +108,47 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Logs.cs" />
-    <Compile Include="ProjectInstaller.cs">
+    <Compile Include="Modules\Logs.cs" />
+    <Compile Include="Modules\WCRC_Networking.cs" />
+    <Compile Include="Configuration\ProjectInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ProjectInstaller.Designer.cs">
+    <Compile Include="Configuration\ProjectInstaller.Designer.cs">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="Reporting\Cryptography.cs" />
-    <Compile Include="Reporting\Win32_Accounts.cs" />
+    <Compile Include="Modules\WCRC_Reporting.cs" />
+    <Compile Include="Reporting\Win32_Account.cs" />
     <Compile Include="Reporting\Win32_Bios.cs" />
     <Compile Include="Reporting\Win32_Defender.cs" />
-    <Compile Include="Reporting\Win32_EncryptableVolumes.cs" />
-    <Compile Include="Reporting\Win32_Products.cs" />
-    <Compile Include="Reporting\Win32_QuickFixEngineerings.cs" />
+    <Compile Include="Reporting\Win32_EncryptableVolume.cs" />
+    <Compile Include="Reporting\Win32_Product.cs" />
+    <Compile Include="Reporting\Win32_QuickFixEngineering.cs" />
     <Compile Include="Reporting\Win32_Report.cs" />
-    <Compile Include="Reporting\Win32_Softwares.cs" />
+    <Compile Include="Reporting\Win32_Software.cs" />
     <Compile Include="Reporting\Win32_Startup.cs" />
     <Compile Include="Reporting\Win32_SystemInfo.cs" />
-    <Compile Include="Reporting\Win32_Tpms.cs" />
+    <Compile Include="Reporting\Win32_Tpm.cs" />
     <Compile Include="Reporting\Win32_X509Cert.cs" />
     <Compile Include="WCRC.cs" />
-    <Compile Include="ServiceWCRC.cs">
+    <Compile Include="Configuration\ServiceWCRC.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ServiceWCRC.Designer.cs">
+    <Compile Include="Configuration\ServiceWCRC.Designer.cs">
       <DependentUpon>ServiceWCRC.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="Configuration\App.config" />
+    <None Include="Configuration\packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ProjectInstaller.resx">
+    <EmbeddedResource Include="Configuration\ProjectInstaller.resx">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ServiceWCRC.resx">
+    <EmbeddedResource Include="Configuration\ServiceWCRC.resx">
       <DependentUpon>ServiceWCRC.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

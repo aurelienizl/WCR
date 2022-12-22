@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Management;
 
 
-internal class Win32_EncryptableVolumes
+internal class Win32_EncryptableVolume
 {
-    public Win32_EncryptableVolumes(string deviceID, string persistentVolumeID, string driveLetter,
+    public Win32_EncryptableVolume(string deviceID, string persistentVolumeID, string driveLetter,
         string protectionStatus)
     {
         GetDeviceID = deviceID;
@@ -44,9 +44,9 @@ internal class Win32_EncryptableVolumes
         }
     }
 
-    public static List<Win32_EncryptableVolumes> GetEncryptableVolume()
+    public static List<Win32_EncryptableVolume> GetEncryptableVolume()
     {
-        var list = new List<Win32_EncryptableVolumes>();
+        var list = new List<Win32_EncryptableVolume>();
 
         try
         {
@@ -59,7 +59,7 @@ internal class Win32_EncryptableVolumes
                 try
                 {
                     list.Add(
-                    new Win32_EncryptableVolumes(
+                    new Win32_EncryptableVolume(
                         QuerySafeGetter(queryObj, "DeviceID"),
                          QuerySafeGetter(queryObj, "PersistentVolumeID"),
                           QuerySafeGetter(queryObj, "DriveLetter"),

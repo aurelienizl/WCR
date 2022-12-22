@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WCRC Gui", "Windows Compliancy Report Client\WCRC Gui.csproj", "{FAD58FEA-4039-43F1-85F5-99F5155857A6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Windows Server Dashboard", "Windows Server Dashboard\Windows Server Dashboard.csproj", "{8156B7B4-4AA1-4E7F-B447-7A40F8ECBD76}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCRC Service", "WCRC Service\WCRC Service.csproj", "{A1F18455-F01B-4272-AABC-298D77AB5FD2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCRC Fingerprint", "WCRC Fingerprint\WCRC Fingerprint.csproj", "{5C29AEF0-92D6-446F-976F-FD89CD9BFB3F}"
@@ -17,14 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FAD58FEA-4039-43F1-85F5-99F5155857A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAD58FEA-4039-43F1-85F5-99F5155857A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAD58FEA-4039-43F1-85F5-99F5155857A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAD58FEA-4039-43F1-85F5-99F5155857A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8156B7B4-4AA1-4E7F-B447-7A40F8ECBD76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8156B7B4-4AA1-4E7F-B447-7A40F8ECBD76}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8156B7B4-4AA1-4E7F-B447-7A40F8ECBD76}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8156B7B4-4AA1-4E7F-B447-7A40F8ECBD76}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A1F18455-F01B-4272-AABC-298D77AB5FD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A1F18455-F01B-4272-AABC-298D77AB5FD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1F18455-F01B-4272-AABC-298D77AB5FD2}.Release|Any CPU.ActiveCfg = Release|Any CPU

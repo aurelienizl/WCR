@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Management;
 
-internal class Win32_QuickFixEngineerings
+internal class Win32_QuickFixEngineering
 {
-    public Win32_QuickFixEngineerings(string caption, string description, string installDate,
+    public Win32_QuickFixEngineering(string caption, string description, string installDate,
         string name, string status, string cSName, string fixComments, string hotFixID,
         string installedBy, string installedOn, string servicePackInEffect)
     {
@@ -65,9 +65,9 @@ internal class Win32_QuickFixEngineerings
         }
     }
 
-    public static List<Win32_QuickFixEngineerings> GetQuickFixEngineering()
+    public static List<Win32_QuickFixEngineering> GetQuickFixEngineering()
     {
-        var list = new List<Win32_QuickFixEngineerings>();
+        var list = new List<Win32_QuickFixEngineering>();
 
         try
         {
@@ -81,7 +81,7 @@ internal class Win32_QuickFixEngineerings
                 try
                 {
                     list.Add(
-                        new Win32_QuickFixEngineerings(
+                        new Win32_QuickFixEngineering(
                             QuerySafeGetter(queryObj, "Caption"),
                             QuerySafeGetter(queryObj, "Description"),
                             QuerySafeGetter(queryObj, "InstallDate"),

@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using System.DirectoryServices;
 using WCRC_Service;
 
-internal class Account
+internal class Win32_Account
 {
     public string GetName { get; }
     public string GetAuthenticationType { get; }
     public string GetGuid { get; }
-    public Account(string name, string authenticationStatus, string guid)
+    public Win32_Account(string name, string authenticationStatus, string guid)
     {
         GetName = name;
         GetAuthenticationType = authenticationStatus;
         GetGuid = guid;
     }
-    public static List<Account> GetLocalUsers()
+    public static List<Win32_Account> GetLocalUsers()
     {
-        var accounts = new List<Account>();
+        var accounts = new List<Win32_Account>();
 
         try
         {
@@ -32,7 +32,7 @@ internal class Account
                     try
                     {
                         var s = new DirectoryEntry(groupMember);
-                        var account = new Account(
+                        var account = new Win32_Account(
                             !string.IsNullOrEmpty(s.Name)
                                 ? s.Name
                                 : "N/A",

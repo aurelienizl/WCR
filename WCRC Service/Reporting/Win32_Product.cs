@@ -6,9 +6,9 @@ using System.Management;
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
 
 
-internal class Win32_Products
+internal class Win32_Product
 {
-    public Win32_Products(string assignmentType, string caption, string description,
+    public Win32_Product(string assignmentType, string caption, string description,
         string identifyingNumber, string installDate, string installDate2,
         string installLocation, string installState, string helpLink,
         string helpTelephone, string installSource, string language,
@@ -120,9 +120,9 @@ internal class Win32_Products
         }
     }
 
-    public static List<Win32_Products> GetProducts()
+    public static List<Win32_Product> GetProducts()
     {
-        var products = new List<Win32_Products>();
+        var products = new List<Win32_Product>();
 
         try
         {
@@ -136,7 +136,7 @@ internal class Win32_Products
                 try
                 {
                     var win32_Products =
-                   new Win32_Products(
+                   new Win32_Product(
                        QuerySafeGetter(queryObj, "AssignmentType"),
                         QuerySafeGetter(queryObj, "Caption"),
                          QuerySafeGetter(queryObj, "Description"),
