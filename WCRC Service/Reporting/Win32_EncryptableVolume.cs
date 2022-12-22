@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Management;
 using WCRC_Service.Modules;
 
-
 internal class Win32_EncryptableVolume
 {
     public Win32_EncryptableVolume(string deviceID, string persistentVolumeID, string driveLetter,
@@ -27,16 +26,10 @@ internal class Win32_EncryptableVolume
     {
         try
         {
-            if (!String.IsNullOrEmpty(obj[query].ToString()))
-            {
-                return obj[query].ToString();
-            }
+            if (!string.IsNullOrEmpty(obj[query].ToString())) return obj[query].ToString();
 
-            string res = (string)obj[query];
-            if (!String.IsNullOrEmpty(res))
-            {
-                return res;
-            }
+            var res = (string)obj[query];
+            if (!string.IsNullOrEmpty(res)) return res;
             return "N/A";
         }
         catch (Exception)
@@ -61,23 +54,22 @@ internal class Win32_EncryptableVolume
                 try
                 {
                     list.Add(
-                    new Win32_EncryptableVolume(
-                        QuerySafeGetter(queryObj, "DeviceID"),
-                         QuerySafeGetter(queryObj, "PersistentVolumeID"),
-                          QuerySafeGetter(queryObj, "DriveLetter"),
-                           QuerySafeGetter(queryObj, "ProtectionStatus")
-      
-                    ));
+                        new Win32_EncryptableVolume(
+                            QuerySafeGetter(queryObj, "DeviceID"),
+                            QuerySafeGetter(queryObj, "PersistentVolumeID"),
+                            QuerySafeGetter(queryObj, "DriveLetter"),
+                            QuerySafeGetter(queryObj, "ProtectionStatus")
+                        ));
                 }
                 catch (Exception)
                 {
-
                 }
             }
+
             Logs.LogWrite("Got volumes successfully");
             return list;
         }
-        catch (Exception )
+        catch (Exception)
         {
             Logs.LogWrite("Error : volumes");
             return list;

@@ -7,13 +7,6 @@ namespace WCRC_Service.Reporting
 {
     internal class Win32_Software
     {
-        public string GetKeyName { get; set; }
-        public string GetDisplayName { get; set; }
-        public string GetPublisher { get; set; }
-        public string GetDisplayVersion { get; set; }
-        public string GetUninstallString { get; set; }
-        public string GetInstallSource { get; set; }
-
         public Win32_Software(string KeyName, string DisplayName, string DisplayVersion,
             string UninstallString, string InstallSource, string Publisher)
         {
@@ -24,6 +17,13 @@ namespace WCRC_Service.Reporting
             GetInstallSource = InstallSource;
             GetPublisher = Publisher;
         }
+
+        public string GetKeyName { get; set; }
+        public string GetDisplayName { get; set; }
+        public string GetPublisher { get; set; }
+        public string GetDisplayVersion { get; set; }
+        public string GetUninstallString { get; set; }
+        public string GetInstallSource { get; set; }
 
         public static string GetRegistrykeySafe(RegistryKey key, string query)
         {

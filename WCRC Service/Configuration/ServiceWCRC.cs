@@ -19,10 +19,10 @@ namespace WCRC_Service
                 Thread.CurrentThread.IsBackground = true;
                 while (true)
                 {
-                    WCRC wCRC = new WCRC();
+                    var wCRC = new WCRC();
                     wCRC.Report();
                     wCRC.Send();
-                    for(int i = 0; i < 3600; i++)
+                    for (var i = 0; i < 3600; i++)
                     {
                         Thread.Sleep(10000);
                         Logs.LogWrite("Launching in " + (60 * 60 * 10000 - i * 10000));

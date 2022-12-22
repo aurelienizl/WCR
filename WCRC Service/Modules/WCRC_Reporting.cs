@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using WCRC_Service.Modules;
 using WCRC_Service.Reporting;
 
@@ -77,7 +73,6 @@ internal class WCRC_Reporting
             {
                 Thread.CurrentThread.IsBackground = true;
                 Win32_SystemInfo_ = Win32_SystemInfo.GetSystemInfo();
-
             }),
 
             new Thread(() =>
@@ -86,13 +81,13 @@ internal class WCRC_Reporting
                 Win32_Startup_ = Win32_Startup.GetStartupApps();
             }),
 
-             new Thread(() =>
+            new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
                 Win32_Defender_ = Win32_Defender.GetWin32_Defenders();
             }),
 
-              new Thread(() =>
+            new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
                 Win32_Softwares_ = Win32_Software.GetInstalledApps();
@@ -107,12 +102,12 @@ internal class WCRC_Reporting
         Logs.LogWrite("WMI Queries finished");
 
         var report = new Win32_Report(
-        Win32_Bios_,
+            Win32_Bios_,
             Win32_EncryptableVolumes_,
-        Win32_Tpms_,
+            Win32_Tpms_,
             Win32_Products_,
             Win32_X509Cert_,
-        Win32_QuickFixEngineerings_,
+            Win32_QuickFixEngineerings_,
             Win32_Accounts_,
             Win32_SystemInfo_,
             Win32_Startup_,
@@ -126,6 +121,4 @@ internal class WCRC_Reporting
     }
 
     #endregion
-
 }
-

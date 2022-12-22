@@ -1,17 +1,13 @@
-﻿using Renci.SshNet;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
+using Renci.SshNet;
 using WCRC_Service.Modules;
-
 
 internal class WCRC_Networking
 {
@@ -30,27 +26,24 @@ internal class WCRC_Networking
     {
         try
         {
-
-
-            string path = @"C:\Windows\" + Dns.GetHostName() + ".json";
-            byte[] expectedFingerPrint1 =
+            var path = @"C:\Windows\" + Dns.GetHostName() + ".json";
+            var expectedFingerPrint1 =
                 File.ReadAllBytes(
-                Path.GetDirectoryName(
-                Assembly.GetEntryAssembly()?.Location)
-             + @"\fingerprint1");
+                    Path.GetDirectoryName(
+                        Assembly.GetEntryAssembly()?.Location)
+                    + @"\fingerprint1");
 
-            byte[] expectedFingerPrint2 =
+            var expectedFingerPrint2 =
                 File.ReadAllBytes(
-                Path.GetDirectoryName(
-                Assembly.GetEntryAssembly()?.Location)
-             + @"\fingerprint2");
-
+                    Path.GetDirectoryName(
+                        Assembly.GetEntryAssembly()?.Location)
+                    + @"\fingerprint2");
 
 
             using (var client = new SftpClient(host, port, Username, Key))
             {
-                bool fgp1 = true;
-                bool fgp2 = true;
+                var fgp1 = true;
+                var fgp2 = true;
 
                 client.HostKeyReceived += (sender, e) =>
                 {
@@ -67,6 +60,7 @@ internal class WCRC_Networking
                         Logs.LogWrite("Unrecognized fingerprint from fingerprint 1");
                         fgp1 = false;
                     }
+
                     if (expectedFingerPrint2.Length == e.FingerPrint.Length)
                     {
                         if (expectedFingerPrint2.Where((t, i) => t != e.FingerPrint[i]).Any())
@@ -80,6 +74,7 @@ internal class WCRC_Networking
                         Logs.LogWrite("Unrecognized fingerprint from fingerprint 2");
                         fgp2 = false;
                     }
+
                     e.CanTrust = fgp1 || fgp2;
                 };
 
@@ -95,6 +90,7 @@ internal class WCRC_Networking
                     client.UploadFile(fileStream, Path.GetFileName(path));
                 }
             }
+
             Logs.LogWrite("File sent !");
 
             return true;
@@ -106,7 +102,6 @@ internal class WCRC_Networking
 
             return false;
         }
-
     }
 
     private static bool IsServerAlive(string host)
@@ -130,28 +125,21 @@ internal class WCRC_Networking
             Logs.LogWrite("Server ping, error :");
             Logs.LogWrite(ex.Message);
         }
+
         return isServerAlive;
     }
+
     public static void StartUpload()
     {
         while (!SetIpAddr(ServerDnsBackup))
         {
-            if (SetIpAddr(ServerDns))
-            {
-                break;
-            }
+            if (SetIpAddr(ServerDns)) break;
             Thread.Sleep(ErrorDelay);
         }
 
-        while (!IsServerAlive(_ip))
-        {
-            Thread.Sleep(ErrorDelay);
-        }
+        while (!IsServerAlive(_ip)) Thread.Sleep(ErrorDelay);
 
-        while (!UploadFile(_ip, Port))
-        {
-            Thread.Sleep(ErrorDelay);
-        }
+        while (!UploadFile(_ip, Port)) Thread.Sleep(ErrorDelay);
     }
 
     private static bool SetIpAddr(string dns)
@@ -159,17 +147,19 @@ internal class WCRC_Networking
         try
         {
             Logs.LogWrite("Getting ip address from hostname...");
-            IPAddress[] addresslist = Dns.GetHostAddresses(dns);
+            var addresslist = Dns.GetHostAddresses(dns);
             if (addresslist.Length == 0)
             {
                 Logs.LogWrite("Unable to get ip address from hostname...");
                 return false;
             }
+
             if (!IsIpValid(addresslist[0].ToString()))
             {
                 Logs.LogWrite("Ip address is not valid !");
                 return false;
             }
+
             _ip = addresslist[0].ToString();
             Logs.LogWrite("Found ip : " + _ip);
             return true;
@@ -181,11 +171,11 @@ internal class WCRC_Networking
         }
     }
 
-    static bool IsIpValid(string ip)
+    private static bool IsIpValid(string ip)
     {
-        return Regex.IsMatch(ip, "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$");
+        return Regex.IsMatch(ip,
+            "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$");
     }
 
     #endregion
 }
-

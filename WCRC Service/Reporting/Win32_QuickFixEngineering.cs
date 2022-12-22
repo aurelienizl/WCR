@@ -48,16 +48,10 @@ internal class Win32_QuickFixEngineering
     {
         try
         {
-            if (!String.IsNullOrEmpty(obj[query].ToString()))
-            {
-                return obj[query].ToString();
-            }
+            if (!string.IsNullOrEmpty(obj[query].ToString())) return obj[query].ToString();
 
-            string res = (string)obj[query];
-            if (!String.IsNullOrEmpty(res))
-            {
-                return res;
-            }
+            var res = (string)obj[query];
+            if (!string.IsNullOrEmpty(res)) return res;
             return "N/A";
         }
         catch (Exception)
@@ -72,7 +66,6 @@ internal class Win32_QuickFixEngineering
 
         try
         {
-
             var searcher =
                 new ManagementObjectSearcher("root\\CIMV2",
                     "SELECT * FROM Win32_QuickFixEngineering");
@@ -94,7 +87,7 @@ internal class Win32_QuickFixEngineering
                             QuerySafeGetter(queryObj, "HotFixID"),
                             QuerySafeGetter(queryObj, "InstalledBy"),
                             QuerySafeGetter(queryObj, "InstalledOn"),
-                            QuerySafeGetter(queryObj, "ServicePackInEffect")                        
+                            QuerySafeGetter(queryObj, "ServicePackInEffect")
                         )
                     );
                 }
@@ -103,6 +96,7 @@ internal class Win32_QuickFixEngineering
                     // ignored
                 }
             }
+
             Logs.LogWrite("Got qfe successfully");
 
             return list;

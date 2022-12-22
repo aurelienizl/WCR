@@ -202,8 +202,8 @@ internal class Win32_SystemInfo
         }
         catch
         {
-
         }
+
         return "Unknown";
     }
 
@@ -231,6 +231,7 @@ internal class Win32_SystemInfo
         catch (Exception)
         {
         }
+
         return "-";
     }
 
@@ -266,6 +267,7 @@ internal class Win32_SystemInfo
         catch (Exception)
         {
         }
+
         return "-";
     }
 }

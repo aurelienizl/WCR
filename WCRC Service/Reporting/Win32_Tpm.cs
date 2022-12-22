@@ -42,39 +42,37 @@ public class Win32_Tpm
 
         try
         {
-
             var searcher =
                 new ManagementObjectSearcher("root\\CIMV2\\Security\\MicrosoftTpm",
                     "SELECT * FROM Win32_Tpm");
 
-            foreach (ManagementObject queryObj in searcher.Get().Cast<ManagementObject>())
-            {
+            foreach (var queryObj in searcher.Get().Cast<ManagementObject>())
                 try
                 {
                     list.Add(new Win32_Tpm(
-                   (bool)queryObj["IsActivated_InitialValue"],
-                   (bool)queryObj["IsEnabled_InitialValue"],
-                   (bool)queryObj["IsOwned_InitialValue"],
-                   !string.IsNullOrEmpty((string)queryObj["SpecVersion"])
-                       ? (string)queryObj["SpecVersion"]
-                       : "N/A",
-                   !string.IsNullOrEmpty((string)queryObj["ManufacturerVersion"])
-                       ? (string)queryObj["ManufacturerVersion"]
-                       : "N/A",
-                   !string.IsNullOrEmpty((string)queryObj["ManufacturerVersionInfo"])
-                       ? (string)queryObj["ManufacturerVersionInfo"]
-                       : "N/A",
-                   (uint)queryObj["ManufacturerId"],
-                   !string.IsNullOrEmpty((string)queryObj["PhysicalPresenceVersionInfo"])
-                       ? (string)queryObj["PhysicalPresenceVersionInfo"]
-                       : "N/A"
-               ));
+                        (bool)queryObj["IsActivated_InitialValue"],
+                        (bool)queryObj["IsEnabled_InitialValue"],
+                        (bool)queryObj["IsOwned_InitialValue"],
+                        !string.IsNullOrEmpty((string)queryObj["SpecVersion"])
+                            ? (string)queryObj["SpecVersion"]
+                            : "N/A",
+                        !string.IsNullOrEmpty((string)queryObj["ManufacturerVersion"])
+                            ? (string)queryObj["ManufacturerVersion"]
+                            : "N/A",
+                        !string.IsNullOrEmpty((string)queryObj["ManufacturerVersionInfo"])
+                            ? (string)queryObj["ManufacturerVersionInfo"]
+                            : "N/A",
+                        (uint)queryObj["ManufacturerId"],
+                        !string.IsNullOrEmpty((string)queryObj["PhysicalPresenceVersionInfo"])
+                            ? (string)queryObj["PhysicalPresenceVersionInfo"]
+                            : "N/A"
+                    ));
                 }
                 catch (Exception)
                 {
                     // ignored
                 }
-            }
+
             Logs.LogWrite("Got tpms successfully");
 
             return list;

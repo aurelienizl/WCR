@@ -1,13 +1,12 @@
 ﻿using System.Threading;
 using WCRC_Service.Modules;
 
-
-class WCRC
+internal class WCRC
 {
     public static Logs Log;
 
-    Thread _network;
-    Thread _report;
+    private Thread _network;
+    private Thread _report;
 
     public void Report()
     {
@@ -22,6 +21,7 @@ class WCRC
         _report.Start();
         _report.Join();
     }
+
     public void Send()
     {
         Logs.LogWrite("Initialising networking tool");
@@ -33,8 +33,4 @@ class WCRC
         _network.Start();
         _network.Join();
     }
-
-    
-
-    
 }

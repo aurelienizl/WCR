@@ -127,55 +127,58 @@ internal class Win32_Bios
             var search = new ManagementObjectSearcher(query);
             var moc = search.Get();
             foreach (var mo in moc.Cast<ManagementObject>())
-            {
                 try
                 {
                     var bios = new Win32_Bios(
-                   (ushort[])mo["BiosCharacteristics"],
-                   (string[])mo["BIOSVersion"],
-                   !string.IsNullOrEmpty((string)mo["BuildNumber"]) ? (string)mo["BuildNumber"] : "N/A",
-                   !string.IsNullOrEmpty((string)mo["Caption"]) ? (string)mo["Caption"] : "N/A",
-                   !string.IsNullOrEmpty((string)mo["CodeSet"]) ? (string)mo["CodeSet"] : "N/A",
-                   !string.IsNullOrEmpty((string)mo["CurrentLanguage"]) ? (string)mo["CurrentLanguage"] : "N/A",
-                   !string.IsNullOrEmpty((string)mo["Description"]) ? (string)mo["Description"] : "N/A",
-                   (byte)mo["EmbeddedControllerMajorVersion"],
-                   (byte)mo["EmbeddedControllerMinorVersion"],
-                   !string.IsNullOrEmpty((string)mo["IdentificationCode"]) ? (string)mo["IdentificationCode"] : "N/A",
-                   (ushort)mo["InstallableLanguages"],
-                   !string.IsNullOrEmpty((string)mo["InstallDate"]) ? (string)mo["InstallDate"] : "N/A",
-                   !string.IsNullOrEmpty((string)mo["LanguageEdition"]) ? (string)mo["LanguageEdition"] : "N/A",
-                   (string[])mo["ListOfLanguages"],
-                   !string.IsNullOrEmpty((string)mo["Manufacturer"]) ? (string)mo["Manufacturer"] : "N/A",
-                   !string.IsNullOrEmpty((string)mo["Name"]) ? (string)mo["Name"] : "N/A",
-                   !string.IsNullOrEmpty((string)mo["OtherTargetOS"]) ? (string)mo["OtherTargetOS"] : "N/A",
-                   (bool)mo["PrimaryBIOS"],
-                   !string.IsNullOrEmpty((string)mo["ReleaseDate"]) ? (string)mo["ReleaseDate"] : "N/A",
-                   !string.IsNullOrEmpty((string)mo["SerialNumber"]) ? (string)mo["SerialNumber"] : "N/A",
-                   !string.IsNullOrEmpty((string)mo["SMBIOSBIOSVersion"]) ? (string)mo["SMBIOSBIOSVersion"] : "N/A",
-                   (ushort)mo["SMBIOSMajorVersion"],
-                   (ushort)mo["SMBIOSMinorVersion"],
-                   (bool)mo["SMBIOSPresent"],
-                   !string.IsNullOrEmpty((string)mo["SoftwareElementID"]) ? (string)mo["SoftwareElementID"] : "N/A",
-                   (ushort)mo["SoftwareElementState"],
-                   !string.IsNullOrEmpty((string)mo["Status"]) ? (string)mo["Status"] : "N/A",
-                   (byte)mo["SystemBiosMajorVersion"],
-                   (byte)mo["SystemBiosMinorVersion"],
-                   (ushort)mo["TargetOperatingSystem"],
-                   !string.IsNullOrEmpty((string)mo["Version"]) ? (string)mo["Version"] : "N/A"
-               );
+                        (ushort[])mo["BiosCharacteristics"],
+                        (string[])mo["BIOSVersion"],
+                        !string.IsNullOrEmpty((string)mo["BuildNumber"]) ? (string)mo["BuildNumber"] : "N/A",
+                        !string.IsNullOrEmpty((string)mo["Caption"]) ? (string)mo["Caption"] : "N/A",
+                        !string.IsNullOrEmpty((string)mo["CodeSet"]) ? (string)mo["CodeSet"] : "N/A",
+                        !string.IsNullOrEmpty((string)mo["CurrentLanguage"]) ? (string)mo["CurrentLanguage"] : "N/A",
+                        !string.IsNullOrEmpty((string)mo["Description"]) ? (string)mo["Description"] : "N/A",
+                        (byte)mo["EmbeddedControllerMajorVersion"],
+                        (byte)mo["EmbeddedControllerMinorVersion"],
+                        !string.IsNullOrEmpty((string)mo["IdentificationCode"])
+                            ? (string)mo["IdentificationCode"]
+                            : "N/A",
+                        (ushort)mo["InstallableLanguages"],
+                        !string.IsNullOrEmpty((string)mo["InstallDate"]) ? (string)mo["InstallDate"] : "N/A",
+                        !string.IsNullOrEmpty((string)mo["LanguageEdition"]) ? (string)mo["LanguageEdition"] : "N/A",
+                        (string[])mo["ListOfLanguages"],
+                        !string.IsNullOrEmpty((string)mo["Manufacturer"]) ? (string)mo["Manufacturer"] : "N/A",
+                        !string.IsNullOrEmpty((string)mo["Name"]) ? (string)mo["Name"] : "N/A",
+                        !string.IsNullOrEmpty((string)mo["OtherTargetOS"]) ? (string)mo["OtherTargetOS"] : "N/A",
+                        (bool)mo["PrimaryBIOS"],
+                        !string.IsNullOrEmpty((string)mo["ReleaseDate"]) ? (string)mo["ReleaseDate"] : "N/A",
+                        !string.IsNullOrEmpty((string)mo["SerialNumber"]) ? (string)mo["SerialNumber"] : "N/A",
+                        !string.IsNullOrEmpty((string)mo["SMBIOSBIOSVersion"])
+                            ? (string)mo["SMBIOSBIOSVersion"]
+                            : "N/A",
+                        (ushort)mo["SMBIOSMajorVersion"],
+                        (ushort)mo["SMBIOSMinorVersion"],
+                        (bool)mo["SMBIOSPresent"],
+                        !string.IsNullOrEmpty((string)mo["SoftwareElementID"])
+                            ? (string)mo["SoftwareElementID"]
+                            : "N/A",
+                        (ushort)mo["SoftwareElementState"],
+                        !string.IsNullOrEmpty((string)mo["Status"]) ? (string)mo["Status"] : "N/A",
+                        (byte)mo["SystemBiosMajorVersion"],
+                        (byte)mo["SystemBiosMinorVersion"],
+                        (ushort)mo["TargetOperatingSystem"],
+                        !string.IsNullOrEmpty((string)mo["Version"]) ? (string)mo["Version"] : "N/A"
+                    );
 
                     list.Add(bios);
                 }
-                catch (Exception )
+                catch (Exception)
                 {
-
                 }
-               
-            }
+
             Logs.LogWrite("Got bios info successfully");
             return list;
         }
-        catch (Exception )
+        catch (Exception)
         {
             Logs.LogWrite("Error : bios info");
 

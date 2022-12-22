@@ -2,20 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.DirectoryServices;
-using WCRC_Service;
 using WCRC_Service.Modules;
 
 internal class Win32_Account
 {
-    public string GetName { get; }
-    public string GetAuthenticationType { get; }
-    public string GetGuid { get; }
     public Win32_Account(string name, string authenticationStatus, string guid)
     {
         GetName = name;
         GetAuthenticationType = authenticationStatus;
         GetGuid = guid;
     }
+
+    public string GetName { get; }
+    public string GetAuthenticationType { get; }
+    public string GetGuid { get; }
+
     public static List<Win32_Account> GetLocalUsers()
     {
         var accounts = new List<Win32_Account>();
@@ -27,7 +28,6 @@ internal class Win32_Account
             var members = admGroup.Invoke("members", null);
             //Change "administrateurs" if you are using others windows languages versions (administrateurs = FR)
             foreach (var groupMember in (IEnumerable)members)
-            {
                 try
                 {
                     var s = new DirectoryEntry(groupMember);
@@ -48,7 +48,6 @@ internal class Win32_Account
                 {
                     // ignored
                 }
-            }
 
             Logs.LogWrite("Got local accounts successfully");
             return accounts;

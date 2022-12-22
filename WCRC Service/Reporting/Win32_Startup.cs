@@ -1,8 +1,8 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.Win32;
 using WCRC_Service.Modules;
 
 internal class Win32_Startup
@@ -45,15 +45,16 @@ internal class Win32_Startup
 
     private static List<Win32_Startup> StartupFolder()
     {
-        if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Startup))) return new List<Win32_Startup>();
+        if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Startup)))
+            return new List<Win32_Startup>();
         var files = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.Startup)).GetFiles();
         return Convert(files.Where(info => info.Name != "desktop.ini").Select(info => info.Name).ToList());
     }
 
     private static List<Win32_Startup> RegistryChecks(string key, RegistryHive hive)
     {
-        RegistryKey registryKey = RegistryKey.OpenBaseKey(hive, RegistryView.Registry32)
-                    .OpenSubKey(key);
+        var registryKey = RegistryKey.OpenBaseKey(hive, RegistryView.Registry32)
+            .OpenSubKey(key);
         var startupKey = registryKey;
         var valueNames = startupKey?.GetValueNames();
         if (valueNames is null) return new List<Win32_Startup>();

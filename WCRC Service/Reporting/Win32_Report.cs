@@ -11,7 +11,8 @@ internal class Win32_Report
         List<Win32_Tpm> win32_Tpms,
         List<Win32_Product> win32_Products, List<Win32_X509Cert> win32_x509Certs,
         List<Win32_QuickFixEngineering> win32_QuickFixEngineerings,
-        List<Win32_Account> win32_Accounts, Win32_SystemInfo win32_SystemInfo, List<Win32_Startup> win32_Startup, List<Win32_Defender> win32_Defenders,
+        List<Win32_Account> win32_Accounts, Win32_SystemInfo win32_SystemInfo, List<Win32_Startup> win32_Startup,
+        List<Win32_Defender> win32_Defenders,
         List<Win32_Software> win32_Softwares)
     {
         Win32_Bios = win32_Bios;

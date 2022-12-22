@@ -1,7 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-
 internal static class Cryptography
 {
     public static class Sha265

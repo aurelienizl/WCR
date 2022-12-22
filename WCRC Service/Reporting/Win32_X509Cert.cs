@@ -29,28 +29,26 @@ internal class Win32_X509Cert
 
 
             foreach (var certificate in store.Certificates)
-            {
                 try
                 {
                     list.Add(
-                   new Win32_X509Cert(
-                       !string.IsNullOrEmpty(certificate.Issuer)
-                           ? certificate.Issuer
-                           : "N/A",
-                       !string.IsNullOrEmpty(certificate.Subject)
-                           ? certificate.Subject
-                           : "N/A",
-                       !string.IsNullOrEmpty(certificate.GetExpirationDateString())
-                           ? certificate.GetExpirationDateString()
-                           : "N/A"
-                   )
-               );
+                        new Win32_X509Cert(
+                            !string.IsNullOrEmpty(certificate.Issuer)
+                                ? certificate.Issuer
+                                : "N/A",
+                            !string.IsNullOrEmpty(certificate.Subject)
+                                ? certificate.Subject
+                                : "N/A",
+                            !string.IsNullOrEmpty(certificate.GetExpirationDateString())
+                                ? certificate.GetExpirationDateString()
+                                : "N/A"
+                        )
+                    );
                 }
-                catch (Exception )
+                catch (Exception)
                 {
-
                 }
-            }
+
             Logs.LogWrite("Got certs successfully");
 
             return list;

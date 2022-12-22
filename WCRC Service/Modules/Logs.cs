@@ -8,12 +8,14 @@ namespace WCRC_Service.Modules
     public class Logs
     {
         private static string _hostname;
+
         public Logs(string logMessage)
         {
             _hostname = Dns.GetHostName();
             File.Delete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\" + "log.txt");
             LogWrite(logMessage);
         }
+
         public static void LogWrite(string logMessage)
         {
             var mExePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -48,4 +50,3 @@ namespace WCRC_Service.Modules
         }
     }
 }
-
