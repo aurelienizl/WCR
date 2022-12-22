@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using WCRC_Service.Modules;
 
 internal class Win32_Startup
 {
@@ -31,12 +32,12 @@ internal class Win32_Startup
                          RegistryHive.LocalMachine))
                 apps.Add(val);
 
-            WCRC.log.LogWrite("Got startup successfully");
+            Logs.LogWrite("Got startup successfully");
             return apps;
         }
         catch (Exception)
         {
-            WCRC.log.LogWrite("Error : startup");
+            Logs.LogWrite("Error : startup");
 
             return apps;
         }

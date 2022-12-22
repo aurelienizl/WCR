@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Management;
+using WCRC_Service.Modules;
 
 public class Win32_Tpm
 {
@@ -71,16 +72,16 @@ public class Win32_Tpm
                 }
                 catch (Exception)
                 {
-
+                    // ignored
                 }
             }
-            WCRC.log.LogWrite("Got tpms successfully");
+            Logs.LogWrite("Got tpms successfully");
 
             return list;
         }
         catch (Exception)
         {
-            WCRC.log.LogWrite("Error : tpms");
+            Logs.LogWrite("Error : tpms");
 
             return list;
         }

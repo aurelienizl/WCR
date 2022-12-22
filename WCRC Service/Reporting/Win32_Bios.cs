@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Management;
+using WCRC_Service.Modules;
 
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
 
@@ -171,12 +172,12 @@ internal class Win32_Bios
                 }
                
             }
-            WCRC.log.LogWrite("Got bios info successfully");
+            Logs.LogWrite("Got bios info successfully");
             return list;
         }
         catch (Exception )
         {
-            WCRC.log.LogWrite("Error : bios info");
+            Logs.LogWrite("Error : bios info");
 
             return list;
         }

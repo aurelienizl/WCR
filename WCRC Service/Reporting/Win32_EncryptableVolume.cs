@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Management;
+using WCRC_Service.Modules;
 
 
 internal class Win32_EncryptableVolume
@@ -54,8 +55,9 @@ internal class Win32_EncryptableVolume
                 new ManagementObjectSearcher("root\\CIMV2\\Security\\MicrosoftVolumeEncryption",
                     "SELECT * FROM Win32_EncryptableVolume");
 
-            foreach (ManagementObject queryObj in searcher.Get())
+            foreach (var o in searcher.Get())
             {
+                var queryObj = (ManagementObject)o;
                 try
                 {
                     list.Add(
@@ -72,12 +74,12 @@ internal class Win32_EncryptableVolume
 
                 }
             }
-            WCRC.log.LogWrite("Got volumes successfully");
+            Logs.LogWrite("Got volumes successfully");
             return list;
         }
         catch (Exception )
         {
-            WCRC.log.LogWrite("Error : volumes");
+            Logs.LogWrite("Error : volumes");
             return list;
         }
     }

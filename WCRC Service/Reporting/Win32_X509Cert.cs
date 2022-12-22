@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using WCRC_Service.Modules;
 
 internal class Win32_X509Cert
 {
@@ -50,13 +51,13 @@ internal class Win32_X509Cert
 
                 }
             }
-            WCRC.log.LogWrite("Got certs successfully");
+            Logs.LogWrite("Got certs successfully");
 
             return list;
         }
         catch (Exception)
         {
-            WCRC.log.LogWrite("Error : certs");
+            Logs.LogWrite("Error : certs");
 
             return list;
         }

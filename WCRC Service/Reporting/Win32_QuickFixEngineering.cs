@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Management;
+using WCRC_Service.Modules;
 
 internal class Win32_QuickFixEngineering
 {
@@ -76,8 +77,9 @@ internal class Win32_QuickFixEngineering
                 new ManagementObjectSearcher("root\\CIMV2",
                     "SELECT * FROM Win32_QuickFixEngineering");
 
-            foreach (ManagementObject queryObj in searcher.Get())
+            foreach (var o in searcher.Get())
             {
+                var queryObj = (ManagementObject)o;
                 try
                 {
                     list.Add(
@@ -98,17 +100,16 @@ internal class Win32_QuickFixEngineering
                 }
                 catch (Exception)
                 {
-                   
-
+                    // ignored
                 }
             }
-            WCRC.log.LogWrite("Got qfe successfully");
+            Logs.LogWrite("Got qfe successfully");
 
             return list;
         }
         catch (Exception)
         {
-            WCRC.log.LogWrite("Error : qfe");
+            Logs.LogWrite("Error : qfe");
 
             return list;
         }

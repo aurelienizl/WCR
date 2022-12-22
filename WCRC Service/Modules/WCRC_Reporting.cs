@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using WCRC_Service.Modules;
 using WCRC_Service.Reporting;
 
 internal class WCRC_Reporting
@@ -98,12 +99,12 @@ internal class WCRC_Reporting
             })
         };
 
-        WCRC.log.LogWrite("Starting WMI Queries...");
+        Logs.LogWrite("Starting WMI Queries...");
 
         foreach (var item in threads) item.Start();
         foreach (var item in threads) item.Join();
 
-        WCRC.log.LogWrite("WMI Queries finished");
+        Logs.LogWrite("WMI Queries finished");
 
         var report = new Win32_Report(
         Win32_Bios_,
@@ -119,9 +120,9 @@ internal class WCRC_Reporting
             Win32_Softwares_
         );
 
-        WCRC.log.LogWrite("Serializing data...");
+        Logs.LogWrite("Serializing data...");
         Win32_Report.GenerateReport(report, @"C:\Windows\" + Dns.GetHostName() + ".json");
-        WCRC.log.LogWrite("Data serialized, report generated");
+        Logs.LogWrite("Data serialized, report generated");
     }
 
     #endregion

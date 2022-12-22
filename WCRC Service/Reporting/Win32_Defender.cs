@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Management;
+using WCRC_Service.Modules;
 
 namespace WCRC_Service.Reporting
 {
@@ -47,7 +48,7 @@ namespace WCRC_Service.Reporting
 
         public static List<Win32_Defender> GetWin32_Defenders()
         {
-            List<Win32_Defender> win32_Defenders = new List<Win32_Defender>();
+            List<Win32_Defender> win32Defenders = new List<Win32_Defender>();
 
             try
             {
@@ -55,9 +56,10 @@ namespace WCRC_Service.Reporting
                 ManagementObjectSearcher wmiData = new ManagementObjectSearcher(@"root\SecurityCenter2", "SELECT * FROM AntiVirusProduct");
                 ManagementObjectCollection data = wmiData.Get();
 
-                foreach (ManagementObject obj in data)
+                foreach (var o in data)
                 {
-                    win32_Defenders.Add(
+                    var obj = (ManagementObject)o;
+                    win32Defenders.Add(
                         new Win32_Defender(
                         QuerySafeGetter(obj, "instanceGuid"),
                         QuerySafeGetter(obj, "displayName"),
@@ -67,14 +69,14 @@ namespace WCRC_Service.Reporting
                         QuerySafeGetter(obj, "timestamp")
                         ));
                 }
-                WCRC.log.LogWrite("Got anti-virus data successfully");
-                return win32_Defenders;
+                Logs.LogWrite("Got anti-virus data successfully");
+                return win32Defenders;
             }
             catch (Exception)
             {
-                WCRC.log.LogWrite("Error : anti-virus data");
+                Logs.LogWrite("Error : anti-virus data");
 
-                return win32_Defenders;
+                return win32Defenders;
             }
 
 

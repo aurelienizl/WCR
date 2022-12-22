@@ -1,36 +1,37 @@
 ﻿using System.Threading;
+using WCRC_Service.Modules;
 
 
 class WCRC
 {
-    public static Logs log;
+    public static Logs Log;
 
-    Thread network;
-    Thread report;
+    Thread _network;
+    Thread _report;
 
     public void Report()
     {
-        log = new Logs("Initialised logs");
+        Log = new Logs("Initialised logs");
 
-        log.LogWrite("Initialising reporting tool");
-        report = new Thread(() =>
+        Logs.LogWrite("Initialising reporting tool");
+        _report = new Thread(() =>
         {
             Thread.CurrentThread.IsBackground = true;
             WCRC_Reporting.LaunchReport();
         });
-        report.Start();
-        report.Join();
+        _report.Start();
+        _report.Join();
     }
     public void Send()
     {
-        log.LogWrite("Initialising networking tool");
-        network = new Thread(() =>
+        Logs.LogWrite("Initialising networking tool");
+        _network = new Thread(() =>
         {
             Thread.CurrentThread.IsBackground = true;
             WCRC_Networking.StartUpload();
         });
-        network.Start();
-        network.Join();
+        _network.Start();
+        _network.Join();
     }
 
     

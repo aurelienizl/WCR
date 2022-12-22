@@ -1,9 +1,7 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Win32;
+using WCRC_Service.Modules;
 
 namespace WCRC_Service.Reporting
 {
@@ -16,7 +14,7 @@ namespace WCRC_Service.Reporting
         public string GetUninstallString { get; set; }
         public string GetInstallSource { get; set; }
 
-        public Win32_Software(string KeyName, string DisplayName, string DisplayVersion, 
+        public Win32_Software(string KeyName, string DisplayName, string DisplayVersion,
             string UninstallString, string InstallSource, string Publisher)
         {
             GetKeyName = KeyName;
@@ -31,11 +29,8 @@ namespace WCRC_Service.Reporting
         {
             try
             {
-                string res = (string)key.GetValue(query);
-                if (!String.IsNullOrEmpty(res))
-                {
-                    return res;
-                }
+                var res = (string)key.GetValue(query);
+                if (!string.IsNullOrEmpty(res)) return res;
                 return "N/A";
             }
             catch (Exception)
@@ -46,53 +41,49 @@ namespace WCRC_Service.Reporting
 
         public static List<Win32_Software> GetInstalledApps()
         {
-            List<Win32_Software> win32_Softwares = new List<Win32_Software>();
+            var win32Softwares = new List<Win32_Software>();
 
             try
             {
-
                 using (var hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
                 {
                     using (var key = hklm.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"))
                     {
-                        foreach (string skName in key.GetSubKeyNames())
-                        {
-                            using (RegistryKey sk = key.OpenSubKey(skName))
-                            {
-                                try
+                        if (key != null)
+                            foreach (var skName in key.GetSubKeyNames())
+                                using (var sk = key.OpenSubKey(skName))
                                 {
-                                    win32_Softwares.Add(
-                                        new Win32_Software(
-                                            sk.Name,
-                                            GetRegistrykeySafe(sk, "DisplayName"),
-                                            GetRegistrykeySafe(sk, "DisplayVersion"),
-                                            GetRegistrykeySafe(sk, "UninstallString"),
-                                            GetRegistrykeySafe(sk, "InstallSource"),
-                                            GetRegistrykeySafe(sk, "Publisher")
-
-                                        ));
-
+                                    try
+                                    {
+                                        if (sk != null)
+                                            win32Softwares.Add(
+                                                new Win32_Software(
+                                                    sk.Name,
+                                                    GetRegistrykeySafe(sk, "DisplayName"),
+                                                    GetRegistrykeySafe(sk, "DisplayVersion"),
+                                                    GetRegistrykeySafe(sk, "UninstallString"),
+                                                    GetRegistrykeySafe(sk, "InstallSource"),
+                                                    GetRegistrykeySafe(sk, "Publisher")
+                                                ));
+                                    }
+                                    catch (Exception)
+                                    {
+                                        // ignored
+                                    }
                                 }
-                                catch (Exception)
-                                {
-
-                                }
-                            }
-                        }
                     }
                 }
-              
-                WCRC.log.LogWrite("Got softwares successfully");
 
-                return win32_Softwares;
+                Logs.LogWrite("Got softwares successfully");
+
+                return win32Softwares;
             }
             catch (Exception)
             {
-                WCRC.log.LogWrite("Error : softwares");
+                Logs.LogWrite("Error : softwares");
 
-                return win32_Softwares;
+                return win32Softwares;
             }
-            
         }
     }
 }

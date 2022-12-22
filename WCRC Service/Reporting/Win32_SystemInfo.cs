@@ -4,6 +4,7 @@ using System.Management;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
+using WCRC_Service.Modules;
 
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
 // see https://github.com/quasar
@@ -65,7 +66,7 @@ internal class Win32_SystemInfo
         }
         catch (Exception)
         {
-            WCRC.log.LogWrite("Error : sysinfo");
+            Logs.LogWrite("Error : sysinfo");
             return null;
         }
     }

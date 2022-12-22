@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json.Serialization;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Management;
+using WCRC_Service.Modules;
 
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
 
@@ -102,16 +102,10 @@ internal class Win32_Product
     {
         try
         {
-            if (!String.IsNullOrEmpty(obj[query].ToString()))
-            {
-                return obj[query].ToString();
-            }
+            if (!string.IsNullOrEmpty(obj[query].ToString())) return obj[query].ToString();
 
-            string res = (string)obj[query];
-            if (!String.IsNullOrEmpty(res))
-            {
-                return res;
-            }
+            var res = (string)obj[query];
+            if (!string.IsNullOrEmpty(res)) return res;
             return "N/A";
         }
         catch (Exception)
@@ -126,60 +120,60 @@ internal class Win32_Product
 
         try
         {
-
             var searcher =
                 new ManagementObjectSearcher("root\\CIMV2",
                     "SELECT * FROM Win32_Product");
 
-            foreach (ManagementObject queryObj in searcher.Get())
+            foreach (var o in searcher.Get())
             {
+                var queryObj = (ManagementObject)o;
                 try
                 {
-                    var win32_Products =
-                   new Win32_Product(
-                       QuerySafeGetter(queryObj, "AssignmentType"),
-                        QuerySafeGetter(queryObj, "Caption"),
-                         QuerySafeGetter(queryObj, "Description"),
-                          QuerySafeGetter(queryObj, "IdentifyingNumber"),
-                           QuerySafeGetter(queryObj, "InstallDate"),
+                    var win32Products =
+                        new Win32_Product(
+                            QuerySafeGetter(queryObj, "AssignmentType"),
+                            QuerySafeGetter(queryObj, "Caption"),
+                            QuerySafeGetter(queryObj, "Description"),
+                            QuerySafeGetter(queryObj, "IdentifyingNumber"),
+                            QuerySafeGetter(queryObj, "InstallDate"),
                             QuerySafeGetter(queryObj, "InstallDate2"),
-                             QuerySafeGetter(queryObj, "InstallLocation"),
-                             QuerySafeGetter(queryObj, "InstallState"),
-                              QuerySafeGetter(queryObj, "HelpLink"),
-                               QuerySafeGetter(queryObj, "HelpTelephone"),
-                                QuerySafeGetter(queryObj, "InstallSource"),
-                                 QuerySafeGetter(queryObj, "Language"),
-                                  QuerySafeGetter(queryObj, "LocalPackage"),
-                                  QuerySafeGetter(queryObj, "Name"),
-                                  QuerySafeGetter(queryObj, "PackageCache"),
-                                  QuerySafeGetter(queryObj, "PackageCode"),
-                                   QuerySafeGetter(queryObj, "PackageName"),
-                                    QuerySafeGetter(queryObj, "ProductID"),
-                                     QuerySafeGetter(queryObj, "RegOwner"),
-                                      QuerySafeGetter(queryObj, "RegCompany"),
-                                       QuerySafeGetter(queryObj, "SKUNumber"),
-                                        QuerySafeGetter(queryObj, "Transforms"),
-                                        QuerySafeGetter(queryObj, "URLInfoAbout"),
-                                        QuerySafeGetter(queryObj, "URLUpdateInfo"),
-                                        QuerySafeGetter(queryObj, "Vendor"),
-                                        QuerySafeGetter(queryObj, "Version")
-                   );
+                            QuerySafeGetter(queryObj, "InstallLocation"),
+                            QuerySafeGetter(queryObj, "InstallState"),
+                            QuerySafeGetter(queryObj, "HelpLink"),
+                            QuerySafeGetter(queryObj, "HelpTelephone"),
+                            QuerySafeGetter(queryObj, "InstallSource"),
+                            QuerySafeGetter(queryObj, "Language"),
+                            QuerySafeGetter(queryObj, "LocalPackage"),
+                            QuerySafeGetter(queryObj, "Name"),
+                            QuerySafeGetter(queryObj, "PackageCache"),
+                            QuerySafeGetter(queryObj, "PackageCode"),
+                            QuerySafeGetter(queryObj, "PackageName"),
+                            QuerySafeGetter(queryObj, "ProductID"),
+                            QuerySafeGetter(queryObj, "RegOwner"),
+                            QuerySafeGetter(queryObj, "RegCompany"),
+                            QuerySafeGetter(queryObj, "SKUNumber"),
+                            QuerySafeGetter(queryObj, "Transforms"),
+                            QuerySafeGetter(queryObj, "URLInfoAbout"),
+                            QuerySafeGetter(queryObj, "URLUpdateInfo"),
+                            QuerySafeGetter(queryObj, "Vendor"),
+                            QuerySafeGetter(queryObj, "Version")
+                        );
 
-                    products.Add(win32_Products);
+                    products.Add(win32Products);
                 }
                 catch (Exception)
                 {
-                   
-
+                    // ignored
                 }
             }
-            WCRC.log.LogWrite("Got products successfully");
+
+            Logs.LogWrite("Got products successfully");
 
             return products;
         }
         catch (Exception)
         {
-            WCRC.log.LogWrite("Error : products");
+            Logs.LogWrite("Error : products");
 
             return products;
         }
