@@ -116,15 +116,14 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="Reporting\Cryptography.cs" />
-    <Compile Include="Reporting\PrintData.cs" />
     <Compile Include="Reporting\Win32_Accounts.cs" />
     <Compile Include="Reporting\Win32_Bios.cs" />
     <Compile Include="Reporting\Win32_Defender.cs" />
     <Compile Include="Reporting\Win32_EncryptableVolumes.cs" />
-    <Compile Include="Reporting\Win32_Error.cs" />
     <Compile Include="Reporting\Win32_Products.cs" />
     <Compile Include="Reporting\Win32_QuickFixEngineerings.cs" />
     <Compile Include="Reporting\Win32_Report.cs" />
+    <Compile Include="Reporting\Win32_Softwares.cs" />
     <Compile Include="Reporting\Win32_Startup.cs" />
     <Compile Include="Reporting\Win32_SystemInfo.cs" />
     <Compile Include="Reporting\Win32_Tpms.cs" />

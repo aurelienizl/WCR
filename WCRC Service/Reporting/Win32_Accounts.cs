@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.DirectoryServices;
-using WCRC_Core;
+using WCRC_Service;
 
 internal class Account
 {
@@ -17,9 +17,10 @@ internal class Account
     }
     public static List<Account> GetLocalUsers()
     {
+        var accounts = new List<Account>();
+
         try
         {
-            var accounts = new List<Account>();
             var localMachine = new DirectoryEntry("WinNT://" + Environment.MachineName + ",Computer");
             var admGroup = localMachine.Children.Find("administrateurs", "group");
             var members = admGroup.Invoke("members", null);
@@ -44,27 +45,23 @@ internal class Account
                         );
                         accounts.Add(account);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        WCRC.Win32_Error_.Account_error += 1;
-                        WCRC.log.LogWrite("Internal error on accounts...");
-                        WCRC.log.LogWrite(ex.Message);
+
                     }
                   
                 }
 
-                return accounts;
             }
 
-            return null;
+            WCRC.log.LogWrite("Got local accounts successfully");
+            return accounts;
         }
 
-        catch (Exception ex)
+        catch (Exception)
         {
-            WCRC.log.LogWrite("Critical error on accounts...");
-            WCRC.log.LogWrite(ex.Message);
-            WCRC.Win32_Error_.Critical_Account_error += 1;
-            return null;
+            WCRC.log.LogWrite("Error : local accounts");
+            return accounts;
         }
     }
 }

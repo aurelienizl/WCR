@@ -4,7 +4,6 @@ using System.Management;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
-using WCRC_Core.Reporting;
 
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
 // see https://github.com/quasar
@@ -66,7 +65,7 @@ internal class Win32_SystemInfo
         }
         catch (Exception)
         {
-            WCRC.Win32_Error_.Critical_SystemInfo_error += 1;
+            WCRC.log.LogWrite("Error : sysinfo");
             return null;
         }
     }
@@ -85,7 +84,6 @@ internal class Win32_SystemInfo
         }
         catch (Exception)
         {
-            WCRC.Win32_Error_.SystemInfo_error += 1;
             return "Unknown";
         }
     }
@@ -110,7 +108,6 @@ internal class Win32_SystemInfo
         }
         catch
         {
-            WCRC.Win32_Error_.SystemInfo_error += 1;
             return "Unknown";
         }
     }
@@ -135,7 +132,6 @@ internal class Win32_SystemInfo
         }
         catch
         {
-            WCRC.Win32_Error_.SystemInfo_error += 1;
             return "Unknown";
         }
     }
@@ -158,7 +154,6 @@ internal class Win32_SystemInfo
         }
         catch
         {
-            WCRC.Win32_Error_.SystemInfo_error += 1;
             return "Unknown";
         }
     }
@@ -184,7 +179,6 @@ internal class Win32_SystemInfo
         }
         catch
         {
-            WCRC.Win32_Error_.SystemInfo_error += 1;
             return -1;
         }
     }
@@ -207,7 +201,7 @@ internal class Win32_SystemInfo
         }
         catch
         {
-            WCRC.Win32_Error_.SystemInfo_error += 1;
+
         }
         return "Unknown";
     }
@@ -235,7 +229,6 @@ internal class Win32_SystemInfo
         }
         catch (Exception)
         {
-            WCRC.Win32_Error_.SystemInfo_error += 1;
         }
         return "-";
     }
@@ -271,7 +264,6 @@ internal class Win32_SystemInfo
         }
         catch (Exception)
         {
-            WCRC.Win32_Error_.SystemInfo_error += 1;
         }
         return "-";
     }

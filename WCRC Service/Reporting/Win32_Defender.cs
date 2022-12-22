@@ -1,15 +1,83 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Management;
 
 namespace WCRC_Service.Reporting
 {
     internal class Win32_Defender
     {
-       
+        public string GetinstanceGuid { get; set; }
+        public string GetdisplayName { get; set; }
+        public string GetpathToSignedProductExe { get; set; }
+        public string GetpathToSignedReportingExe { get; set; }
+        public string GetproductState { get; set; }
+        public string Gettimestamp { get; set; }
+
+        public Win32_Defender(string getinstanceGuid, string getdisplayName, string getpathToSignedProductExe, string getpathToSignedReportingExe, string getproductState, string gettimestamp)
+        {
+            GetinstanceGuid = getinstanceGuid;
+            GetdisplayName = getdisplayName;
+            GetpathToSignedProductExe = getpathToSignedProductExe;
+            GetpathToSignedReportingExe = getpathToSignedReportingExe;
+            GetproductState = getproductState;
+            Gettimestamp = gettimestamp;
+        }
+
+        public static string QuerySafeGetter(ManagementObject obj, string query)
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty(obj[query].ToString()))
+                {
+                    return obj[query].ToString();
+                }
+
+                string res = (string)obj[query];
+                if (!String.IsNullOrEmpty(res))
+                {
+                    return res;
+                }
+                return "N/A";
+            }
+            catch (Exception)
+            {
+                return "N/A";
+            }
+        }
+
+        public static List<Win32_Defender> GetWin32_Defenders()
+        {
+            List<Win32_Defender> win32_Defenders = new List<Win32_Defender>();
+
+            try
+            {
+
+                ManagementObjectSearcher wmiData = new ManagementObjectSearcher(@"root\SecurityCenter2", "SELECT * FROM AntiVirusProduct");
+                ManagementObjectCollection data = wmiData.Get();
+
+                foreach (ManagementObject obj in data)
+                {
+                    win32_Defenders.Add(
+                        new Win32_Defender(
+                        QuerySafeGetter(obj, "instanceGuid"),
+                        QuerySafeGetter(obj, "displayName"),
+                        QuerySafeGetter(obj, "pathToSignedProductExe"),
+                        QuerySafeGetter(obj, "pathToSignedReportingExe"),
+                        QuerySafeGetter(obj, "productState"),
+                        QuerySafeGetter(obj, "timestamp")
+                        ));
+                }
+                WCRC.log.LogWrite("Got anti-virus data successfully");
+                return win32_Defenders;
+            }
+            catch (Exception)
+            {
+                WCRC.log.LogWrite("Error : anti-virus data");
+
+                return win32_Defenders;
+            }
 
 
+        }
     }
 }

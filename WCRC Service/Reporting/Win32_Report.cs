@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Newtonsoft.Json;
-using WCRC_Core.Reporting;
+using WCRC_Service.Reporting;
 
 internal class Win32_Report
 {
@@ -11,8 +11,8 @@ internal class Win32_Report
         List<Win32_Tpms> win32_Tpms,
         List<Win32_Products> win32_Products, List<Win32_X509Cert> win32_x509Certs,
         List<Win32_QuickFixEngineerings> win32_QuickFixEngineerings,
-        List<Account> win32_Accounts, Win32_SystemInfo win32_SystemInfo, List<Win32_Startup> win32_Startup, 
-        Win32_Error win32_Error)
+        List<Account> win32_Accounts, Win32_SystemInfo win32_SystemInfo, List<Win32_Startup> win32_Startup, List<Win32_Defender> win32_Defenders,
+        List<Win32_Softwares> win32_Softwares)
     {
         Win32_Bios = win32_Bios;
         Win32_EncryptableVolumes = win32_EncryptableVolumes;
@@ -23,7 +23,8 @@ internal class Win32_Report
         Win32_Accounts = win32_Accounts;
         Win32_SystemInfo = win32_SystemInfo;
         Win32_Startup = win32_Startup;
-        Win32_Error = win32_Error;
+        Win32_Defender = win32_Defenders;
+        Win32_Software = win32_Softwares;
     }
 
     public List<Win32_Bios> Win32_Bios { get; }
@@ -35,7 +36,8 @@ internal class Win32_Report
     public List<Account> Win32_Accounts { get; }
     public Win32_SystemInfo Win32_SystemInfo { get; }
     public List<Win32_Startup> Win32_Startup { get; }
-    public Win32_Error Win32_Error { get; }
+    public List<Win32_Softwares> Win32_Software { get; }
+    public List<Win32_Defender> Win32_Defender { get; }
 
     public static void GenerateReport(Win32_Report report, string FileName)
     {

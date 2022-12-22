@@ -7,8 +7,8 @@ using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
-using WCRC_Core.Reporting;
 using WCRC_Service;
+using WCRC_Service.Reporting;
 
 class WCRC
 {
@@ -52,12 +52,13 @@ class WCRC
     private static List<Account> Accounts_ { get; set; }
     private static Win32_SystemInfo Sysinfo_ { get; set; }
     private static List<Win32_Startup> Startups_ { get; set; }
-    public static Win32_Error Win32_Error_ { get; set; }
+    private static List<Win32_Defender> Win32_Defenders_ { get; set; }
+    private static List<Win32_Softwares> Win32_Softwares_ { get; set; }
+
 
     public static void LaunchReport()
     {
         Thread.CurrentThread.IsBackground = true;
-        Win32_Error_ = new Win32_Error();
 
         var threads = new List<Thread>
         {
@@ -114,6 +115,18 @@ class WCRC
             {
                 Thread.CurrentThread.IsBackground = true;
                 Startups_ = Win32_Startup.GetStartupApps();
+            }),
+
+             new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                Win32_Defenders_ = Win32_Defender.GetWin32_Defenders();
+            }),
+
+              new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                Win32_Softwares_ = Win32_Softwares.GetInstalledApps();
             })
         };
 
@@ -134,7 +147,8 @@ class WCRC
             Accounts_,
             Sysinfo_,
             Startups_,
-            Win32_Error_
+            Win32_Defenders_,
+            Win32_Softwares_
         );
 
         log.LogWrite("Serializing data...");

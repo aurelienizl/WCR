@@ -19,12 +19,13 @@ internal class Win32_X509Cert
 
     public static List<Win32_X509Cert> GetX509Cert()
     {
+        var list = new List<Win32_X509Cert>();
+
         try
         {
             var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
             store.Open(OpenFlags.ReadOnly);
 
-            var list = new List<Win32_X509Cert>();
 
             foreach (var certificate in store.Certificates)
             {
@@ -44,21 +45,20 @@ internal class Win32_X509Cert
                    )
                );
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
-                    WCRC.log.LogWrite("Internal error on certificates...");
-                    WCRC.log.LogWrite(ex.Message);
-                    WCRC.Win32_Error_.Certificates_error += 1;
+
                 }
             }
+            WCRC.log.LogWrite("Got certs successfully");
+
             return list;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            WCRC.log.LogWrite("Internal error on certificates...");
-            WCRC.log.LogWrite(ex.Message);
-            WCRC.Win32_Error_.Critical_Certificates_error += 1;
-            return null;
+            WCRC.log.LogWrite("Error : certs");
+
+            return list;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Management;
-using WCRC_Core.Reporting;
 
 public class Win32_Tpms
 {
@@ -37,15 +37,16 @@ public class Win32_Tpms
 
     public static List<Win32_Tpms> GetTpm()
     {
+        var list = new List<Win32_Tpms>();
+
         try
         {
-            var list = new List<Win32_Tpms>();
 
             var searcher =
                 new ManagementObjectSearcher("root\\CIMV2\\Security\\MicrosoftTpm",
                     "SELECT * FROM Win32_Tpm");
 
-            foreach (ManagementObject queryObj in searcher.Get())
+            foreach (ManagementObject queryObj in searcher.Get().Cast<ManagementObject>())
             {
                 try
                 {
@@ -68,21 +69,20 @@ public class Win32_Tpms
                        : "N/A"
                ));
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    WCRC.log.LogWrite("Internal error on tpms...");
-                    WCRC.log.LogWrite(ex.Message);
-                    WCRC.Win32_Error_.Tpms_error += 1;
+
                 }
-            }           
+            }
+            WCRC.log.LogWrite("Got tpms successfully");
+
             return list;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            WCRC.log.LogWrite("Critical error on tpms...");
-            WCRC.log.LogWrite(ex.Message);
-            WCRC.Win32_Error_.Critical_Tpms_error += 1;
-            return null;
+            WCRC.log.LogWrite("Error : tpms");
+
+            return list;
         }
     }
 }

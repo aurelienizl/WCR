@@ -6,7 +6,7 @@ using System.Management;
 internal class Win32_EncryptableVolumes
 {
     public Win32_EncryptableVolumes(string deviceID, string persistentVolumeID, string driveLetter,
-        uint protectionStatus)
+        string protectionStatus)
     {
         GetDeviceID = deviceID;
         GetPersistentVolumeID = persistentVolumeID;
@@ -20,14 +20,36 @@ internal class Win32_EncryptableVolumes
 
     public string GetDriveLetter { get; }
 
-    public uint? GetProtectionStatus { get; }
+    public string GetProtectionStatus { get; }
 
-    public static List<Win32_EncryptableVolumes> GetEncryptableVolume()
+    public static string QuerySafeGetter(ManagementObject obj, string query)
     {
         try
         {
-            var list = new List<Win32_EncryptableVolumes>();
+            if (!String.IsNullOrEmpty(obj[query].ToString()))
+            {
+                return obj[query].ToString();
+            }
 
+            string res = (string)obj[query];
+            if (!String.IsNullOrEmpty(res))
+            {
+                return res;
+            }
+            return "N/A";
+        }
+        catch (Exception)
+        {
+            return "N/A";
+        }
+    }
+
+    public static List<Win32_EncryptableVolumes> GetEncryptableVolume()
+    {
+        var list = new List<Win32_EncryptableVolumes>();
+
+        try
+        {
             var searcher =
                 new ManagementObjectSearcher("root\\CIMV2\\Security\\MicrosoftVolumeEncryption",
                     "SELECT * FROM Win32_EncryptableVolume");
@@ -38,33 +60,25 @@ internal class Win32_EncryptableVolumes
                 {
                     list.Add(
                     new Win32_EncryptableVolumes(
-                        !string.IsNullOrEmpty((string)queryObj["DeviceID"]) ? (string)queryObj["DeviceID"] : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["PersistentVolumeID"])
-                            ? (string)queryObj["PersistentVolumeID"]
-                            : "N/A",
-                        !string.IsNullOrEmpty((string)queryObj["DriveLetter"])
-                            ? (string)queryObj["DriveLetter"]
-                            : "N/A",
-                        (uint)queryObj["ProtectionStatus"]
+                        QuerySafeGetter(queryObj, "DeviceID"),
+                         QuerySafeGetter(queryObj, "PersistentVolumeID"),
+                          QuerySafeGetter(queryObj, "DriveLetter"),
+                           QuerySafeGetter(queryObj, "ProtectionStatus")
+      
                     ));
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    WCRC.log.LogWrite("Internal error on volumes...");
-                    WCRC.log.LogWrite(ex.Message);
-                    WCRC.Win32_Error_.EncryptableVolumes_error += 1;
 
                 }
             }
-               
+            WCRC.log.LogWrite("Got volumes successfully");
             return list;
         }
-        catch (Exception ex)
+        catch (Exception )
         {
-            WCRC.log.LogWrite("Critical error on volumes...");
-            WCRC.log.LogWrite(ex.Message);
-            WCRC.Win32_Error_.Critical_EncryptableVolumes_error += 1;
-            return null;
+            WCRC.log.LogWrite("Error : volumes");
+            return list;
         }
     }
 }

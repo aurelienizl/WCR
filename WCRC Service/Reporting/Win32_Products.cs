@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Management;
-using WCRC_Core.Reporting;
 
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
 
@@ -103,6 +102,11 @@ internal class Win32_Products
     {
         try
         {
+            if (!String.IsNullOrEmpty(obj[query].ToString()))
+            {
+                return obj[query].ToString();
+            }
+
             string res = (string)obj[query];
             if (!String.IsNullOrEmpty(res))
             {
@@ -118,9 +122,10 @@ internal class Win32_Products
 
     public static List<Win32_Products> GetProducts()
     {
+        var products = new List<Win32_Products>();
+
         try
         {
-            var products = new List<Win32_Products>();
 
             var searcher =
                 new ManagementObjectSearcher("root\\CIMV2",
@@ -162,24 +167,21 @@ internal class Win32_Products
 
                     products.Add(win32_Products);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    WCRC.log.LogWrite("Internal error on products...");
-                    WCRC.log.LogWrite(ex.Message);
-                    WCRC.Win32_Error_.Products_error += 1;
+                   
 
                 }
             }
+            WCRC.log.LogWrite("Got products successfully");
 
             return products;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            WCRC.log.LogWrite("Critical error on products...");
-            WCRC.log.LogWrite(ex.Message);
-            WCRC.Win32_Error_.Critical_Products_error += 1;
+            WCRC.log.LogWrite("Error : products");
 
-            return null;
+            return products;
         }
     }
 }

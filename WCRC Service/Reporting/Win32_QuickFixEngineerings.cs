@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Management;
-using WCRC_Core.Reporting;
 
 internal class Win32_QuickFixEngineerings
 {
@@ -48,6 +47,11 @@ internal class Win32_QuickFixEngineerings
     {
         try
         {
+            if (!String.IsNullOrEmpty(obj[query].ToString()))
+            {
+                return obj[query].ToString();
+            }
+
             string res = (string)obj[query];
             if (!String.IsNullOrEmpty(res))
             {
@@ -63,9 +67,10 @@ internal class Win32_QuickFixEngineerings
 
     public static List<Win32_QuickFixEngineerings> GetQuickFixEngineering()
     {
+        var list = new List<Win32_QuickFixEngineerings>();
+
         try
         {
-            var list = new List<Win32_QuickFixEngineerings>();
 
             var searcher =
                 new ManagementObjectSearcher("root\\CIMV2",
@@ -91,24 +96,21 @@ internal class Win32_QuickFixEngineerings
                         )
                     );
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    WCRC.log.LogWrite("Internal error on qfe...");
-                    WCRC.log.LogWrite(ex.Message);
-                    WCRC.Win32_Error_.QuickFixEngineerings_error += 1;
+                   
 
                 }
             }
+            WCRC.log.LogWrite("Got qfe successfully");
 
             return list;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            WCRC.log.LogWrite("Critical error on qfe...");
-            WCRC.log.LogWrite(ex.Message);
-            WCRC.Win32_Error_.Critical_QuickFixEngineerings_error += 1;
+            WCRC.log.LogWrite("Error : qfe");
 
-            return null;
+            return list;
         }
     }
 }

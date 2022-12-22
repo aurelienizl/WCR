@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Management;
-using WCRC_Core.Reporting;
 
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
 
@@ -119,15 +118,13 @@ internal class Win32_Bios
 
     public static List<Win32_Bios> GetBios()
     {
+        var list = new List<Win32_Bios>();
+
         try
         {
             var query = new ObjectQuery("SELECT * FROM Win32_BIOS");
             var search = new ManagementObjectSearcher(query);
-
             var moc = search.Get();
-
-            var list = new List<Win32_Bios>();
-
             foreach (var mo in moc.Cast<ManagementObject>())
             {
                 try
@@ -168,23 +165,20 @@ internal class Win32_Bios
 
                     list.Add(bios);
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
-                    WCRC.log.LogWrite("Internal error on bios...");
-                    WCRC.log.LogWrite(ex.Message);
-                    WCRC.Win32_Error_.Bios_error += 1;
+
                 }
                
             }
-
+            WCRC.log.LogWrite("Got bios info successfully");
             return list;
         }
-        catch (Exception ex)
+        catch (Exception )
         {
-            WCRC.log.LogWrite("Critical error on bios...");
-            WCRC.log.LogWrite(ex.Message);
-            WCRC.Win32_Error_.Critical_Bios_error += 1;
-            return null;
+            WCRC.log.LogWrite("Error : bios info");
+
+            return list;
         }
     }
 }
