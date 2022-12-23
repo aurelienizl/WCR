@@ -11,9 +11,9 @@ internal class Win32_Report
         List<Win32_Tpm> win32_Tpms,
         List<Win32_Product> win32_Products, List<Win32_X509Cert> win32_x509Certs,
         List<Win32_QuickFixEngineering> win32_QuickFixEngineerings,
-        List<Win32_Account> win32_Accounts, Win32_SystemInfo win32_SystemInfo, List<Win32_Startup> win32_Startup,
+        List<Win32_Account> win32_Accounts, Win32_SystemInfo win32_SystemInfos, List<Win32_Startup> win32_Startups,
         List<Win32_Defender> win32_Defenders,
-        List<Win32_Software> win32_Softwares)
+        List<Win32_Software> win32_Softwares, List<Win32_Network> win32_Networks)
     {
         Win32_Bios = win32_Bios;
         Win32_EncryptableVolumes = win32_EncryptableVolumes;
@@ -22,10 +22,11 @@ internal class Win32_Report
         Win32_X509Certs = win32_x509Certs;
         Win32_QuickFixEngineerings = win32_QuickFixEngineerings;
         Win32_Accounts = win32_Accounts;
-        Win32_SystemInfo = win32_SystemInfo;
-        Win32_Startup = win32_Startup;
-        Win32_Defender = win32_Defenders;
-        Win32_Software = win32_Softwares;
+        Win32_SystemInfos = win32_SystemInfos;
+        Win32_Startups = win32_Startups;
+        Win32_Defenders = win32_Defenders;
+        Win32_Softwares = win32_Softwares;
+        Win32_Networks = win32_Networks;
     }
 
     public List<Win32_Bios> Win32_Bios { get; }
@@ -35,10 +36,11 @@ internal class Win32_Report
     public List<Win32_X509Cert> Win32_X509Certs { get; }
     public List<Win32_QuickFixEngineering> Win32_QuickFixEngineerings { get; }
     public List<Win32_Account> Win32_Accounts { get; }
-    public Win32_SystemInfo Win32_SystemInfo { get; }
-    public List<Win32_Startup> Win32_Startup { get; }
-    public List<Win32_Software> Win32_Software { get; }
-    public List<Win32_Defender> Win32_Defender { get; }
+    public Win32_SystemInfo Win32_SystemInfos { get; }
+    public List<Win32_Startup> Win32_Startups { get; }
+    public List<Win32_Software> Win32_Softwares { get; }
+    public List<Win32_Defender> Win32_Defenders { get; }
+    public List<Win32_Network> Win32_Networks { get; }
 
     public static void GenerateReport(Win32_Report report, string FileName)
     {

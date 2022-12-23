@@ -12,13 +12,14 @@ internal class WCRC_Reporting
     private static List<Win32_EncryptableVolume> Win32_EncryptableVolumes_ { get; set; }
     private static List<Win32_Tpm> Win32_Tpms_ { get; set; }
     private static List<Win32_Product> Win32_Products_ { get; set; }
-    private static List<Win32_X509Cert> Win32_X509Cert_ { get; set; }
+    private static List<Win32_X509Cert> Win32_X509Certs_ { get; set; }
     private static List<Win32_QuickFixEngineering> Win32_QuickFixEngineerings_ { get; set; }
     private static List<Win32_Account> Win32_Accounts_ { get; set; }
-    private static Win32_SystemInfo Win32_SystemInfo_ { get; set; }
-    private static List<Win32_Startup> Win32_Startup_ { get; set; }
-    private static List<Win32_Defender> Win32_Defender_ { get; set; }
+    private static Win32_SystemInfo Win32_SystemInfos_ { get; set; }
+    private static List<Win32_Startup> Win32_Startups_ { get; set; }
+    private static List<Win32_Defender> Win32_Defenders_ { get; set; }
     private static List<Win32_Software> Win32_Softwares_ { get; set; }
+    private static List<Win32_Network> Win32_Networks_ { get;set; }
 
 
     public static void LaunchReport()
@@ -54,7 +55,7 @@ internal class WCRC_Reporting
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                Win32_X509Cert_ = Win32_X509Cert.GetX509Cert();
+                Win32_X509Certs_ = Win32_X509Cert.GetX509Cert();
             }),
 
             new Thread(() =>
@@ -72,25 +73,31 @@ internal class WCRC_Reporting
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                Win32_SystemInfo_ = Win32_SystemInfo.GetSystemInfo();
+                Win32_SystemInfos_ = Win32_SystemInfo.GetSystemInfo();
             }),
 
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                Win32_Startup_ = Win32_Startup.GetStartupApps();
+                Win32_Startups_ = Win32_Startup.GetStartupApps();
             }),
 
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                Win32_Defender_ = Win32_Defender.GetWin32_Defenders();
+                Win32_Defenders_ = Win32_Defender.GetWin32_Defenders();
             }),
 
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
                 Win32_Softwares_ = Win32_Software.GetInstalledApps();
+            }),
+
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                Win32_Networks_ = Win32_Network.GetWin32_Networks();
             })
         };
 
@@ -106,13 +113,14 @@ internal class WCRC_Reporting
             Win32_EncryptableVolumes_,
             Win32_Tpms_,
             Win32_Products_,
-            Win32_X509Cert_,
+            Win32_X509Certs_,
             Win32_QuickFixEngineerings_,
             Win32_Accounts_,
-            Win32_SystemInfo_,
-            Win32_Startup_,
-            Win32_Defender_,
-            Win32_Softwares_
+            Win32_SystemInfos_,
+            Win32_Startups_,
+            Win32_Defenders_,
+            Win32_Softwares_,
+            Win32_Networks_
         );
 
         Logs.LogWrite("Serializing data...");
