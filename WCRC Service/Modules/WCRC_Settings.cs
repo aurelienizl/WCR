@@ -1,29 +1,18 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Management;
+using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Reflection.Emit;
-using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace WCRC_Fingerprint
+namespace WCRC_Service.Modules
 {
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            WCRC_Parameters.SetParameters();
-            Console.WriteLine(WCRC_Parameters.Hostname);
-        }
-
-
-    }
-    public class WCRC_Parameters
+    public class WCRC_Settings
     {
         public static string FileName { get; set; }
-        public static string Path { get; set; }
+        public static string FilePath { get; set; }
         public static string Hostname { get; set; }
         public static int HostnamePort { get; set; }
         public static string Backup { get; set; }
@@ -47,11 +36,11 @@ namespace WCRC_Fingerprint
 
         public static void SetParameters()
         {
-            string path = System.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\settings.txt";
             string[] settings =
-            File.ReadAllLines(Assembly.GetEntryAssembly()?.Location + @"\settings.txt");
+            File.ReadAllLines(path);
             FileName = GetParameter("filename", settings);
-            Path = GetParameter("path", settings);
+            FilePath = GetParameter("path", settings);
             Hostname = GetParameter("hostname", settings);
             HostnamePort = Convert.ToInt32(GetParameter("hostname_port", settings));
             Backup = GetParameter("backup", settings);
@@ -62,15 +51,16 @@ namespace WCRC_Fingerprint
             CheckParameters();
         }
 
+
         public static void CheckParameters()
         {
             if (FileName == "[HOSTNAME]")
             {
                 FileName = Dns.GetHostName();
             }
-            if (!Directory.Exists(Path))
+            if (!Directory.Exists(FilePath))
             {
-                Directory.CreateDirectory(Path);
+                Directory.CreateDirectory(FilePath);
             }
 
         }

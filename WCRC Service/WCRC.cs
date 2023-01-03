@@ -11,7 +11,7 @@ internal class WCRC
     public void Report()
     {
         Log = new Logs("Initialised logs");
-
+        WCRC_Settings.SetParameters();
         Logs.LogWrite("Initialising reporting tool");
         _report = new Thread(() =>
         {
@@ -21,7 +21,6 @@ internal class WCRC
         _report.Start();
         _report.Join();
     }
-
     public void Send()
     {
         Logs.LogWrite("Initialising networking tool");

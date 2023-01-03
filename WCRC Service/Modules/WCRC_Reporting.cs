@@ -124,7 +124,7 @@ internal class WCRC_Reporting
         );
 
         Logs.LogWrite("Serializing data...");
-        Win32_Report.GenerateReport(report, @"C:\Windows\" + Dns.GetHostName() + ".json");
+        Win32_Report.GenerateReport(report, WCRC_Settings.FilePath + WCRC_Settings.FileName);
         Logs.LogWrite("Data serialized, report generated");
     }
 

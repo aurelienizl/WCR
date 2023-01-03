@@ -116,6 +116,7 @@
     <Compile Include="Configuration\ProjectInstaller.Designer.cs">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modules\WCRC_Settings.cs" />
     <Compile Include="Reporting\Cryptography.cs" />
     <Compile Include="Modules\WCRC_Reporting.cs" />
     <Compile Include="Reporting\Win32_Account.cs" />

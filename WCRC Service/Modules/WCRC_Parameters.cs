@@ -1,25 +1,14 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Management;
+using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Reflection.Emit;
-using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace WCRC_Fingerprint
+namespace WCRC_Service.Modules
 {
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            WCRC_Parameters.SetParameters();
-            Console.WriteLine(WCRC_Parameters.Hostname);
-        }
-
-
-    }
     public class WCRC_Parameters
     {
         public static string FileName { get; set; }
@@ -47,7 +36,6 @@ namespace WCRC_Fingerprint
 
         public static void SetParameters()
         {
-            string path = System.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string[] settings =
             File.ReadAllLines(Assembly.GetEntryAssembly()?.Location + @"\settings.txt");
             FileName = GetParameter("filename", settings);
@@ -72,7 +60,7 @@ namespace WCRC_Fingerprint
             {
                 Directory.CreateDirectory(Path);
             }
-
         }
+
     }
 }

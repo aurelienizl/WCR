@@ -13,15 +13,17 @@ internal class WCRC_Networking
 {
     #region network
 
-    private const int ErrorDelay = 120000;
-    private const int Port = 443;
-    private const string ServerDnsBackup = "r90-spoint.ie.in"; // ip exemple
-    private const string ServerDns = "s90-spoint.ie.in"; // ip exemple
-    private static string _ip;
-    private const string WorkingDirectory = @"/";
-    private const string Key = "FE73F52539467C2E53DF1E99A4"; // key exemple 
-    private const string Username = "iedom.default@client"; // username exemple
+    private static int ErrorDelay = 120000;
 
+    private static string ServerDnsBackup = "";
+    private static int ServerDnsBackupPort = -1;
+    private static string ServerDns = ""; 
+    private static int ServerDnsPort = -1;
+    private static string Key = "";
+    private static string Username = "";
+
+    private static string Ip;
+    private static string WorkingDirectory = @"/";
     private static bool UploadFile(string host, int port)
     {
         try
@@ -128,20 +130,39 @@ internal class WCRC_Networking
 
         return isServerAlive;
     }
-
+    private static void SetParameters()
+    {
+        ServerDns = WCRC_Settings.Hostname;
+        ServerDnsPort = WCRC_Settings.HostnamePort;
+        ServerDnsBackup = WCRC_Settings.Backup;
+        ServerDnsBackupPort = WCRC_Settings.BackupPort;
+        Username = WCRC_Settings.Username;
+        Key = WCRC_Settings.Password;
+    }
     public static void StartUpload()
     {
+        bool isPrimaryServer = true;
+        SetParameters();
         while (!SetIpAddr(ServerDnsBackup))
         {
-            if (SetIpAddr(ServerDns)) break;
+            if (SetIpAddr(ServerDns))
+            {
+                isPrimaryServer = false;
+                break;
+            }
             Thread.Sleep(ErrorDelay);
         }
 
-        while (!IsServerAlive(_ip)) Thread.Sleep(ErrorDelay);
-
-        while (!UploadFile(_ip, Port)) Thread.Sleep(ErrorDelay);
+        while (!IsServerAlive(Ip)) Thread.Sleep(ErrorDelay);
+        if(isPrimaryServer)
+        {
+            while (!UploadFile(Ip, ServerDnsPort)) Thread.Sleep(ErrorDelay);
+        }
+        else
+        {
+            while (!UploadFile(Ip, ServerDnsBackupPort)) Thread.Sleep(ErrorDelay);
+        }
     }
-
     private static bool SetIpAddr(string dns)
     {
         try
@@ -160,8 +181,8 @@ internal class WCRC_Networking
                 return false;
             }
 
-            _ip = addresslist[0].ToString();
-            Logs.LogWrite("Found ip : " + _ip);
+            Ip = addresslist[0].ToString();
+            Logs.LogWrite("Found ip : " + Ip);
             return true;
         }
         catch (Exception)
@@ -170,12 +191,10 @@ internal class WCRC_Networking
             return false;
         }
     }
-
     private static bool IsIpValid(string ip)
     {
         return Regex.IsMatch(ip,
             "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$");
     }
-
     #endregion
 }
